@@ -1,0 +1,152 @@
+= Get started
+
+:page-tag: starlight-rabbitmq,install,quickstart,admin,dev,pulsar
+
+== Downloading {starlight_rabbitmq}
+
+IMPORTANT
+====
+By downloading this DataStax product, you agree to the terms of the open-source https://www.apache.org/licenses/LICENSE-2.0[Apache-2.0 license agreement].
+====
+
+. Download the {starlight_rabbitmq} `tar` file from the https://downloads.datastax.com/#starlight-rabbitmq[DataStax downloads page].
+
++
+The following files are available in the `tar` file:
+
++
+[cols="1,1"]
+|===
+| File | Purpose
+
+| starlight-rabbitmq-1.1.0-jar-with-dependencies.jar | Running as a standalone Java application
+| starlight-rabbitmq-1.1.0.nar | Running as a protocol handler or a proxy extension
+
+|===
+
+. Extract the files from the `tar` with the following command:
+
++
+[source,language-bash]
+----
+tar xvfz starlight-rabbitmq-<version>-all.tar.gz
+----
+
+=== Running {starlight_rabbitmq} as a standalone Java application
+
+The `jar` file for running as a standalone Java application is available in the downloaded `tar` file.
+
+. Set the URLs of the Apache Pulsar™ brokers and the Apache ZooKeeper™ configuration store in a configuration file:
+
++
+Example:
++
+[source,properties]
+----
+brokerServiceURL=pulsar://localhost:6650
+brokerWebServiceURL=http://localhost:8080
+configurationStoreServers=localhost:2181
+----
+
+. Run the `jar` file as a Java application and provide the configuration file path in the `-c/--config` option:
++
+[source,shell]
+----
+ java -jar ./starlight-rabbitmq/target/starlight-rabbitmq-${version}-jar-with-dependencies.jar -c conf/my-starlight-for-rabbitmq.conf
+----
+
+=== Running {starlight_rabbitmq} as a protocol handler
+
+{starlight_rabbitmq} can be embedded directly into the Pulsar brokers by loading it as a protocol handler.
+
+The `nar` file for running as a protocol handler is available in the downloaded `tar` file.
+
+. Set the configuration of {starlight_rabbitmq} protocol handler in the broker configuration file, which is typically `broker.conf` or `standalone.conf`.
+
++
+Example:
++
+[source,properties]
+----
+messagingProtocols=rabbitmq
+protocolHandlerDirectory=./protocols
+----
+
+. Set the AMQP service listeners.
++
+[NOTE]
+====
+The hostname value in `ampqListeners` is the same as Pulsar broker's `advertisedAddress`.
+====
+
++
+[source,properties]
+----
+amqpListeners=amqp://127.0.0.1:5672
+advertisedAddress=127.0.0.1
+----
+
+. Start the Pulsar broker.
+
+=== Running {starlight_rabbitmq} as a proxy extension
+{starlight_rabbitmq} can be embedded into the Pulsar Proxy by loading it as a proxy extension.
+
+The `nar` file for running as a proxy extension is available in the downloaded `tar` file.
+
+. Set the configuration of {starlight_rabbitmq} protocol handler in the Pulsar Proxy configuration file, which is typically `proxy.conf`.
+
++
+Example:
++
+[source,properties]
+----
+proxyExtensions=rabbitmq
+proxyExtensionsDirectory=./protocols
+----
+
+. Set the AMQP service listeners.
+
++
+[NOTE]
+====
+The hostname value in listeners is the same as Pulsar proxy's `advertisedAddress`.
+====
++
+Example:
++
+[source,properties]
+----
+amqpListeners=amqp://127.0.0.1:5672
+advertisedAddress=127.0.0.1
+----
+
+. Start the Pulsar proxy.
+
+== Ensure {starlight_rabbitmq} works
+
+You can use a `RabbitMQ/AMQP-0.9.1` client or a tool such as https://rabbitmq.github.io/rabbitmq-perf-test/stable/htmlsingle/[RabbitMQ PerfTest]
+to ensure everything works correctly.
+
+For instance, the following Python script creates a queue, publishes a message that will be routed to this queue, reads the message from the queue, and deletes the queue:
+
+[source,python]
+----
+#!/usr/bin/env python
+import pika
+
+connection = pika.BlockingConnection(pika.ConnectionParameters(port=5672))
+channel = connection.channel()
+
+try:
+    channel.queue_declare("test-queue")
+    print("created test-queue queue")
+    channel.basic_publish(exchange="", routing_key="test-queue", body="test".encode('utf-8'))
+    print("published message test")
+    _, _, res = channel.basic_get(queue="test-queue", auto_ack=True)
+    assert res is not None, "should have received a message"
+    print("received message: " + res.decode())
+    channel.queue_delete("test-queue")
+    print("deleted test-queue queue")
+finally:
+    connection.close()
+----

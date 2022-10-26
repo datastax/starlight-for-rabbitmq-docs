@@ -1,0 +1,215 @@
+= Configuration
+
+:page-tag: starlight-rabbitmq,admin,manage,dev,pulsar
+
+The following configuration settings are used by {starlight_rabbitmq}. Depending on how you are running {starlight_rabbitmq}, the configuration file is read in a different way:
+
+[cols=2*]
+|===
+|*How are you running {starlight_rabbitmq}*?
+|*From where are the configuration settings read?*
+
+|Standalone Java application
+|Configuration file passed as command line argument
+
+|Broker Protocol Handler
+|Broker configuration file
+
+|Proxy Extension
+|Proxy configuration file
+|===
+
+== Generic configuration
+[cols=3*]
+|===
+|*Name*
+|*Default*
+|*Description*
+
+|configurationStoreServers
+|
+|Apache ZooKeeper™ configuration store connection string as a comma-separated list.
+
+|amqpListeners
+|amqp://127.0.0.1:5672
+|Specifies multiple advertised listeners for the proxy. Format the value as `amqp[s]://<host>:<port>` with multiple listeners separated with commas.
+
+|amqpSessionCountLimit
+|256
+|The maximum number of sessions that can exist concurrently on an AMQP connection.
+
+|amqpHeartbeatDelay
+|0
+|The default period with which Broker and client will exchange heartbeat messages in seconds when using AMQP. Clients may negotiate a different heartbeat frequency or disable it altogether.
+
+|amqpHeartbeatTimeoutFactor
+|2
+|Factor to determine the maximum length of time that may elapse between heartbeats being received from the peer before an AMQP0.9 connection is deemed to have been broken.
+
+|amqpNetworkBufferSize
+|2097152 (2MB)
+|AMQP network buffer size.
+
+|amqpMaxMessageSize
+|104857600 (100MB)
+|AMQP maximum message size.
+
+|amqpDebugBinaryDataLength
+|80
+|AMQP length of binary data sent to debug log.
+
+|amqpConnectionCloseTimeout
+|2000
+|Timeout in ms after which the AMQP connection closes even if a ConnectionCloseOk frame is not received.
+
+|amqpBatchingEnabled
+|true
+|Whether batching messages is enabled in AMQP.
+|===
+
+== Authentication configuration
+[cols=2*]
+|===
+|*Name*
+|*Description*
+
+|authenticationEnabled +
+ Default: false
+|Whether authentication is enabled for the proxy.
+
+|amqpAuthenticationMechanisms +
+ Default: PLAIN
+|Comma-separated authentication mechanism name list for AMQP. +
+ For example: PLAIN, EXTERNAL
+
+|tokenSecretKey
+|Configure the secret key to be used to validate auth tokens. The key can be specified like this: +
+ `tokenSecretKey=data:;base64,xxxxxxxxx` or `tokenSecretKey=file:///my/secret.key` +
+ Note: Key file must be DER-encoded.
+
+|tokenPublicKey
+|Configure the public key to be used to validate auth tokens. The key can be specified like this: +
+ `tokenPublicKey=data:;base64,xxxxxxxxx` or `tokenPublicKey=file:///my/secret.key` +
+ Note: Key file must be DER-encoded.
+
+|tokenAuthClaim
+|Specify the token claim that will be used as the authentication `principal` or `role`. The `subject` field will be used if this is left blank.
+
+|tokenAudienceClaim
+|The token audience `claim` name used to get the audience from token. If it is not set, the audience is not verified. +
+ For example: `aud`
+
+|tokenAudience
+|The token audience stands for this broker. The field `tokenAudienceClaim` of a valid token contains this parameter.
+|===
+
+== Broker client configuration
+[cols=2*]
+|===
+|*Name*
+|*Description*
+
+|brokerServiceURL
+|The service URL pointing to the broker cluster.
+
+|brokerWebServiceURL
+|The web service URL pointing to the broker cluster.
+
+|brokerClientAuthenticationPlugin
+|The authentication plugin used by the Apache Pulsar™ proxy to authenticate with Pulsar brokers.
+
+|brokerClientAuthenticationParameters
+|The authentication parameters used by the Pulsar proxy to authenticate with Pulsar brokers.
+
+|amqpBrokerClientAuthenticationParameters
+|If set, the RabbitMQ service will use these parameters to authenticate on Pulsar's brokers. If not set, the brokerClientAuthenticationParameters setting will be used. This setting allows different credentials for the Pulsar proxy and the RabbitMQ service.
+
+|tlsEnabledWithBroker +
+ Default: false
+|Whether TLS is enabled when communicating with Pulsar brokers.
+
+|brokerClientTrustCertsFilePath
+|The path to trusted certificates used by the Pulsar proxy to authenticate with Pulsar brokers.
+
+|brokerClientTlsEnabledWithKeyStore
+|Whether the proxy uses KeyStore type to authenticate with Pulsar brokers.
+
+|brokerClientTlsTrustStoreType
+|TLS TrustStore type configuration for proxy used by the proxy to authenticate with Pulsar brokers. +
+ For example: JKS, PKCS12
+
+|brokerClientTlsTrustStore
+|TLS TrustStore path for proxy used by the Pulsar proxy to authenticate with Pulsar brokers.
+
+|brokerClientTlsTrustStorePassword
+| TLS TrustStore password for proxy used by the Pulsar proxy to authenticate with Pulsar brokers.
+|===
+
+== TLS configuration
+[cols=2*]
+|===
+|*Name*
+|*Description*
+
+|tlsCertRefreshCheckDurationSec +
+ Default: 300
+|TLS certificate refresh duration in seconds. If the value is set 0, checks TLS certificate every new connection.
+
+|tlsCertificateFilePath
+|Path for the TLS certificate file.
+
+|tlsKeyFilePath
+|Path for the TLS private key file.
+
+|tlsTrustCertsFilePath
+|Path for the trusted TLS certificate `pem` file.
+
+|tlsAllowInsecureConnection
+|Accept untrusted TLS certificate from client. +
+ If true, a client with a certificate which cannot be verified with the `tlsTrustCertsFilePath` certificate will be allowed to connect to the server, though the certificate will not be used for client authentication.
+
+|tlsHostnameVerificationEnabled +
+ Default: false
+|Whether the hostname is validated when the proxy creates a TLS connection with brokers.
+
+|tlsRequireTrustedClientCertOnConnect +
+ Default: false
+|Whether client certificates are required for TLS. If the client certificate is not trusted, connections are rejected.
+
+|tlsProtocols
+|Specify the `tls` protocols the broker will use to negotiate during TLS handshake. Multiple values can be specified, separated by commas. +
+ For example: `TLSv1.3`, `TLSv1.2`
+
+|tlsCiphers
+|Specify the `tls` cipher the broker will use to negotiate during TLS handshake. Multiple values can be specified, separated by commas. +
+ For example: `TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256`
+
+|tlsRequireTrustedClientCertOnConnect
+|Whether client certificates are required for TLS. If the client certificate is not trusted, connections are rejected.
+
+|tlsEnabledWithKeyStore
+|Enable TLS with KeyStore type configuration for proxy.
+
+|tlsProvider
+|TLS provider.
+
+|tlsKeyStoreType
+|TLS KeyStore type configuration for proxy. +
+ For example: JKS, PKCS12
+
+|tlsKeyStore
+|TLS KeyStore path for proxy.
+
+|tlsKeyStorePassword
+|TLS KeyStore password for proxy.
+
+|tlsTrustStoreType
+|TLS TrustStore type configuration for proxy. +
+ For example: JKS, PKCS12
+
+|tlsTrustStore
+|TLS TrustStore path for proxy
+
+|tlsTrustStorePassword
+|TLS TrustStore password for proxy
+|===

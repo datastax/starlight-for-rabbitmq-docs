@@ -1,0 +1,56 @@
+= {starlight_rabbitmq} FAQs
+
+:page-tag: starlight-rabbitmq,planner,admin,dev,pulsar
+
+If you are new to {starlight_rabbitmq}, these frequently asked questions are for you.
+
+== Introduction
+
+=== What is {starlight_rabbitmq}?
+
+The {starlight_rabbitmq} is a an open-source product from DataStax.
+
+{starlight_rabbitmq} combines the industry-standard AMQP 0.9.1 (RabbitMQ) API with the cloud-native and horizontally scalable Apache Pulsar™ streaming platform, providing a powerful way to modernize your RabbitMQ infrastructure, improve performance, and reduce costs.
+
+{starlight_rabbitmq} is open source and is included in DataStax’s https://www.datastax.com/products/luna-streaming[Luna Streaming Enterprise] support for Pulsar.
+
+
+=== What is required to run {starlight_rabbitmq}?
+
+{starlight_rabbitmq} is a proxy for RabbitMQ that is powered by Pulsar. It requires a compatible Pulsar release to operate. The following Pulsar releases are supported:
+
+* Luna Streaming 2.8.0+
+* Apache Pulsar 2.9.0+
+
+
+=== What are the {starlight_rabbitmq} limitations?
+
+{starlight_rabbitmq} does not currently support the following features:
+
+* Topic and headers exchanges
+* Exclusive consumers
+* Non durable exchanges and queues
+* Transient messages (all messages are persisted)
+* Authorization support
+
+{starlight_rabbitmq} was designed to make the most benefit from Pulsar's scalability.
+Because of this, canceling an AMQP consumer re-queues the messages that were received through it because it also closes the associated Pulsar consumers.
+
+=== Is {starlight_rabbitmq} an open-source project?
+
+Yes, {starlight_rabbitmq} is open source using the Apache 2.0 license. You can find the source code on the GitHub repository https://github.com/datastax/starlight-for-rabbitmq[datastax/starlight-for-rabbitmq].
+
+=== Does {starlight_rabbitmq} support Kubernetes?
+
+Yes.
+You can run the {starlight_rabbitmq} on Luna Streaming or Pulsar running on any Kubernetes platform, including Minikube, K8d, Kind, Google Kubernetes Engine (GKE), Microsoft Azure Kubernetes Service, Amazon Kubernetes Service (AKS), and other commonly used platforms.
+
+You can deploy {starlight_rabbitmq} as proxy extension using the https://github.com/datastax/pulsar-helm-chart[DataStax Helm chart for Luna Streaming and Apache Pulsar].
+
+=== Where is the {starlight_rabbitmq} public GitHub repository?
+
+You can access the {starlight_rabbitmq} repository https://github.com/datastax/starlight-for-rabbitmq[here].
+
+=== How do I install {starlight_rabbitmq}?
+
+Follow the xref:getting-started.adoc[getting started] instructions.
