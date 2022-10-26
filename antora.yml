@@ -1,0 +1,10 @@
+name: starlight-for-rabbitmq
+title: Starlight For RabbitMQ Documentation
+version: 2.10.0.1
+start_page: starlight-for-rabbitmq::index.adoc
+
+asciidoc:
+  attributes:
+
+nav:
+  - modules/ROOT/nav.adoc
