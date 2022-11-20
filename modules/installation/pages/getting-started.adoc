@@ -1,7 +1,7 @@
 = Get started
 
 :page-tag: starlight-rabbitmq,install,quickstart,admin,dev,pulsar
-:page-alias: docs@starlight-for-rabbitmq::getting-started.adoc
+:page-aliases: docs@starlight-for-rabbitmq::getting-started.adoc
 
 == Downloading {starlight_rabbitmq}
 
