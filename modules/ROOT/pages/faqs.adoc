@@ -54,4 +54,4 @@ You can access the {starlight_rabbitmq} repository https://github.com/datastax/s
 
 === How do I install {starlight_rabbitmq}?
 
-Follow the xref:getting-started.adoc[getting started] instructions.
+Follow the xref:installation:getting-started.adoc[getting started] instructions.
