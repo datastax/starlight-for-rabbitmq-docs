@@ -1,4 +1,2 @@
-* xref:installation:getting-started.adoc[Getting Started]
-* xref:configuration:configuration.adoc[Configuration]
 * xref:faqs.adoc[Frequently Asked Questions]
 
