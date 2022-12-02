@@ -1,2 +1,1 @@
-.Installation
-** xref:getting-started.adoc[]
+* xref:getting-started.adoc[Installation]
