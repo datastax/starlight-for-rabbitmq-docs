@@ -2,7 +2,7 @@ name: starlight-for-rabbitmq
 title: Starlight For RabbitMQ Documentation
 version: 's4r_2.10.0.1'
 display_version: '2.10.0.1'
-start_page: starlight-for-rabbitmq::index.adoc
+start_page: index.adoc
 
 asciidoc:
   attributes:
