@@ -1,5 +1,5 @@
 = {starlight_rabbitmq}
-
+:navtitle: Starlight for RabbitMQ
 :page-tag: starlight-rabbitmq,planner,admin,dev,pulsar
 :page-aliases: docs@starlight-rabbitmq::index.adoc
 
