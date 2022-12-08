@@ -1,5 +1,5 @@
 = {starlight_rabbitmq} FAQs
-
+:navtitle: Frequently Asked Questions
 :page-tag: starlight-rabbitmq,planner,admin,dev,pulsar
 :page-aliases: docs@starlight-rabbitmq::faqs.adoc
 

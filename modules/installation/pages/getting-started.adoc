@@ -1,5 +1,5 @@
 = Get started
-
+:navtitle: Installation
 :page-tag: starlight-rabbitmq,install,quickstart,admin,dev,pulsar
 :page-aliases: docs@starlight-rabbitmq::getting-started.adoc
 

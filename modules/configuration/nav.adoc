@@ -1,1 +1,1 @@
-* xref:configuration.adoc[Configuration]
+* xref:configuration.adoc[]

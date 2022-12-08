@@ -1,5 +1,5 @@
 = Configuration
-
+:navtitle: Configuration
 :page-tag: starlight-rabbitmq,admin,manage,dev,pulsar
 :page-aliases: docs@starlight-rabbitmq::configuration.adoc
 

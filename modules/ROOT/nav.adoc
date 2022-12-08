@@ -1,1 +1,1 @@
-* xref:faqs.adoc[Frequently Asked Questions]
+* xref:faqs.adoc[]
