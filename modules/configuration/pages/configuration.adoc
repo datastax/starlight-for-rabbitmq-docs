@@ -1,7 +1,6 @@
 = Configuration
 :navtitle: Configuration
 :page-tag: starlight-rabbitmq,admin,manage,dev,pulsar
-:page-aliases: docs@starlight-rabbitmq::configuration.adoc
 
 The following configuration settings are used by {starlight_rabbitmq}. Depending on how you are running {starlight_rabbitmq}, the configuration file is read in a different way:
 

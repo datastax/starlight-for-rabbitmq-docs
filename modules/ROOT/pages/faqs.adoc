@@ -1,7 +1,6 @@
 = {starlight_rabbitmq} FAQs
 :navtitle: Frequently Asked Questions
 :page-tag: starlight-rabbitmq,planner,admin,dev,pulsar
-:page-aliases: docs@starlight-rabbitmq::faqs.adoc
 
 If you are new to {starlight_rabbitmq}, these frequently asked questions are for you.
 
