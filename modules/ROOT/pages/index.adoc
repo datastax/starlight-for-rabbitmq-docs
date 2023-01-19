@@ -12,31 +12,12 @@ It implements the AMQP 0.9.1 protocol used by RabbitMQ clients and translates AM
 AMQP 0.9.1, the protocol RabbitMQ uses, employs the concepts of `Exchanges`, `Queues`, and `Bindings` to provide basic routing capabilities inside the message broker.
 These concepts are mapped to Pulsar topics and features.
 
-{starlight_rabbitmq} acts as a proxy and uses the Pulsar binary protocol to communicate with the brokers.
-This method allows RabbitMQ applications to leverage Pulsar features like load balancing of the topics on the brokers, batching of messages, partitioning of topics, and load balancing of the data on the consumers.
+{starlight_rabbitmq} acts as a proxy and uses the Pulsar binary protocol to communicate with the brokers. This method allows RabbitMQ applications to leverage Pulsar features like load balancing of the topics on the brokers, batching of messages, partitioning of topics, and load balancing of the data on the consumers.
 
-On the publish side, an AMQP exchange is mapped to a topic.
-Depending on the type of exchange, the publish routing key may also be included in the topic name.
-
-On the consumer side, Pulsar shared subscriptions are used to represent the AMQP `Bindings` from an `Exchange` to a `Queue`.
-When creating an AMQP Queue consumer, the proxy creates Pulsar consumers for all the `Bindings` of the `Queue`.
-
-When you unbind the `Queue`, the Pulsar subscription isn’t deleted right away since the consumer may be lagging.
-Messages are still received from the subscription and filtered if their position is past the end of the binding.
-{starlight_rabbitmq} periodically checks if all messages from the closed binding have been acknowledged. Once the messages have been acknowledged, {starlight_rabbitmq} deletes the corresponding subscription.
-
-== Limitations
-
-The following capabilities have not been implemented:
-
-* Topic and headers exchanges
-* Exclusive consumers
-* Non durable exchanges and queues
-* Transient messages (all messages are persisted)
-* Authorization support
-
-Because RabbitMQ and Pulsar work differently, {starlight_rabbitmq} was designed to make the most of Pulsar's scalability.
-This means that canceling an AMQP consumer will re-queue the messages that were received through it because it also closes the associated Pulsar consumers.
+[TIP]
+====
+To learn more read https://www.datastax.com/blog/migrate-to-modern-streaming-using-starlight-for-rabbitmq[our blog post] about Starlight for RabbitMQ.
+====
 
 == Deployment options
 
@@ -51,49 +32,15 @@ Deploying {starlight_rabbitmq} in the broker as a Protocol Handler avoids having
 * https://github.com/apache/pulsar/wiki/PIP-99%3A-Pulsar-Proxy-Extensions[Pulsar Proxy extension]
 Deploying {starlight_rabbitmq} in the Pulsar Proxy as a Proxy Extension avoids having to deploy another runtime if you already use the Pulsar Proxy and it will not have a big impact on the Pulsar Proxy functioning. Note that Proxy Extensions will be available in Pulsar v2.9+.
 
-== Consistent metadata store
+== Limitations
 
-{starlight_rabbitmq} uses Apache ZooKeeper™ to store the AMQP entities metadata consistently.
-The existing ZooKeeper configuration store can be reused to store the {starlight_rabbitmq} metadata.
-{starlight_rabbitmq} employs the `/starlight-rabbitmq` prefix to write its entries in ZooKeeper.
+The following capabilities have not been implemented:
 
-== Security and authentication
+* Topic and headers exchanges
+* Exclusive consumers
+* Non durable exchanges and queues
+* Transient messages (all messages are persisted)
+* Authorization support
 
-{starlight_rabbitmq} supports connections using TLS/mTLS to ensure privacy and security of the communication.
-It also supports the `PLAIN` and `EXTERNAL` mechanisms used by RabbitMQ.
-Internally, it uses the same AuthenticationService as Pulsar and maps these mechanisms to existing Pulsar authentication modes.
-At the moment there is no support for authorization so an authenticated user has full access to all `Virtual hosts`.
-{starlight_rabbitmq} can connect to brokers that have TLS, authentication, and/or authorization enabled.
-
-To perform its operations, {starlight_rabbitmq} proxy needs to use an `admin` role.
-
-=== `PLAIN` authentication mechanism
-
-The `PLAIN` mechanism is mapped to the `AuthenticationProviderToken` mode of authentication.
-The username is ignored and the password is used as the JSON Web Token (JWT).
-
-=== `EXTERNAL` authentication mechanism
-
-The `EXTERNAL` mechanism is mapped to the `AuthenticationProviderTls` mode of authentication.
-This is the equivalent of the `rabbitmq-auth-mechanism-ssl` plugin with `ssl_cert_login_from` parameter set to `common_name`.
-
-== Clustering
-
-Multiple {starlight_rabbitmq} instances can be launched at the same time for scalability and high availability needs.
-The {starlight_rabbitmq} instances are stateless and can be started and stopped at will.
-They share their configuration in ZooKeeper so you can create, delete, bind, and unbind exchanges and queues on any {starlight_rabbitmq} instance.
-The configuration will be synchronized on the other {starlight_rabbitmq} instances.
-
-Publishing messages can be done on any {starlight_rabbitmq} instance.
-On the receiving side, messages will be dispatched evenly to all connected AMQP consumers because the Pulsar subscriptions are shared.
-
-== Multi-tenancy
-
-{starlight_rabbitmq} offers support for multi-tenancy by mapping an AMQP Virtual host to a Pulsar tenant and namespace.
-The mapping is done as follows:
-
-* AMQP vhost `/` is mapped to Pulsar namespace `public/default`.
-* AMQP vhost `/<tenant>` or `<tenant>` is mapped to Pulsar namespace `public/<tenant>`.
-* AMQP vhost `/<tenant>/<namespace>` or `<tenant>/<namespace>` is mapped to Pulsar namespace `<tenant>/<namespace>`.
-
-This means that AMQP vhosts must contain only characters that are accepted in Pulsar tenant and namespace names, such as `a-zA-Z0-9_-=:.`.
+Because RabbitMQ and Pulsar work differently, {starlight_rabbitmq} was designed to make the most of Pulsar's scalability.
+This means that canceling an AMQP consumer will re-queue the messages that were received through it because it also closes the associated Pulsar consumers.

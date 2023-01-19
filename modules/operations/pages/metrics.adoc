@@ -1,0 +1,34 @@
+= Starlight for RabbitMQ metrics
+
+:navtitle:
+:description:
+:title:
+
+Starlight for RabbitMQ exposes the following metrics in Prometheus format. You can monitor your clusters with these metrics.
+
+The following types of metrics are available:
+
+- https://prometheus.io/docs/concepts/metric_types/#counter[Counter]: a cumulative metric that represents a single monotonically increasing counter. The value increases by default. You can reset the value to zero or restart your cluster.
+- https://prometheus.io/docs/concepts/metric_types/#gauge[Gauge]: a metric that represents a single numerical value that can arbitrarily go up and down.
+
+== Starlight for RabbitMQ metrics
+
+The Starlight for RabbitMQ metrics are exposed under `/metrics`` at port `8000` along with Pulsar metrics. Use a different port by configuring the `stats_server_port` system property. Depending on where the Starlight for RabbitMQ service is deployed, each metric will be prefixed with either "pulsar_proxy", "pulsar", or "server" (for standalone).
+
+=== Request metrics
+
+[cols=3*,options=header]
+
+|===
+|Name
+|Type
+|Description
+
+| <prefix>_rabbitmq_in_bytes | Counter | Counter of bytes in
+|<prefix>_rabbitmq_out_bytes|Counter|Counter of bytes out
+|<prefix>_rabbitmq_in_messages_total|Counter|Counter of messages in
+|<prefix>_rabbitmq_out_messages_total|Counter|Counter of messages out
+|<prefix>_rabbitmq_active_connections|Gauge|Number of connections currently active
+|<prefix>_rabbitmq_new_connections|Gauge|Number of connections being opened
+
+|===
