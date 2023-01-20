@@ -4,7 +4,7 @@
 :description:
 :title:
 
-Following the https://github.com/apache/pulsar/wiki/PIP-41%3A-Pluggable-Protocol-Handler[protocol handler^]{external-link-icon} interface, Starlight for RabbitMQ constructs a "gateway" service that monitors RabbitMQ channel(s).
+Following the https://github.com/apache/pulsar/wiki/PIP-41%3A-Pluggable-Protocol-Handler[protocol handler^]{external-link-icon} interface, Starlight for RabbitMQ constructs a "gateway" service that acts as a RabbitMQ cluster replacement.
 
 RabbitMQ employs the concepts of `Exchanges`, `Queues`, and `Bindings` to provide basic routing capabilities inside the message broker. Starlight for RabbitMQ acts as intermediary between RabbitMQ's AMQP protocol and Pulsar's binary protocol. The result allows RabbitMQ applications to leverage Pulsar features like load balancing of the topics on the brokers, batching of messages, partitioning of topics, and load balancing of the data on the consumers.
 
@@ -31,11 +31,9 @@ For more details on the AMQP 0.9.1 model refer to the "https://www.rabbitmq.com/
 |Pulsar
 |
 
-| Channel | Starlight for RabbitMQ instance | Each instance of S4R creates a channel on the provided `amqpListeners` value that listens for AMQP messages.
 | Virtual Host | Tenant/Namespace | vHosts map to the combination of your Pulsar tenant and a namespace within that tenant. Refer to the table below for default values.
 | Exchange [Routing Key] | Topic Name | The exchange name will be the topic name. If the routing key is optionally provided the exchange name and key will be combined with a double underscore (__) as the topic name.
-| Queue | Pulsar topic | A complete pulsar topic address is "persistent://<tenant>/<namespace>/<topic name>".
-| Bindings | n/a | Pulsar shared subscription consumer is created for all bindings in the queue
+| Queue & Bindings | Consumer subscriptions | A collection of Pulsar consumer shared subscriptions that represent all bindings in the queue.
 
 |===
 
@@ -57,4 +55,3 @@ Refer to https://www.rabbitmq.com/tutorials/amqp-concepts.html#exchanges[RabbitM
 * Direct (default)
 * Fanout
 * Topic
-* Headers

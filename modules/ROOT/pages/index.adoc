@@ -1,13 +1,11 @@
-= {starlight_rabbitmq}
+= Starlight for RabbitMQ
 :navtitle: Starlight for RabbitMQ
 :page-tag: starlight-rabbitmq,planner,admin,dev,pulsar
 :page-aliases: docs@starlight-rabbitmq::index.adoc
 
-{starlight_rabbitmq} acts as a proxy between your https://www.rabbitmq.com/[RabbitMQ] application and https://pulsar.apache.org/[Apache Pulsar™].
-It implements the AMQP 0.9.1 protocol used by RabbitMQ clients and translates AMQP frames and concepts to Pulsar ones.
-{starlight_rabbitmq} can be run as a standalone Java application, a Pulsar https://github.com/apache/pulsar/wiki/PIP-41%3A-Pluggable-Protocol-Handler[Pluggable Protocol Handler], or a https://github.com/apache/pulsar/wiki/PIP-99%3A-Pulsar-Proxy-Extensions[Pulsar Proxy extension].
+Starlight for RabbitMQ acts as a proxy between your https://www.rabbitmq.com/[RabbitMQ^]{external-link-icon} application and https://pulsar.apache.org/[Apache Pulsar™^]{external-link-icon} cluster. It implements the AMQP 0.9.1 protocol used by RabbitMQ clients and translates AMQP frames and concepts to Pulsar ones. Starlight for RabbitMQ can be run as a standalone Java application, a Pulsar Protocol Handler, or a Pulsar Proxy Extension.
 
-== How {starlight_rabbitmq} works
+== How Starlight for RabbitMQ works
 
 AMQP 0.9.1, the protocol RabbitMQ uses, employs the concepts of `Exchanges`, `Queues`, and `Bindings` to provide basic routing capabilities inside the message broker.
 These concepts are mapped to Pulsar topics and features.
