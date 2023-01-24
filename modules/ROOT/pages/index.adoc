@@ -34,11 +34,10 @@ Deploying {starlight_rabbitmq} in the Pulsar Proxy as a Proxy Extension avoids h
 
 The following capabilities have not been implemented:
 
-* Topic and headers exchanges
+* Header exchanges (topic exchanges have been added)
 * Exclusive consumers
 * Non durable exchanges and queues
 * Transient messages (all messages are persisted)
-* Authorization support
 
 Because RabbitMQ and Pulsar work differently, {starlight_rabbitmq} was designed to make the most of Pulsar's scalability.
 This means that canceling an AMQP consumer will re-queue the messages that were received through it because it also closes the associated Pulsar consumers.
