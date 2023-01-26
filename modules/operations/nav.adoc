@@ -1,0 +1,7 @@
+* xref:protocol-handler.adoc[Operations]
+** xref:protocol-handler.adoc[Pulsar protocol handler]
+** xref:proxy-extension.adoc[Pulsar proxy extension]
+** xref:security.adoc[Security]
+** xref:metrics.adoc[Monitoring]
+** xref:clustering.adoc[Clustering]
+** xref:metadata-store.adoc[Metadata store]

@@ -1,0 +1,57 @@
+= Starlight for RabbitMQ protocol handler
+
+:navtitle:
+:description:
+:title:
+
+Following the https://github.com/apache/pulsar/wiki/PIP-41%3A-Pluggable-Protocol-Handler[protocol handler^]{external-link-icon} interface, Starlight for RabbitMQ constructs a "gateway" service that acts as a RabbitMQ cluster replacement.
+
+RabbitMQ employs the concepts of `Exchanges`, `Queues`, and `Bindings` to provide basic routing capabilities inside the message broker. Starlight for RabbitMQ acts as intermediary between RabbitMQ's AMQP protocol and Pulsar's binary protocol. The result allows RabbitMQ applications to leverage Pulsar features like load balancing of the topics on the brokers, batching of messages, partitioning of topics, and load balancing of the data on the consumers.
+
+== Publishing messages
+
+On the publishing side, an AMQP exchange is mapped to a topic. Depending on the type of exchange, the publish routing key may also be included in the topic name.
+
+== Consuming messages
+
+On the consumer side, Pulsar shared subscriptions are used to represent the AMQP `Bindings` from an `Exchange` to a `Queue`. When creating an AMQP Queue consumer, the protocol handler creates Pulsar consumers for all the `Bindings` of the `Queue`.
+
+When you unbind the `Queue`, the Pulsar subscription isn’t deleted right away since the consumer may be lagging. Messages are still received from the subscription and filtered if their position is past the end of the binding. Starlight for RabbitMQ periodically checks if all messages from the closed binding have been acknowledged. Once the messages have been acknowledged the corresponding subscription is removed.
+
+[TIP]
+====
+For more details on the AMQP 0.9.1 model refer to the "https://www.rabbitmq.com/tutorials/amqp-concepts.html[AMQP 0-9-1 Model Explained^]{external-link-icon}" guide in RabbitMQ documentation.
+====
+
+== Mapping AMQP entity constructs to Pulsar constructs
+
+[cols=3*,options=header]
+|===
+|RabbitMQ
+|Pulsar
+|
+
+| Virtual Host | Tenant/Namespace | vHosts map to the combination of your Pulsar tenant and a namespace within that tenant. Refer to the table below for default values.
+| Exchange [Routing Key] | Topic Name | The exchange name will be the topic name. If the routing key is optionally provided the exchange name and key will be combined with a double underscore (__) as the topic name.
+| Queue & Bindings | Consumer subscriptions | A collection of Pulsar consumer shared subscriptions that represent all bindings in the queue.
+
+|===
+
+[NOTE]
+====
+Because AMQP vhosts map to a Tenant/Namespace they must contain only characters that are accepted in Pulsar tenant and namespace names, such as `a-zA-Z0-9_-=:.`.
+====
+
+== vHost default values in Pulsar
+
+* AMQP vhost `/` is mapped to Pulsar namespace `public/default`.
+* AMQP vhost `/<tenant>` or `<tenant>` is mapped to Pulsar namespace `public/<tenant>`.
+* AMQP vhost `/<tenant>/<namespace>` or `<tenant>/<namespace>` is mapped to Pulsar namespace `<tenant>/<namespace>`.
+
+== Supported exchange types
+
+Refer to https://www.rabbitmq.com/tutorials/amqp-concepts.html#exchanges[RabbitMQ Exchanges and Exchange Types documentation^]{external-link-icon} for more.
+
+* Direct (default)
+* Fanout
+* Topic

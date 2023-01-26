@@ -8,6 +8,7 @@ asciidoc:
     starlight_rabbitmq: 'Starlight for RabbitMQ'
 
 nav:
+  - modules/ROOT/nav.adoc
   - modules/installation/nav.adoc
   - modules/configuration/nav.adoc
-  - modules/ROOT/nav.adoc
+  - modules/operations/nav.adoc

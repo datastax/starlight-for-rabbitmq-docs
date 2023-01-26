@@ -1,0 +1,11 @@
+= Starlight for RabbitMQ proxy extension
+
+:navtitle:
+:description:
+:title:
+
+Following the https://github.com/apache/pulsar/wiki/PIP-99:-Pulsar-Proxy-Extensions[proxy extension^]{external-link-icon} interface, Starlight for RabbitMQ constructs a "gateway" service that monitors RabbitMQ channel(s).
+
+Both the proxy extension and the protocol handler use the same "gateway" logic to create channels, manage exchanges, publish messages, etc. To learn more about all those functions refer to the "xref:protocol-handler.adoc[]" document.
+
+One notable difference between the Starlight for RabbitMQ proxy extension and the protocol handler, is that the proxy runs on the Pulsar Proxy. So a discovery must be done at startup to find available brokers. Currently, Starlight for RabbitMQ proxy extension uses the broker discovery mechanism provided in the Pulsar proxy extension interface to discover brokers. It then chooses the first available broker from that collection. All messages to the Starlight for RabbitMQ service will be produced using that broker.

@@ -1,0 +1,13 @@
+= Clustering
+
+:navtitle:
+:description:
+:title:
+
+Multiple {starlight_rabbitmq} instances can be launched at the same time for scalability and high availability needs.
+The {starlight_rabbitmq} instances are stateless and can be started and stopped at will.
+They share their configuration in ZooKeeper so you can create, delete, bind, and unbind exchanges and queues on any {starlight_rabbitmq} instance.
+The configuration will be synchronized on the other {starlight_rabbitmq} instances.
+
+Publishing messages can be done on any {starlight_rabbitmq} instance.
+On the receiving side, messages will be dispatched evenly to all connected AMQP consumers because the Pulsar subscriptions are shared.
