@@ -1,5 +1,5 @@
 name: starlight-for-rabbitmq
-title: Starlight For RabbitMQ Documentation
+title: Starlight for RabbitMQ
 start_page: index.adoc
 
 asciidoc:
