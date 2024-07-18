@@ -1,9 +1,5 @@
 = Starlight for RabbitMQ protocol handler
 
-:navtitle:
-:description:
-:title:
-
 Following the https://github.com/apache/pulsar/wiki/PIP-41%3A-Pluggable-Protocol-Handler[protocol handler^] interface, Starlight for RabbitMQ constructs a "gateway" service that acts as a RabbitMQ cluster replacement.
 
 RabbitMQ employs the concepts of `Exchanges`, `Queues`, and `Bindings` to provide basic routing capabilities inside the message broker. Starlight for RabbitMQ acts as intermediary between RabbitMQ's AMQP protocol and Pulsar's binary protocol. The result allows RabbitMQ applications to leverage Pulsar features like load balancing of the topics on the brokers, batching of messages, partitioning of topics, and load balancing of the data on the consumers.

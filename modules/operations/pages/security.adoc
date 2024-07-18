@@ -1,9 +1,6 @@
 = Starlight for RabbitMQ security
-
 :navtitle: Security
 :page-tag: starlight-rabbitmq,security,secure,dev,pulsar,rabbitmq
-:description:
-:title: Starlight for RabbitMQ security
 
 Starlight for RabbitMQ supports connections using TLS/mTLS to ensure privacy and security of the communication. It also supports the `PLAIN` and `EXTERNAL` mechanisms used by RabbitMQ.
 Internally, it uses the same AuthenticationService as Pulsar and maps these mechanisms to existing Pulsar authentication modes. At the moment there is no support for authorization so an authenticated user has full access to all `Virtual hosts`. Starlight for RabbitMQ can connect to brokers that have TLS, authentication, and/or authorization enabled.

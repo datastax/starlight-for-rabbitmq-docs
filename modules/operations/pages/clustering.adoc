@@ -1,9 +1,5 @@
 = Clustering
 
-:navtitle:
-:description:
-:title:
-
 Multiple {starlight_rabbitmq} instances can be launched at the same time for scalability and high availability needs.
 The {starlight_rabbitmq} instances are stateless and can be started and stopped at will.
 They share their configuration in ZooKeeper so you can create, delete, bind, and unbind exchanges and queues on any {starlight_rabbitmq} instance.
