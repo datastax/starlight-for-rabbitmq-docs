@@ -1,12 +1,13 @@
-name: starlight-for-rabbitmq
-title: Starlight for RabbitMQ
-start_page: index.adoc
-
-asciidoc:
-  attributes:
-    starlight_rabbitmq: 'Starlight for RabbitMQ'
+name: 'starlight-for-rabbitmq'
+title: 'Starlight for RabbitMQ'
+version: '2.10.0.x'
+start_page: 'index.adoc'
 
 nav:
   - modules/installation/nav.adoc
   - modules/configuration/nav.adoc
   - modules/ROOT/nav.adoc
+
+asciidoc:
+  attributes:
+    starlight_rabbitmq: 'Starlight for RabbitMQ'
