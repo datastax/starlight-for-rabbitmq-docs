@@ -27,7 +27,7 @@ The following files are available in the `tar` file:
 . Extract the files from the `tar` with the following command:
 
 +
-[source,language-bash]
+[source,bash]
 ----
 tar xvfz starlight-rabbitmq-<version>-all.tar.gz
 ----
