@@ -1,5 +1,4 @@
 = {starlight_rabbitmq}
-:navtitle: Starlight for RabbitMQ
 :page-tag: starlight-rabbitmq,planner,admin,dev,pulsar
 
 {starlight_rabbitmq} acts as a proxy between your https://www.rabbitmq.com/[RabbitMQ] application and https://pulsar.apache.org/[Apache Pulsar™].
