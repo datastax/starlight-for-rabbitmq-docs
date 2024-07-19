@@ -1,4 +1,5 @@
 = Starlight for RabbitMQ protocol handler
+:navtitle: Pulsar protocol handler
 
 Following the https://github.com/apache/pulsar/wiki/PIP-41%3A-Pluggable-Protocol-Handler[protocol handler^] interface, Starlight for RabbitMQ constructs a "gateway" service that acts as a RabbitMQ cluster replacement.
 

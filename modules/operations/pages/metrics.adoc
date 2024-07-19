@@ -1,4 +1,5 @@
 = Starlight for RabbitMQ metrics
+:navtitle: Monitoring
 
 Starlight for RabbitMQ exposes the following metrics in Prometheus format. You can monitor your clusters with these metrics.
 

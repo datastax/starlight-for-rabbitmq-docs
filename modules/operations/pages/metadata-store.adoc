@@ -1,4 +1,5 @@
 = Consistent metadata store
+:navtitle: Metadata store
 
 {starlight_rabbitmq} uses Apache ZooKeeper™ to store the AMQP entities metadata consistently.
 The existing ZooKeeper configuration store can be reused to store the {starlight_rabbitmq} metadata.

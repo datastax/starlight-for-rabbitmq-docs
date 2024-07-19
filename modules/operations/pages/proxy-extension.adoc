@@ -1,4 +1,5 @@
 = Starlight for RabbitMQ proxy extension
+:navtitle: Pulsar proxy extension
 
 Following the https://github.com/apache/pulsar/wiki/PIP-99:-Pulsar-Proxy-Extensions[proxy extension^] interface, Starlight for RabbitMQ constructs a "gateway" service that monitors RabbitMQ channel(s).
 
