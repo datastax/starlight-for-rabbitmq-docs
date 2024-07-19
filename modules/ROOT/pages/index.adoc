@@ -1,7 +1,7 @@
 = {starlight_rabbitmq}
 :page-tag: starlight-rabbitmq,planner,admin,dev,pulsar
 
-{starlight_rabbitmq} acts as a proxy between your https://www.rabbitmq.com/[RabbitMQ] application and https://pulsar.apache.org/[Apache Pulsar™].
+{starlight_rabbitmq} acts as a proxy between your https://www.rabbitmq.com/[RabbitMQ] application and https://pulsar.apache.org/[Apache Pulsar(TM)].
 It implements the AMQP 0.9.1 protocol used by RabbitMQ clients and translates AMQP frames and concepts to Pulsar ones.
 {starlight_rabbitmq} can be run as a standalone Java application, a Pulsar https://github.com/apache/pulsar/wiki/PIP-41%3A-Pluggable-Protocol-Handler[Pluggable Protocol Handler], or a https://github.com/apache/pulsar/wiki/PIP-99%3A-Pulsar-Proxy-Extensions[Pulsar Proxy extension].
 
@@ -51,7 +51,7 @@ Deploying {starlight_rabbitmq} in the Pulsar Proxy as a Proxy Extension avoids h
 
 == Consistent metadata store
 
-{starlight_rabbitmq} uses Apache ZooKeeper™ to store the AMQP entities metadata consistently.
+{starlight_rabbitmq} uses Apache ZooKeeper(TM) to store the AMQP entities metadata consistently.
 The existing ZooKeeper configuration store can be reused to store the {starlight_rabbitmq} metadata.
 {starlight_rabbitmq} employs the `/starlight-rabbitmq` prefix to write its entries in ZooKeeper.
 
