@@ -10,7 +10,7 @@ If you are new to {starlight_rabbitmq}, these frequently asked questions are for
 
 The {starlight_rabbitmq} is a an open-source product from DataStax.
 
-{starlight_rabbitmq} combines the industry-standard AMQP 0.9.1 (RabbitMQ) API with the cloud-native and horizontally scalable Apache Pulsar™ streaming platform, providing a powerful way to modernize your RabbitMQ infrastructure, improve performance, and reduce costs.
+{starlight_rabbitmq} combines the industry-standard AMQP 0.9.1 (RabbitMQ) API with the cloud-native and horizontally scalable Apache Pulsar(TM) streaming platform, providing a powerful way to modernize your RabbitMQ infrastructure, improve performance, and reduce costs.
 
 {starlight_rabbitmq} is open source and is included in DataStax’s https://www.datastax.com/products/luna-streaming[Luna Streaming Enterprise] support for Pulsar.
 

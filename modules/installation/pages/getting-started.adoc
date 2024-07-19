@@ -36,7 +36,7 @@ tar xvfz starlight-rabbitmq-<version>-all.tar.gz
 
 The `jar` file for running as a standalone Java application is available in the downloaded `tar` file.
 
-. Set the URLs of the Apache Pulsar™ brokers and the Apache ZooKeeper™ configuration store in a configuration file:
+. Set the URLs of the Apache Pulsar(TM) brokers and the Apache ZooKeeper(TM) configuration store in a configuration file:
 
 +
 Example:

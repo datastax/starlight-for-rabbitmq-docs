@@ -27,7 +27,7 @@ The following configuration settings are used by {starlight_rabbitmq}. Depending
 
 |configurationStoreServers
 |
-|Apache ZooKeeper™ configuration store connection string as a comma-separated list.
+|Apache ZooKeeper(TM) configuration store connection string as a comma-separated list.
 
 |amqpListeners
 |amqp://127.0.0.1:5672
@@ -115,7 +115,7 @@ The following configuration settings are used by {starlight_rabbitmq}. Depending
 |The web service URL pointing to the broker cluster.
 
 |brokerClientAuthenticationPlugin
-|The authentication plugin used by the Apache Pulsar™ proxy to authenticate with Pulsar brokers.
+|The authentication plugin used by the Apache Pulsar(TM) proxy to authenticate with Pulsar brokers.
 
 |brokerClientAuthenticationParameters
 |The authentication parameters used by the Pulsar proxy to authenticate with Pulsar brokers.
