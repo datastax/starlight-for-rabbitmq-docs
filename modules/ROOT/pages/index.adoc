@@ -10,11 +10,6 @@ These concepts are mapped to Pulsar topics and features.
 
 {starlight_rabbitmq} acts as a proxy and uses the Pulsar binary protocol to communicate with the brokers. This method allows RabbitMQ applications to leverage Pulsar features like load balancing of the topics on the brokers, batching of messages, partitioning of topics, and load balancing of the data on the consumers.
 
-[TIP]
-====
-To learn more read https://www.datastax.com/blog/migrate-to-modern-streaming-using-starlight-for-rabbitmq[our blog post] about Starlight for RabbitMQ.
-====
-
 == Deployment options
 
 {starlight_rabbitmq} can be run in various deployments:
