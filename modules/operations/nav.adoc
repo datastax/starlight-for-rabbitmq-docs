@@ -1,7 +1,0 @@
-.Operations
-* xref:protocol-handler.adoc[]
-* xref:proxy-extension.adoc[]
-* xref:security.adoc[]
-* xref:metrics.adoc[]
-* xref:clustering.adoc[]
-* xref:metadata-store.adoc[]
