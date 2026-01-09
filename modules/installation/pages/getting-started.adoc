@@ -21,9 +21,9 @@ The following files are available in the `tar` file:
 . Extract the files from the `tar` with the following command:
 
 +
-[source,bash]
+[source,bash,subs="+quotes"]
 ----
-tar xvfz starlight-rabbitmq-<version>-all.tar.gz
+tar xvfz starlight-rabbitmq-**VERSION**-all.tar.gz
 ----
 
 === Running {product} as a standalone Java application
@@ -42,7 +42,7 @@ brokerWebServiceURL=http://localhost:8080
 configurationStoreServers=localhost:2181
 ----
 
-. Run the `jar` file as a Java application and provide the configuration file path in the `-c/--config` option:
+. Run the `jar` file as a Java application and provide the configuration file path in the `--config` (`-c`) option:
 +
 [source,shell]
 ----
