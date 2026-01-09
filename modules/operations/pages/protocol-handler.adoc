@@ -1,7 +1,7 @@
 = {product} protocol handler
 :navtitle: {pulsar-short} protocol handler
 
-Following the https://github.com/apache/pulsar/wiki/PIP-41%3A-Pluggable-Protocol-Handler[protocol handler^] interface, {product} constructs a "gateway" service that acts as a RabbitMQ cluster replacement.
+Following the https://github.com/apache/pulsar/wiki/PIP-41%3A-Pluggable-Protocol-Handler[protocol handler] interface, {product} constructs a "gateway" service that acts as a RabbitMQ cluster replacement.
 
 RabbitMQ employs the concepts of `Exchanges`, `Queues`, and `Bindings` to provide basic routing capabilities inside the message broker. {product} acts as intermediary between RabbitMQ's AMQP protocol and {pulsar-short}'s binary protocol. The result allows RabbitMQ applications to leverage {pulsar-short} features like load balancing of the topics on the brokers, batching of messages, partitioning of topics, and load balancing of the data on the consumers.
 
@@ -17,7 +17,7 @@ When you unbind the `Queue`, the {pulsar-short} subscription isn’t deleted rig
 
 [TIP]
 ====
-For more details on the AMQP 0.9.1 model refer to the "https://www.rabbitmq.com/tutorials/amqp-concepts.html[AMQP 0-9-1 Model Explained^]" guide in RabbitMQ documentation.
+For more details on the AMQP 0.9.1 model refer to the https://www.rabbitmq.com/tutorials/amqp-concepts.html[AMQP 0-9-1 Model Explained] guide in RabbitMQ documentation.
 ====
 
 == Mapping AMQP entity constructs to {pulsar-short} constructs
@@ -47,7 +47,7 @@ Because AMQP vhosts map to a Tenant/Namespace they must contain only characters 
 
 == Supported exchange types
 
-Refer to https://www.rabbitmq.com/tutorials/amqp-concepts.html#exchanges[RabbitMQ Exchanges and Exchange Types documentation^] for more.
+Refer to https://www.rabbitmq.com/tutorials/amqp-concepts.html#exchanges[RabbitMQ Exchanges and Exchange Types documentation] for more.
 
 * Direct (default)
 * Fanout

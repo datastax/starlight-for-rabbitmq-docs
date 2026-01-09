@@ -1,7 +1,7 @@
 = {product} proxy extension
 :navtitle: {pulsar-short} proxy extension
 
-Following the https://github.com/apache/pulsar/wiki/PIP-99:-Pulsar-Proxy-Extensions[proxy extension^] interface, {product} constructs a "gateway" service that monitors RabbitMQ channel(s).
+Following the https://github.com/apache/pulsar/wiki/PIP-99:-Pulsar-Proxy-Extensions[proxy extension] interface, {product} constructs a "gateway" service that monitors RabbitMQ channel(s).
 
 Both the proxy extension and the protocol handler use the same "gateway" logic to create channels, manage exchanges, publish messages, etc. To learn more about all those functions refer to the "xref:protocol-handler.adoc[]" document.
 
