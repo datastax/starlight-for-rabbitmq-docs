@@ -52,7 +52,7 @@ Clients may negotiate a different heartbeat frequency or disable it altogether.
 
 |`amqpConnectionCloseTimeout`
 |`2000`
-|Timeout in ms after which the AMQP connection closes even if a `ConnectionCloseOk` frame is not received.
+|Timeout in ms after which the AMQP connection closes even if a `ConnectionCloseOk` frame isn't received.
 
 |`amqpBatchingEnabled`
 |`true`
@@ -97,7 +97,7 @@ The `subject` field will be used if this is left blank.
 
 |`tokenAudienceClaim`
 |The token audience `claim` name used to get the audience from token.
-If it is not set, the audience is not verified.
+If not set, the audience isn't verified.
 
 For example: `aud`
 
@@ -179,7 +179,7 @@ Default: `300`
 |`tlsAllowInsecureConnection`
 |Whether to accept untrusted TLS certificate from client.
 
-If true, a client with a certificate which cannot be verified with the `tlsTrustCertsFilePath` certificate will be allowed to connect to the server, though the certificate will not be used for client authentication.
+If `true`, a client with a certificate that cannot be verified with the `tlsTrustCertsFilePath` certificate is allowed to connect to the server, although the certificate won't be used for client authentication.
 
 |`tlsHostnameVerificationEnabled`
 |Whether the hostname is validated when the proxy creates a TLS connection with brokers.
@@ -187,7 +187,7 @@ If true, a client with a certificate which cannot be verified with the `tlsTrust
 Default: `false`
 
 |`tlsRequireTrustedClientCertOnConnect`
-|Whether client certificates are required for TLS. If the client certificate is not trusted, connections are rejected.
+|Whether client certificates are required for TLS. If the client certificate isn't trusted, connections are rejected.
 
 Default: `false`
 
@@ -205,7 +205,7 @@ For example: `TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256`
 
 |`tlsRequireTrustedClientCertOnConnect`
 |Whether client certificates are required for TLS.
-If the client certificate is not trusted, connections are rejected.
+If the client certificate isn't trusted, connections are rejected.
 
 |`tlsEnabledWithKeyStore`
 |Enable TLS with KeyStore type configuration for proxy.

@@ -20,16 +20,23 @@ Running {product} as a standalone Java application has the advantage of not impa
 Deploying {product} in the broker as a Protocol Handler avoids having to deploy another runtime but there will be resources used by {product} to handle the traffic that can have an impact on the load balancing algorithms used by {pulsar-short}.
 
 * https://github.com/apache/pulsar/wiki/PIP-99%3A-Pulsar-Proxy-Extensions[{pulsar-short} Proxy extension]
-Deploying {product} in the {pulsar-short} Proxy as a Proxy Extension avoids having to deploy another runtime if you already use the {pulsar-short} Proxy and it will not have a big impact on the {pulsar-short} Proxy functioning. Note that Proxy Extensions will be available in {pulsar-short} v2.9+.
+Deploying {product} in the {pulsar-short} Proxy as a Proxy Extension means that you don't need to deploy another runtime if you already use the {pulsar-short} Proxy.
+Additionally, there is no significant impact on the {pulsar-short} Proxy's performance.
+Proxy Extensions require {pulsar-short} version 2.9 or later.
 
 == Limitations
 
-The following capabilities have not been implemented:
+[IMPORTANT]
+====
+Support for topic exchanges and OAuth were added in {product} version 2.10.1.
+====
 
-* Header exchanges (topic exchanges have been added)
+{product} version 2.10.1 doesn't support the following features:
+
+* Header exchanges
 * Exclusive consumers
 * Non durable exchanges and queues
 * Transient messages (all messages are persisted)
 
-Because RabbitMQ and {pulsar-short} work differently, {product} was designed to make the most of {pulsar-short}'s scalability.
-This means that canceling an AMQP consumer will re-queue the messages that were received through it because it also closes the associated {pulsar-short} consumers.
+Because RabbitMQ and {pulsar-short} work differently, {product} was designed to realize the most benefit from {pulsar-short}'s scalability.
+This means that canceling an AMQP consumer re-queues the messages that were received through it because it also closes the associated {pulsar-short} consumers.
