@@ -1,10 +1,10 @@
 = Configuration
 
-The following configuration settings are used by {starlight_rabbitmq}. Depending on how you are running {starlight_rabbitmq}, the configuration file is read in a different way:
+The following configuration settings are used by {product}. Depending on how you are running {product}, the configuration file is read in a different way:
 
 [cols=2*]
 |===
-|*How are you running {starlight_rabbitmq}*?
+|*How are you running {product}*?
 |*From where are the configuration settings read?*
 
 |Standalone Java application
@@ -114,33 +114,33 @@ The following configuration settings are used by {starlight_rabbitmq}. Depending
 |The web service URL pointing to the broker cluster.
 
 |brokerClientAuthenticationPlugin
-|The authentication plugin used by the Apache Pulsar(TM) proxy to authenticate with Pulsar brokers.
+|The authentication plugin used by the {pulsar-reg} proxy to authenticate with {pulsar-short} brokers.
 
 |brokerClientAuthenticationParameters
-|The authentication parameters used by the Pulsar proxy to authenticate with Pulsar brokers.
+|The authentication parameters used by the {pulsar-short} proxy to authenticate with {pulsar-short} brokers.
 
 |amqpBrokerClientAuthenticationParameters
-|If set, the RabbitMQ service will use these parameters to authenticate on Pulsar's brokers. If not set, the brokerClientAuthenticationParameters setting will be used. This setting allows different credentials for the Pulsar proxy and the RabbitMQ service.
+|If set, the RabbitMQ service will use these parameters to authenticate on {pulsar-short}'s brokers. If not set, the brokerClientAuthenticationParameters setting will be used. This setting allows different credentials for the {pulsar-short} proxy and the RabbitMQ service.
 
 |tlsEnabledWithBroker +
  Default: false
-|Whether TLS is enabled when communicating with Pulsar brokers.
+|Whether TLS is enabled when communicating with {pulsar-short} brokers.
 
 |brokerClientTrustCertsFilePath
-|The path to trusted certificates used by the Pulsar proxy to authenticate with Pulsar brokers.
+|The path to trusted certificates used by the {pulsar-short} proxy to authenticate with {pulsar-short} brokers.
 
 |brokerClientTlsEnabledWithKeyStore
-|Whether the proxy uses KeyStore type to authenticate with Pulsar brokers.
+|Whether the proxy uses KeyStore type to authenticate with {pulsar-short} brokers.
 
 |brokerClientTlsTrustStoreType
-|TLS TrustStore type configuration for proxy used by the proxy to authenticate with Pulsar brokers. +
+|TLS TrustStore type configuration for proxy used by the proxy to authenticate with {pulsar-short} brokers. +
  For example: JKS, PKCS12
 
 |brokerClientTlsTrustStore
-|TLS TrustStore path for proxy used by the Pulsar proxy to authenticate with Pulsar brokers.
+|TLS TrustStore path for proxy used by the {pulsar-short} proxy to authenticate with {pulsar-short} brokers.
 
 |brokerClientTlsTrustStorePassword
-| TLS TrustStore password for proxy used by the Pulsar proxy to authenticate with Pulsar brokers.
+| TLS TrustStore password for proxy used by the {pulsar-short} proxy to authenticate with {pulsar-short} brokers.
 |===
 
 == TLS configuration

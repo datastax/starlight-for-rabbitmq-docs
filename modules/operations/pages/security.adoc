@@ -1,10 +1,10 @@
-= Starlight for RabbitMQ security
+= {product} security
 :navtitle: Security
 
-Starlight for RabbitMQ supports connections using TLS/mTLS to ensure privacy and security of the communication. It also supports the `PLAIN` and `EXTERNAL` mechanisms used by RabbitMQ.
-Internally, it uses the same AuthenticationService as Pulsar and maps these mechanisms to existing Pulsar authentication modes. At the moment there is no support for authorization so an authenticated user has full access to all `Virtual hosts`. Starlight for RabbitMQ can connect to brokers that have TLS, authentication, and/or authorization enabled.
+{product} supports connections using TLS/mTLS to ensure privacy and security of the communication. It also supports the `PLAIN` and `EXTERNAL` mechanisms used by RabbitMQ.
+Internally, it uses the same AuthenticationService as {pulsar-short} and maps these mechanisms to existing {pulsar-short} authentication modes. At the moment there is no support for authorization so an authenticated user has full access to all `Virtual hosts`. {product} can connect to brokers that have TLS, authentication, and/or authorization enabled.
 
-To perform its operations, Starlight for RabbitMQ proxy needs to use an `admin` role.
+To perform its operations, {product} proxy needs to use an `admin` role.
 
 == `PLAIN` authentication mechanism
 
