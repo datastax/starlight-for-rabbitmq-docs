@@ -24,16 +24,7 @@ The {product} is a an open-source product from {company}.
 
 === What are the {product} limitations?
 
-{product} does not currently support the following features:
-
-* Topic and headers exchanges
-* Exclusive consumers
-* Non durable exchanges and queues
-* Transient messages (all messages are persisted)
-* Authorization support
-
-{product} was designed to make the most benefit from {pulsar-short}'s scalability.
-Because of this, canceling an AMQP consumer re-queues the messages that were received through it because it also closes the associated {pulsar-short} consumers.
+See xref:ROOT:index.adoc#limitations[].
 
 === Is {product} an open-source project?
 
