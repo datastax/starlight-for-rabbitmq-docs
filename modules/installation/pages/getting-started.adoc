@@ -1,9 +1,9 @@
 = Get started
 :navtitle: Installation
 
-== Downloading {starlight_rabbitmq}
+== Downloading {product}
 
-. Download the {starlight_rabbitmq} `tar` file from the https://downloads.datastax.com/#starlight-rabbitmq[DataStax downloads page].
+. Download the {product} `tar` file from the https://github.com/datastax/starlight-for-rabbitmq/releases[{product} GitHub repository].
 
 +
 The following files are available in the `tar` file:
@@ -26,11 +26,11 @@ The following files are available in the `tar` file:
 tar xvfz starlight-rabbitmq-<version>-all.tar.gz
 ----
 
-=== Running {starlight_rabbitmq} as a standalone Java application
+=== Running {product} as a standalone Java application
 
 The `jar` file for running as a standalone Java application is available in the downloaded `tar` file.
 
-. Set the URLs of the Apache Pulsar(TM) brokers and the Apache ZooKeeper(TM) configuration store in a configuration file:
+. Set the URLs of the {pulsar-reg} brokers and the Apache ZooKeeper(TM) configuration store in a configuration file:
 
 +
 Example:
@@ -49,13 +49,13 @@ configurationStoreServers=localhost:2181
  java -jar ./starlight-rabbitmq/target/starlight-rabbitmq-${version}-jar-with-dependencies.jar -c conf/my-starlight-for-rabbitmq.conf
 ----
 
-=== Running {starlight_rabbitmq} as a protocol handler
+=== Running {product} as a protocol handler
 
-{starlight_rabbitmq} can be embedded directly into the Pulsar brokers by loading it as a protocol handler.
+{product} can be embedded directly into the {pulsar-short} brokers by loading it as a protocol handler.
 
 The `nar` file for running as a protocol handler is available in the downloaded `tar` file.
 
-. Set the configuration of {starlight_rabbitmq} protocol handler in the broker configuration file, which is typically `broker.conf` or `standalone.conf`.
+. Set the configuration of {product} protocol handler in the broker configuration file, which is typically `broker.conf` or `standalone.conf`.
 
 +
 Example:
@@ -70,7 +70,7 @@ protocolHandlerDirectory=./protocols
 +
 [NOTE]
 ====
-The hostname value in `ampqListeners` is the same as Pulsar broker's `advertisedAddress`.
+The hostname value in `ampqListeners` is the same as {pulsar-short} broker's `advertisedAddress`.
 ====
 
 +
@@ -80,14 +80,14 @@ amqpListeners=amqp://127.0.0.1:5672
 advertisedAddress=127.0.0.1
 ----
 
-. Start the Pulsar broker.
+. Start the {pulsar-short} broker.
 
-=== Running {starlight_rabbitmq} as a proxy extension
-{starlight_rabbitmq} can be embedded into the Pulsar Proxy by loading it as a proxy extension.
+=== Running {product} as a proxy extension
+{product} can be embedded into the {pulsar-short} Proxy by loading it as a proxy extension.
 
 The `nar` file for running as a proxy extension is available in the downloaded `tar` file.
 
-. Set the configuration of {starlight_rabbitmq} protocol handler in the Pulsar Proxy configuration file, which is typically `proxy.conf`.
+. Set the configuration of {product} protocol handler in the {pulsar-short} Proxy configuration file, which is typically `proxy.conf`.
 
 +
 Example:
@@ -103,7 +103,7 @@ proxyExtensionsDirectory=./protocols
 +
 [NOTE]
 ====
-The hostname value in listeners is the same as Pulsar proxy's `advertisedAddress`.
+The hostname value in listeners is the same as {pulsar-short} proxy's `advertisedAddress`.
 ====
 +
 Example:
@@ -114,9 +114,9 @@ amqpListeners=amqp://127.0.0.1:5672
 advertisedAddress=127.0.0.1
 ----
 
-. Start the Pulsar proxy.
+. Start the {pulsar-short} proxy.
 
-== Ensure {starlight_rabbitmq} works
+== Ensure {product} works
 
 You can use a `RabbitMQ/AMQP-0.9.1` client or a tool such as https://rabbitmq.github.io/rabbitmq-perf-test/stable/htmlsingle/[RabbitMQ PerfTest]
 to ensure everything works correctly.

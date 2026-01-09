@@ -1,26 +1,26 @@
-= {starlight_rabbitmq}
+= {product}
 
-{starlight_rabbitmq} acts as a proxy between your https://www.rabbitmq.com/[RabbitMQ] application and https://pulsar.apache.org/[Apache Pulsar(TM)].
-It implements the AMQP 0.9.1 protocol used by RabbitMQ clients and translates AMQP frames and concepts to Pulsar ones.
-{starlight_rabbitmq} can be run as a standalone Java application, a Pulsar https://github.com/apache/pulsar/wiki/PIP-41%3A-Pluggable-Protocol-Handler[Pluggable Protocol Handler], or a https://github.com/apache/pulsar/wiki/PIP-99%3A-Pulsar-Proxy-Extensions[Pulsar Proxy extension].
+{product} acts as a proxy between your https://www.rabbitmq.com/[RabbitMQ] application and https://pulsar.apache.org/[{pulsar-reg}].
+It implements the AMQP 0.9.1 protocol used by RabbitMQ clients and translates AMQP frames and concepts to {pulsar-short} ones.
+{product} can be run as a standalone Java application, a {pulsar-short} https://github.com/apache/pulsar/wiki/PIP-41%3A-Pluggable-Protocol-Handler[Pluggable Protocol Handler], or a https://github.com/apache/pulsar/wiki/PIP-99%3A-Pulsar-Proxy-Extensions[{pulsar-short} Proxy extension].
 
-== How {starlight_rabbitmq} works
+== How {product} works
 
 AMQP 0.9.1, the protocol RabbitMQ uses, employs the concepts of `Exchanges`, `Queues`, and `Bindings` to provide basic routing capabilities inside the message broker.
-These concepts are mapped to Pulsar topics and features.
+These concepts are mapped to {pulsar-short} topics and features.
 
-{starlight_rabbitmq} acts as a proxy and uses the Pulsar binary protocol to communicate with the brokers.
-This method allows RabbitMQ applications to leverage Pulsar features like load balancing of the topics on the brokers, batching of messages, partitioning of topics, and load balancing of the data on the consumers.
+{product} acts as a proxy and uses the {pulsar-short} binary protocol to communicate with the brokers.
+This method allows RabbitMQ applications to leverage {pulsar-short} features like load balancing of the topics on the brokers, batching of messages, partitioning of topics, and load balancing of the data on the consumers.
 
 On the publish side, an AMQP exchange is mapped to a topic.
 Depending on the type of exchange, the publish routing key may also be included in the topic name.
 
-On the consumer side, Pulsar shared subscriptions are used to represent the AMQP `Bindings` from an `Exchange` to a `Queue`.
-When creating an AMQP Queue consumer, the proxy creates Pulsar consumers for all the `Bindings` of the `Queue`.
+On the consumer side, {pulsar-short} shared subscriptions are used to represent the AMQP `Bindings` from an `Exchange` to a `Queue`.
+When creating an AMQP Queue consumer, the proxy creates {pulsar-short} consumers for all the `Bindings` of the `Queue`.
 
-When you unbind the `Queue`, the Pulsar subscription isn’t deleted right away since the consumer may be lagging.
+When you unbind the `Queue`, the {pulsar-short} subscription isn’t deleted right away since the consumer may be lagging.
 Messages are still received from the subscription and filtered if their position is past the end of the binding.
-{starlight_rabbitmq} periodically checks if all messages from the closed binding have been acknowledged. Once the messages have been acknowledged, {starlight_rabbitmq} deletes the corresponding subscription.
+{product} periodically checks if all messages from the closed binding have been acknowledged. Once the messages have been acknowledged, {product} deletes the corresponding subscription.
 
 == Limitations
 
@@ -32,37 +32,37 @@ The following capabilities have not been implemented:
 * Transient messages (all messages are persisted)
 * Authorization support
 
-Because RabbitMQ and Pulsar work differently, {starlight_rabbitmq} was designed to make the most of Pulsar's scalability.
-This means that canceling an AMQP consumer will re-queue the messages that were received through it because it also closes the associated Pulsar consumers.
+Because RabbitMQ and {pulsar-short} work differently, {product} was designed to make the most of {pulsar-short}'s scalability.
+This means that canceling an AMQP consumer will re-queue the messages that were received through it because it also closes the associated {pulsar-short} consumers.
 
 == Deployment options
 
-{starlight_rabbitmq} can be run in various deployments:
+{product} can be run in various deployments:
 
 * Standalone Java application
-Running {starlight_rabbitmq} as a standalone Java application has the advantage of not impacting the resources used by the Pulsar cluster but on the other hand you need to deploy and manage the lifecycle of an additional runtime.
+Running {product} as a standalone Java application has the advantage of not impacting the resources used by the {pulsar-short} cluster but on the other hand you need to deploy and manage the lifecycle of an additional runtime.
 
-* https://github.com/apache/pulsar/wiki/PIP-41%3A-Pluggable-Protocol-Handler[Pulsar Pluggable Protocol Handler]
-Deploying {starlight_rabbitmq} in the broker as a Protocol Handler avoids having to deploy another runtime but there will be resources used by {starlight_rabbitmq} to handle the traffic that can have an impact on the load balancing algorithms used by Pulsar.
+* https://github.com/apache/pulsar/wiki/PIP-41%3A-Pluggable-Protocol-Handler[{pulsar-short} Pluggable Protocol Handler]
+Deploying {product} in the broker as a Protocol Handler avoids having to deploy another runtime but there will be resources used by {product} to handle the traffic that can have an impact on the load balancing algorithms used by {pulsar-short}.
 
-* https://github.com/apache/pulsar/wiki/PIP-99%3A-Pulsar-Proxy-Extensions[Pulsar Proxy extension]
-Deploying {starlight_rabbitmq} in the Pulsar Proxy as a Proxy Extension avoids having to deploy another runtime if you already use the Pulsar Proxy and it will not have a big impact on the Pulsar Proxy functioning. Note that Proxy Extensions will be available in Pulsar v2.9+.
+* https://github.com/apache/pulsar/wiki/PIP-99%3A-Pulsar-Proxy-Extensions[{pulsar-short} Proxy extension]
+Deploying {product} in the {pulsar-short} Proxy as a Proxy Extension avoids having to deploy another runtime if you already use the {pulsar-short} Proxy and it will not have a big impact on the {pulsar-short} Proxy functioning. Note that Proxy Extensions will be available in {pulsar-short} v2.9+.
 
 == Consistent metadata store
 
-{starlight_rabbitmq} uses Apache ZooKeeper(TM) to store the AMQP entities metadata consistently.
-The existing ZooKeeper configuration store can be reused to store the {starlight_rabbitmq} metadata.
-{starlight_rabbitmq} employs the `/starlight-rabbitmq` prefix to write its entries in ZooKeeper.
+{product} uses Apache ZooKeeper(TM) to store the AMQP entities metadata consistently.
+The existing ZooKeeper configuration store can be reused to store the {product} metadata.
+{product} employs the `/starlight-rabbitmq` prefix to write its entries in ZooKeeper.
 
 == Security and authentication
 
-{starlight_rabbitmq} supports connections using TLS/mTLS to ensure privacy and security of the communication.
+{product} supports connections using TLS/mTLS to ensure privacy and security of the communication.
 It also supports the `PLAIN` and `EXTERNAL` mechanisms used by RabbitMQ.
-Internally, it uses the same AuthenticationService as Pulsar and maps these mechanisms to existing Pulsar authentication modes.
+Internally, it uses the same AuthenticationService as {pulsar-short} and maps these mechanisms to existing {pulsar-short} authentication modes.
 At the moment there is no support for authorization so an authenticated user has full access to all `Virtual hosts`.
-{starlight_rabbitmq} can connect to brokers that have TLS, authentication, and/or authorization enabled.
+{product} can connect to brokers that have TLS, authentication, and/or authorization enabled.
 
-To perform its operations, {starlight_rabbitmq} proxy needs to use an `admin` role.
+To perform its operations, {product} proxy needs to use an `admin` role.
 
 === `PLAIN` authentication mechanism
 
@@ -76,21 +76,21 @@ This is the equivalent of the `rabbitmq-auth-mechanism-ssl` plugin with `ssl_cer
 
 == Clustering
 
-Multiple {starlight_rabbitmq} instances can be launched at the same time for scalability and high availability needs.
-The {starlight_rabbitmq} instances are stateless and can be started and stopped at will.
-They share their configuration in ZooKeeper so you can create, delete, bind, and unbind exchanges and queues on any {starlight_rabbitmq} instance.
-The configuration will be synchronized on the other {starlight_rabbitmq} instances.
+Multiple {product} instances can be launched at the same time for scalability and high availability needs.
+The {product} instances are stateless and can be started and stopped at will.
+They share their configuration in ZooKeeper so you can create, delete, bind, and unbind exchanges and queues on any {product} instance.
+The configuration will be synchronized on the other {product} instances.
 
-Publishing messages can be done on any {starlight_rabbitmq} instance.
-On the receiving side, messages will be dispatched evenly to all connected AMQP consumers because the Pulsar subscriptions are shared.
+Publishing messages can be done on any {product} instance.
+On the receiving side, messages will be dispatched evenly to all connected AMQP consumers because the {pulsar-short} subscriptions are shared.
 
 == Multi-tenancy
 
-{starlight_rabbitmq} offers support for multi-tenancy by mapping an AMQP Virtual host to a Pulsar tenant and namespace.
+{product} offers support for multi-tenancy by mapping an AMQP Virtual host to a {pulsar-short} tenant and namespace.
 The mapping is done as follows:
 
-* AMQP vhost `/` is mapped to Pulsar namespace `public/default`.
-* AMQP vhost `/<tenant>` or `<tenant>` is mapped to Pulsar namespace `public/<tenant>`.
-* AMQP vhost `/<tenant>/<namespace>` or `<tenant>/<namespace>` is mapped to Pulsar namespace `<tenant>/<namespace>`.
+* AMQP vhost `/` is mapped to {pulsar-short} namespace `public/default`.
+* AMQP vhost `/<tenant>` or `<tenant>` is mapped to {pulsar-short} namespace `public/<tenant>`.
+* AMQP vhost `/<tenant>/<namespace>` or `<tenant>/<namespace>` is mapped to {pulsar-short} namespace `<tenant>/<namespace>`.
 
-This means that AMQP vhosts must contain only characters that are accepted in Pulsar tenant and namespace names, such as `a-zA-Z0-9_-=:.`.
+This means that AMQP vhosts must contain only characters that are accepted in {pulsar-short} tenant and namespace names, such as `a-zA-Z0-9_-=:.`.
