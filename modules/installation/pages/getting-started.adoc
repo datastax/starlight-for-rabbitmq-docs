@@ -121,7 +121,7 @@ advertisedAddress=127.0.0.1
 You can use a `RabbitMQ/AMQP-0.9.1` client or a tool such as https://rabbitmq.github.io/rabbitmq-perf-test/stable/htmlsingle/[RabbitMQ PerfTest]
 to ensure everything works correctly.
 
-For instance, the following Python script creates a queue, publishes a message that will be routed to this queue, reads the message from the queue, and deletes the queue:
+For instance, the following Python script creates a queue, publishes a message that is routed to the queue, reads the message from the queue, and then deletes the queue:
 
 [source,python]
 ----
