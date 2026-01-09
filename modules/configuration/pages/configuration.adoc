@@ -31,12 +31,12 @@ Format the value as `amqp[s]://**HOST**:**PORT**` with commas separating multipl
 
 |`amqpHeartbeatDelay`
 |`0`
-|The default period with which Broker and client will exchange heartbeat messages in seconds when using AMQP.
-Clients may negotiate a different heartbeat frequency or disable it altogether.
+|The duration, in seconds, for the Broker and client to exchange heartbeat messages when using AMQP.
+Clients can negotiate a different heartbeat frequency or disable it altogether.
 
 |`amqpHeartbeatTimeoutFactor`
 |`2`
-|Factor to determine the maximum length of time that may elapse between heartbeats being received from the peer before an AMQP0.9 connection is deemed to have been broken.
+|Factor to determine the maximum length of time that can elapse between heartbeats being received from the peer before an AMQP0.9 connection is considered broken.
 
 |`amqpNetworkBufferSize`
 |`2097152` (2MB)
@@ -92,8 +92,8 @@ The key can be specified in either of the following ways:
 * `tokenPublicKey=file:///my/secret.key` (Key file must be DER-encoded)
 
 |`tokenAuthClaim`
-|Specify the token claim that will be used as the authentication `principal` or `role`.
-The `subject` field will be used if this is left blank.
+|Specify the token claim that is used as the authentication `principal` or `role`.
+If not set, the `subject` field is used.
 
 |`tokenAudienceClaim`
 |The token audience `claim` name used to get the audience from token.
@@ -125,9 +125,9 @@ This parameter can be found in the `tokenAudienceClaim` field of a valid token.
 |The authentication parameters used by the {pulsar-short} proxy to authenticate with {pulsar-short} brokers.
 
 |`amqpBrokerClientAuthenticationParameters`
-|If set, the RabbitMQ service will use these parameters to authenticate on {pulsar-short}'s brokers.
+|If set, the RabbitMQ service uses these parameters to authenticate on {pulsar-short}'s brokers.
 
-If not set, the `brokerClientAuthenticationParameters` setting will be used.
+If not set, the `brokerClientAuthenticationParameters` setting is used.
 
 This setting allows different credentials for the {pulsar-short} proxy and the RabbitMQ service.
 
@@ -192,13 +192,13 @@ Default: `false`
 Default: `false`
 
 |`tlsProtocols`
-|Specify the `tls` protocols the broker will use to negotiate during TLS handshake.
+|Specify the `tls` protocols the broker uses to negotiate during TLS handshake.
 Use commas to separate multiple values.
 
 For example: `TLSv1.3,TLSv1.2`
 
 |`tlsCiphers`
-|Specify the `tls` cipher the broker will use to negotiate during TLS handshake.
+|Specify the `tls` cipher the broker uses to negotiate during TLS handshake.
 Use commas to separate multiple values.
 
 For example: `TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256`

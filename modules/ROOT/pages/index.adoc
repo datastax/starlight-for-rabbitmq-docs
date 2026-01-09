@@ -13,12 +13,12 @@ These concepts are mapped to {pulsar-short} topics and features.
 This method allows RabbitMQ applications to leverage {pulsar-short} features like load balancing of the topics on the brokers, batching of messages, partitioning of topics, and load balancing of the data on the consumers.
 
 On the publish side, an AMQP exchange is mapped to a topic.
-Depending on the type of exchange, the publish routing key may also be included in the topic name.
+Depending on the type of exchange, the publish routing key can also be included in the topic name.
 
 On the consumer side, {pulsar-short} shared subscriptions are used to represent the AMQP `Bindings` from an `Exchange` to a `Queue`.
 When creating an AMQP Queue consumer, the proxy creates {pulsar-short} consumers for all the `Bindings` of the `Queue`.
 
-When you unbind the `Queue`, the {pulsar-short} subscription isn’t deleted right away since the consumer may be lagging.
+When you unbind the `Queue`, the {pulsar-short} subscription isn't deleted right away since the consumer can be lagging.
 Messages are still received from the subscription and filtered if their position is past the end of the binding.
 {product} periodically checks if all messages from the closed binding have been acknowledged. Once the messages have been acknowledged, {product} deletes the corresponding subscription.
 
@@ -40,13 +40,14 @@ This means that canceling an AMQP consumer re-queues the messages that were rece
 
 {product} can be run in various deployments:
 
-* Standalone Java application
+* Standalone Java application:
 Running {product} as a standalone Java application has the advantage of not impacting the resources used by the {pulsar-short} cluster but on the other hand you need to deploy and manage the lifecycle of an additional runtime.
 
-* https://github.com/apache/pulsar/wiki/PIP-41%3A-Pluggable-Protocol-Handler[{pulsar-short} Pluggable Protocol Handler]
-Deploying {product} in the broker as a Protocol Handler avoids having to deploy another runtime but there will be resources used by {product} to handle the traffic that can have an impact on the load balancing algorithms used by {pulsar-short}.
+* https://github.com/apache/pulsar/wiki/PIP-41%3A-Pluggable-Protocol-Handler[{pulsar-short} Pluggable Protocol Handler]:
+Deploying {product} in the broker as a Protocol Handler means that you don't need to deploy another runtime.
+However, the resources used by {product} to handle traffic can have an impact on the load balancing algorithms used by {pulsar-short}.
 
-* https://github.com/apache/pulsar/wiki/PIP-99%3A-Pulsar-Proxy-Extensions[{pulsar-short} Proxy extension]
+* https://github.com/apache/pulsar/wiki/PIP-99%3A-Pulsar-Proxy-Extensions[{pulsar-short} Proxy extension]:
 Deploying {product} in the {pulsar-short} Proxy as a Proxy Extension means that you don't need to deploy another runtime if you already use the {pulsar-short} Proxy.
 Additionally, there is no significant impact on the {pulsar-short} Proxy's performance.
 Proxy Extensions require {pulsar-short} version 2.9 or later.
@@ -82,10 +83,10 @@ This is the equivalent of the `rabbitmq-auth-mechanism-ssl` plugin with `ssl_cer
 Multiple {product} instances can be launched at the same time for scalability and high availability needs.
 The {product} instances are stateless and can be started and stopped at will.
 They share their configuration in ZooKeeper so you can create, delete, bind, and unbind exchanges and queues on any {product} instance.
-The configuration will be synchronized on the other {product} instances.
+The configuration is synchronized on the other {product} instances.
 
 Publishing messages can be done on any {product} instance.
-On the receiving side, messages will be dispatched evenly to all connected AMQP consumers because the {pulsar-short} subscriptions are shared.
+On the receiving side, messages are dispatched evenly to all connected AMQP consumers because the {pulsar-short} subscriptions are shared.
 
 == Multi-tenancy
 
