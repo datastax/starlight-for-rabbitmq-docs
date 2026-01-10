@@ -4,8 +4,6 @@
 {product} exposes the following metrics in Prometheus format.
 You can monitor your clusters with these metrics.
 
-== Access metrics
-
 The {product} metrics are exposed under `/metrics` at port `8000` along with {pulsar-short} metrics.
 To use a different port, configure the `stats_server_port` system property.
 
