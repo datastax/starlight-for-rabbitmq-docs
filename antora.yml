@@ -9,6 +9,9 @@ nav:
 asciidoc:
   attributes:
     product: 'Starlight for RabbitMQ'
+    astra-ui: 'Astra Portal'
+    astra-url: 'https://astra.datastax.com'
+    astra-ui-link: '{astra-url}[{astra-ui}^]'
     pulsar-reg: 'Apache Pulsar(TM)'
     pulsar: 'Apache Pulsar'
     pulsar-short: 'Pulsar'
