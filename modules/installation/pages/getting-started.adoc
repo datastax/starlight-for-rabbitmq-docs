@@ -68,7 +68,7 @@ Continue to the next section to learn how to use these connection details in a R
 --
 [tabs]
 ====
-protocol handler (Helm chart)::
+Protocol handler (Helm chart)::
 +
 The {product} extension is included in the `luna-streaming-all` image used to deploy a Luna cluster.
 The Luna Helm chart simplifies deployment of {product} as a protocol handler.
@@ -138,7 +138,7 @@ The Luna Helm chart deployed {product} on the {pulsar-short} proxy and opened th
 The forwarded ports allow you to access {pulsar-short} and {product} services when running RabbitMQ client scripts and using CLI tools locally.
 Your applications can now communicate with {pulsar-short} as if it were a real RabbitMQ host, as explained in the next section.
 
-protocol handler (`nar` file)::
+Protocol handler (`nar` file)::
 +
 include::ROOT:partial$run-as-protocol-handler-simple.adoc[]
 
@@ -157,7 +157,7 @@ Self-managed::
 --
 [tabs]
 ====
-protocol handler::
+Protocol handler::
 +
 include::ROOT:partial$run-as-protocol-handler-simple.adoc[]
 
