@@ -1,17 +1,26 @@
 You can embed {product} into the {pulsar-short} Proxy by loading it as a proxy extension.
 +
-The `nar` file for running {product} as a proxy extension is available in the {product} `tar` file.
+. Download the {product} `tar` file from the https://github.com/datastax/starlight-for-rabbitmq/releases[{product} GitHub repository].
++
+. Extract the files from the `tar`:
++
+[source,bash,subs="+quotes"]
+----
+tar xvfz starlight-rabbitmq-**VERSION**-all.tar.gz
+----
++
+Copy the `starlight-rabbitmq-**VERSION**.nar` file, which is used to run {product} as a proxy extension, to the appropriate directory in your {pulsar-short} Proxy installation directory, such as the `/proxyextensions` directory.
 +
 . Create or edit a {pulsar-short} Proxy configuration file, such as `proxy.conf`.
 +
-. Set the {product} protocol handler configuration.
-For example:
+. Set the {product} proxy extension configuration.
+For example, if the `nar` file is in the `./proxyextensions` directory
 +
 .proxy.conf
 [source,conf]
 ----
 proxyExtensions=rabbitmq
-proxyExtensionsDirectory=./protocols
+proxyExtensionsDirectory=./proxyextensions
 ----
 +
 . Set the AMQP service listeners.

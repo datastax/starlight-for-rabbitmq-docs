@@ -6,9 +6,9 @@ The way {product} reads the configuration file depends on how you are running {p
 
 * Standalone Java application: Configuration file passed as command line argument
 
-* Broker Protocol Handler: Broker configuration file
+* Broker protocol handler: Broker configuration file
 
-* Proxy Extension: Proxy configuration file
+* Proxy extension: Proxy configuration file
 
 == General configuration options
 
