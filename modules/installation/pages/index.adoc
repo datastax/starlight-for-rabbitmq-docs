@@ -9,9 +9,6 @@ It implements the AMQP 0.9.1 protocol used by RabbitMQ clients and translates AM
 
 By adding the {product} protocol handler to your {pulsar-short} cluster, you can migrate your existing RabbitMQ applications and services to {pulsar-short} without modifying the code.
 
-//Move image to the {product} main index page
-image:ROOT:s4r-architecture.png[{starlight-rabbitmq} Architecture]
-
 [#establish-the-rabbitmq-protocol-handler]
 == Establish the RabbitMQ protocol handler
 
@@ -603,41 +600,3 @@ However, the specific connection details and valid connection methods depend on 
 For more information, see the documentation for your preferred RabbitMQ client library.
 --
 ======
-
-== RabbitMQ exchanges and {pulsar-short} topics
-
-//Move to Publishing messages section under {pulsar-short} protocol handler in {product} docs.
-
-{starlight-rabbitmq} maps RabbitMQ _exchanges_ to {pulsar-short} _topics_, as described in the following table:
-
-[cols=4]
-|===
-|Exchange |Routing key |{pulsar-short} topic name |Usage example
-
-|`amp.direct`
-|Used
-|`amq.direct.__{routing key}`
-|`channel.basic_publish(exchange='amp.direct'),`
-
-|`amp.default` or empty string
-|Used
-|`amq.default.__{routing key}`
-|`channel.basic_publish(exchange="),`
-
-|`amp.match`
-|Not used
-|`amp.match`
-|`channel.basic_publish(exchange=amp.match),`
-
-|`amp.fanout`
-|Not used
-|`amp.fanout`
-|`channel.basic_publish(exchange='amp.fanout'),`
-
-|`headers`
-|Not used
-|Header name
-|`channel.exchange_declare(exchange='header_logs', exchange_type='headers')`
-
-`channel.basic_publish(exchange='header_logs'),`
-|===

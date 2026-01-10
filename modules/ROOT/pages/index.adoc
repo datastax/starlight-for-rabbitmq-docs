@@ -14,21 +14,7 @@ For more information, see xref:operations:protocol-handler.adoc[].
 [#deployment-options]
 == Deployment options
 
-There are several ways to run {product}:
-
-https://github.com/apache/pulsar/wiki/PIP-41%3A-Pluggable-Protocol-Handler[{pulsar-short} Pluggable Protocol Handler]::
-Deploying {product} in the broker as a Protocol Handler means that you don't need to deploy another runtime.
-However, the resources used by {product} to handle traffic can have an impact on the load balancing algorithms used by {pulsar-short}.
-+
-Use this approach for {luna-streaming} and {astra-streaming} managed {pulsar-short} clusters.
-
-https://github.com/apache/pulsar/wiki/PIP-99%3A-Pulsar-Proxy-Extensions[{pulsar-short} Proxy extension]::
-Deploying {product} in the {pulsar-short} Proxy as a Proxy Extension means that you don't need to deploy another runtime if you already use the {pulsar-short} Proxy.
-Additionally, there is no significant impact on the {pulsar-short} Proxy's performance.
-Proxy Extensions require {pulsar-short} version 2.9 or later.
-
-Standalone Java application::
-Running {product} as a standalone Java application has the advantage of not impacting the resources used by the {pulsar-short} cluster but on the other hand you need to deploy and manage the lifecycle of an additional runtime.
+include::ROOT:partial$deployment-options.adoc[]
 
 For instructions, see xref:installation:getting-started.adoc[].
 

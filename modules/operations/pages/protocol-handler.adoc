@@ -118,3 +118,39 @@ Refer to https://www.rabbitmq.com/tutorials/amqp-concepts.html#exchanges[RabbitM
 * Direct (default)
 * Fanout
 * Topic
+
+== RabbitMQ exchanges and {pulsar-short} topics
+
+{starlight-rabbitmq} maps RabbitMQ _exchanges_ to {pulsar-short} _topics_, as described in the following table:
+
+[cols=4]
+|===
+|Exchange |Routing key |{pulsar-short} topic name |Usage example
+
+|`amp.direct`
+|Used
+|`amq.direct.__{routing key}`
+|`channel.basic_publish(exchange='amp.direct'),`
+
+|`amp.default` or empty string
+|Used
+|`amq.default.__{routing key}`
+|`channel.basic_publish(exchange="),`
+
+|`amp.match`
+|Not used
+|`amp.match`
+|`channel.basic_publish(exchange=amp.match),`
+
+|`amp.fanout`
+|Not used
+|`amp.fanout`
+|`channel.basic_publish(exchange='amp.fanout'),`
+
+|`headers`
+|Not used
+|Header name
+|`channel.exchange_declare(exchange='header_logs', exchange_type='headers')`
+
+`channel.basic_publish(exchange='header_logs'),`
+|===

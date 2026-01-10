@@ -26,102 +26,68 @@ The following files are available in the `tar` file:
 tar xvfz starlight-rabbitmq-**VERSION**-all.tar.gz
 ----
 
-=== Running {product} as a standalone Java application
+== Deploy {product}
 
-The `jar` file for running as a standalone Java application is available in the downloaded `tar` file.
+include::ROOT:partial$deployment-options.adoc[]
 
-. Set the URLs of the {pulsar-reg} brokers and the Apache ZooKeeper(TM) configuration store in a configuration file:
+The deployment options you can use depend on your {pulsar-short} deployment.
 
+[tabs]
+======
+{astra-streaming}::
 +
-Example:
+--
+When you enable {product} in {astra-streaming}, it is deployed as a Protocol Handler in the {pulsar-short} brokers.
+Because {astra-streaming} manages the {pulsar-short} cluster for you, you cannot use the other {product} deployment options.
+
+
+--
+
+{luna-streaming}::
 +
-[source,properties]
-----
-brokerServiceURL=pulsar://localhost:6650
-brokerWebServiceURL=http://localhost:8080
-configurationStoreServers=localhost:2181
-----
-
-. Run the `jar` file as a Java application, provide the configuration file path in the `--config` (`-c`) option:
-+
-[source,shell]
-----
- java -jar ./starlight-rabbitmq/target/starlight-rabbitmq-${version}-jar-with-dependencies.jar -c conf/my-starlight-for-rabbitmq.conf
-----
-
-=== Running {product} as a protocol handler
-
-{product} can be embedded directly into the {pulsar-short} brokers by loading it as a protocol handler.
-
-The `nar` file for running as a protocol handler is available in the downloaded `tar` file.
-
-. Set the configuration of {product} protocol handler in the broker configuration file, which is typically `broker.conf` or `standalone.conf`.
-
-+
-Example:
-+
-[source,properties]
-----
-messagingProtocols=rabbitmq
-protocolHandlerDirectory=./protocols
-----
-
-. Set the AMQP service listeners.
-+
-[NOTE]
+--
+[tabs]
 ====
-The hostname value in `ampqListeners` is the same as {pulsar-short} broker's `advertisedAddress`.
+Protocol Handler::
++
+include::ROOT:partial$run-as-protocol-handler-simple.adoc[]
+
+Proxy Extension::
++
+include::ROOT:partial$run-as-proxy-extension.adoc[]
+
+Standalone Java application::
++
+include::ROOT:partial$run-as-standalone.adoc[]
 ====
+--
 
+Self-managed::
 +
-[source,properties]
-----
-amqpListeners=amqp://127.0.0.1:5672
-advertisedAddress=127.0.0.1
-----
-
-. Start the {pulsar-short} broker.
-
-=== Running {product} as a proxy extension
-{product} can be embedded into the {pulsar-short} Proxy by loading it as a proxy extension.
-
-The `nar` file for running as a proxy extension is available in the downloaded `tar` file.
-
-. Set the configuration of {product} protocol handler in the {pulsar-short} Proxy configuration file, which is typically `proxy.conf`.
-
-+
-Example:
-+
-[source,properties]
-----
-proxyExtensions=rabbitmq
-proxyExtensionsDirectory=./protocols
-----
-
-. Set the AMQP service listeners.
-
-+
-[NOTE]
+--
+[tabs]
 ====
-The hostname value in listeners is the same as {pulsar-short} proxy's `advertisedAddress`.
+Protocol Handler::
++
+include::ROOT:partial$run-as-protocol-handler-simple.adoc[]
+
+Proxy Extension::
++
+include::ROOT:partial$run-as-proxy-extension.adoc[]
+
+Standalone Java application::
++
+include::ROOT:partial$run-as-standalone.adoc[]
 ====
-+
-Example:
-+
-[source,properties]
-----
-amqpListeners=amqp://127.0.0.1:5672
-advertisedAddress=127.0.0.1
-----
+--
+======
 
-. Start the {pulsar-short} proxy.
-
-== Ensure {product} works
+== Test {product}
 
 You can use a `RabbitMQ/AMQP-0.9.1` client or a tool such as https://rabbitmq.github.io/rabbitmq-perf-test/stable/htmlsingle/[RabbitMQ PerfTest]
-to ensure everything works correctly.
+to test {product} after deploying it.
 
-For instance, the following Python script creates a queue, publishes a message that is routed to the queue, reads the message from the queue, and then deletes the queue:
+For example, the following Python script creates a queue, publishes a message that is routed to the queue, reads the message from the queue, and then deletes the queue:
 
 [source,python]
 ----
@@ -144,3 +110,5 @@ try:
 finally:
     connection.close()
 ----
+
+== Next steps

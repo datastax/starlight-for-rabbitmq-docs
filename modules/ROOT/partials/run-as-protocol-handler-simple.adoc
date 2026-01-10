@@ -1,0 +1,29 @@
+You can embed {product} directly into the {pulsar-short} brokers by loading it as a protocol handler.
++
+The `nar` file for running {product} as a protocol handler is available in the {product} `tar` file.
++
+. Create or edit a {pulsar-short} broker configuration file, such as `broker.conf` or `standalone.conf`.
++
+. Set the {product} protocol handler configuration.
+For example:
++
+.broker.conf
+[source,conf]
+----
+messagingProtocols=rabbitmq
+protocolHandlerDirectory=./protocols
+----
++
+. Set the AMQP service listeners.
+For example:
++
+.broker.conf
+[source,conf]
+----
+amqpListeners=amqp://127.0.0.1:5672
+advertisedAddress=127.0.0.1
+----
++
+The hostname value in `ampqListeners` is the same as {pulsar-short} broker's `advertisedAddress`.
++
+. Start the {pulsar-short} broker.
