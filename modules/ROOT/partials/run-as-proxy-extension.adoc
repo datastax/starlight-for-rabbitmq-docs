@@ -1,0 +1,29 @@
+You can embed {product} into the {pulsar-short} Proxy by loading it as a proxy extension.
++
+The `nar` file for running {product} as a proxy extension is available in the {product} `tar` file.
++
+. Create or edit a {pulsar-short} Proxy configuration file, such as `proxy.conf`.
++
+. Set the {product} protocol handler configuration.
+For example:
++
+.proxy.conf
+[source,conf]
+----
+proxyExtensions=rabbitmq
+proxyExtensionsDirectory=./protocols
+----
++
+. Set the AMQP service listeners.
+For example:
++
+.proxy.conf
+[source,conf]
+----
+amqpListeners=amqp://127.0.0.1:5672
+advertisedAddress=127.0.0.1
+----
++
+The hostname value in listeners is the same as {pulsar-short} proxy's `advertisedAddress`.
++
+. Start the {pulsar-short} proxy.
