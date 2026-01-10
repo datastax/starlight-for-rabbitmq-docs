@@ -1,8 +1,8 @@
 = {product}
 
-{product} acts as a proxy between your https://www.rabbitmq.com/[RabbitMQ] application and https://pulsar.apache.org/[{pulsar-reg}].
+{product} acts as a proxy between your https://www.rabbitmq.com/[RabbitMQ] application and https://pulsar.apache.org/[{pulsar-reg}] cluster.
 It implements the AMQP 0.9.1 protocol used by RabbitMQ clients and translates AMQP frames and concepts to {pulsar-short} ones.
-{product} can be run as a standalone Java application, a {pulsar-short} https://github.com/apache/pulsar/wiki/PIP-41%3A-Pluggable-Protocol-Handler[Pluggable Protocol Handler], or a https://github.com/apache/pulsar/wiki/PIP-99%3A-Pulsar-Proxy-Extensions[{pulsar-short} Proxy extension].
+{product} can be run as a standalone Java application, a {pulsar-short} protocol handler, or a {pulsar-short} Proxy extension.
 
 == How {product} works
 

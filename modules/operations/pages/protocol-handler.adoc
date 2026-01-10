@@ -80,36 +80,36 @@ If the VHost name is empty (`/`) or short (`/**HOSTNAME**` or `**HOSTNAME**`), t
 
 |`amqpMapShortVhostToTenant`
 |`false`
-a|Whether to prefer the `ampqDefaultTenant` or `ampqDefaultNamespace` when constructing the default mapping for short VHosts:
+a|Whether to prefer the `amqpDefaultTenant` or `amqpDefaultNamespace` when constructing the default mapping for short VHosts:
 
 * `false` (default): Short VHosts are mapped to a namespace on the default tenant.
-The value of `ampqDefaultTenant` is used as the tenant name and the short VHost name is used as the namespace name.
+The value of `amqpDefaultTenant` is used as the tenant name and the short VHost name is used as the namespace name.
 +
 This results in VHost-specific namespace names and a consistent tenant name.
 
 * `true`: Short VHosts are mapped to tenants using the default namespace.
-The short VHost name is used as the tenant name and the value of `ampqDefaultNamespace` is used as the namespace name.
+The short VHost name is used as the tenant name and the value of `amqpDefaultNamespace` is used as the namespace name.
 +
 This results in VHost-specific tenant names and a consistent namespace name.
 |===
 
 To further illustrate this concept, here is how {product} handles different AMQP VHost names:
 
-* **Empty VHost**: An AMQP VHost `/` maps to `ampqDefaultTenant/ampqDefaultNamespace`.
+* **Empty VHost**: An AMQP VHost `/` maps to `amqpDefaultTenant/amqpDefaultNamespace`.
 For example, with the default values, `/` maps to the {pulsar-short} namespace `public/default`.
 
-* **Short VHost**: A short AMQP VHost, such as `/**HOSTNAME**` or `**HOSTNAME**` maps to `ampqDefaultTenant/**HOSTNAME**` by default.
-The value of `ampqDefaultTenant` is the {pulsar-short} tenant name, and the VHost name is the namespace name.
-For example, if `ampqDefaultTenant` is set to `public`, then `/vhost1` and `vhost1` map to the {pulsar-short} namespace `public/vhost1`.
+* **Short VHost**: A short AMQP VHost, such as `/**HOSTNAME**` or `**HOSTNAME**` maps to `amqpDefaultTenant/**HOSTNAME**` by default.
+The value of `amqpDefaultTenant` is the {pulsar-short} tenant name, and the VHost name is the namespace name.
+For example, if `amqpDefaultTenant` is set to `public`, then `/vhost1` and `vhost1` map to the {pulsar-short} namespace `public/vhost1`.
 +
-However, if `ampqMapShortVhostToTenant` is set to `true`, then the mapping is `**HOSTNAME**/ampqDefaultNamespace`.
-In this case, the VHost name is the {pulsar-short} tenant name, and the value of `ampqDefaultNamespace` is the namespace name.
-For example, if `ampqDefaultNamespace` is set to `default`, then `/vhost1` and `vhost1` map to `vhost1/default`.
+However, if `amqpMapShortVhostToTenant` is set to `true`, then the mapping is `**HOSTNAME**/amqpDefaultNamespace`.
+In this case, the VHost name is the {pulsar-short} tenant name, and the value of `amqpDefaultNamespace` is the namespace name.
+For example, if `amqpDefaultNamespace` is set to `default`, then `/vhost1` and `vhost1` map to `vhost1/default`.
 
 * **Full VHost**: An AMQP VHost with who two segments, such as `/**HOSTNAME**/**HOSTNAME_SUFFIX**` or `**HOSTNAME**/**HOSTNAME_SUFFIX**`, maps directly to a {pulsar-short} tenant and namespace.
 The first segment is the tenant name, and the second segment is the namespace name.
 +
-In this case, {product} doesn't use `ampqDefaultTenant` or `ampqDefaultNamespace` because both names are explicitly provided.
+In this case, {product} doesn't use `amqpDefaultTenant` or `amqpDefaultNamespace` because both names are explicitly provided.
 
 == Supported exchange types
 
