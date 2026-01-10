@@ -29,7 +29,7 @@ Proxy Extensions require {pulsar-short} version 2.9 or later.
 
 [IMPORTANT]
 ====
-Support for topic exchanges and OAuth were added in {product} version 2.10.1.
+Support for topic exchanges was added in {product} version 2.10.1.
 ====
 
 {product} version 2.10.1 doesn't support the following features:
@@ -38,6 +38,7 @@ Support for topic exchanges and OAuth were added in {product} version 2.10.1.
 * Exclusive consumers
 * Non durable exchanges and queues
 * Transient messages (all messages are persisted)
+* Authorization support
 
 Because RabbitMQ and {pulsar-short} work differently, {product} was designed to realize the most benefit from {pulsar-short}'s scalability.
 This means that canceling an AMQP consumer re-queues the messages that were received through it because it also closes the associated {pulsar-short} consumers.
