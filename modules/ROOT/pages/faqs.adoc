@@ -24,7 +24,7 @@ The following {pulsar-short} releases are supported:
 
 == What are the {product} limitations?
 
-See xref:ROOT:index.adoc#limitations[].
+See xref:ROOT:index.adoc#limitations[Limitations].
 
 === Is {product} an open-source project? Where can I find the source code?
 

@@ -114,11 +114,8 @@ kubectl -n datastax-pulsar wait --for=condition=Ready pod/pulsar-broker-0 --time
 +
 . Enable port forwarding for the {pulsar-short} Admin and {product} services that are running on the Kubernetes cluster.
 +
-[TIP]
-====
 You don't need to open the {pulsar-short} binary port to accept new messages when using {product}.
 This is because RabbitMQ clients communicate using the AMQP protocol over the RabbitMQ port (5672).
-====
 +
 .. In a new terminal, port forward the {pulsar-short} Admin service:
 +
