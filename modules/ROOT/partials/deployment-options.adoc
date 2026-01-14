@@ -1,0 +1,17 @@
+There are several ways to run {product}:
+
+https://github.com/apache/pulsar/wiki/PIP-41%3A-Pluggable-Protocol-Handler[{pulsar-short} pluggable protocol handler]::
+Deploying {product} in the broker as a protocol handler means that you don't need to deploy another runtime.
+However, the resources used by {product} to handle traffic can have an impact on the load balancing algorithms used by {pulsar-short}.
++
+By adding the {product} protocol handler to your {pulsar-short} cluster, you can migrate your existing RabbitMQ applications and services to {pulsar-short} without modifying the code.
++
+image:ROOT:s4r-architecture.png[{product} Architecture]
+
+https://github.com/apache/pulsar/wiki/PIP-99%3A-Pulsar-Proxy-Extensions[{pulsar-short} Proxy extension]::
+Deploying {product} in the {pulsar-short} Proxy as a proxy extension means that you don't need to deploy another runtime if you already use the {pulsar-short} Proxy.
+Additionally, there is no significant impact on the {pulsar-short} Proxy's performance.
+Proxy extensions require {pulsar-short} version 2.9 or later.
+
+Standalone Java application::
+Running {product} as a standalone Java application has the advantage of not impacting the resources used by the {pulsar-short} cluster but on the other hand you need to deploy and manage the lifecycle of an additional runtime.

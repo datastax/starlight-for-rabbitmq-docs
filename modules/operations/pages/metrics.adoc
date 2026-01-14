@@ -1,31 +1,59 @@
-= Starlight for RabbitMQ metrics
+= {product} metrics
 :navtitle: Monitoring
 
-Starlight for RabbitMQ exposes the following metrics in Prometheus format. You can monitor your clusters with these metrics.
+{product} exposes the following metrics in Prometheus format.
+You can monitor your clusters with these metrics.
 
-The following types of metrics are available:
+The {product} metrics are exposed under `/metrics` at port `8000` along with {pulsar-short} metrics.
+To use a different port, configure the `stats_server_port` system property.
 
-- https://prometheus.io/docs/concepts/metric_types/#counter[Counter]: a cumulative metric that represents a single monotonically increasing counter. The value increases by default. You can reset the value to zero or restart your cluster.
-- https://prometheus.io/docs/concepts/metric_types/#gauge[Gauge]: a metric that represents a single numerical value that can arbitrarily go up and down.
+== Metric types
 
-== Starlight for RabbitMQ metrics
+{product} metrics are either counters or gauges:
 
-The Starlight for RabbitMQ metrics are exposed under `/metrics`` at port `8000` along with Pulsar metrics. Use a different port by configuring the `stats_server_port` system property. Depending on where the Starlight for RabbitMQ service is deployed, each metric will be prefixed with either "pulsar_proxy", "pulsar", or "server" (for standalone).
+* https://prometheus.io/docs/concepts/metric_types/#counter[Counter]: A cumulative metric that represents a single monotonically increasing counter.
+The value increases by default.
+You can reset the value to zero or restart your cluster.
+* https://prometheus.io/docs/concepts/metric_types/#gauge[Gauge]: A metric that represents a single numerical value that can arbitrarily increase and decrease.
 
-=== Request metrics
+== Metric prefixes
 
-[cols=3*,options=header]
+The prefix for the metric names depends on xref:ROOT:index.adoc#deployment-options[how you deployed {product}]:
 
+* **Protocol handler**: Metrics are prefixed with `pulsar`.
+* **Proxy extension**: Metrics are prefixed with `pulsar_proxy`.
+* **Standalone mode**: Metrics are prefixed with `server`.
+
+== Request metrics
+
+The following metrics are available to monitor the requests handled by {product}:
+
+[cols=3]
 |===
-|Name
-|Type
-|Description
+|Name |Type |Description
 
-| <prefix>_rabbitmq_in_bytes | Counter | Counter of bytes in
-|<prefix>_rabbitmq_out_bytes|Counter|Counter of bytes out
-|<prefix>_rabbitmq_in_messages_total|Counter|Counter of messages in
-|<prefix>_rabbitmq_out_messages_total|Counter|Counter of messages out
-|<prefix>_rabbitmq_active_connections|Gauge|Number of connections currently active
-|<prefix>_rabbitmq_new_connections|Gauge|Number of connections being opened
+|`**PREFIX**_rabbitmq_in_bytes`
+| Counter
+| Counter of bytes in
+
+|`**PREFIX**_rabbitmq_out_bytes`
+|Counter
+|Counter of bytes out
+
+|`**PREFIX**_rabbitmq_in_messages_total`
+|Counter
+|Counter of messages in
+
+|`**PREFIX**_rabbitmq_out_messages_total`
+|Counter
+|Counter of messages out
+
+|`**PREFIX**_rabbitmq_active_connections`
+|Gauge
+|Number of connections currently active
+
+|`**PREFIX**_rabbitmq_new_connections`
+|Gauge
+|Number of connections being opened
 
 |===

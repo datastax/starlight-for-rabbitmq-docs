@@ -1,8 +1,13 @@
-= Starlight for RabbitMQ proxy extension
-:navtitle: Pulsar proxy extension
+= {product} proxy extension
+:navtitle: {pulsar-short} proxy extension
 
-Following the https://github.com/apache/pulsar/wiki/PIP-99:-Pulsar-Proxy-Extensions[proxy extension^] interface, Starlight for RabbitMQ constructs a "gateway" service that monitors RabbitMQ channel(s).
+Following the https://github.com/apache/pulsar/wiki/PIP-99:-Pulsar-Proxy-Extensions[proxy extension] interface, {product} constructs a gateway service that monitors RabbitMQ channel(s).
 
-Both the proxy extension and the protocol handler use the same "gateway" logic to create channels, manage exchanges, publish messages, etc. To learn more about all those functions refer to the "xref:protocol-handler.adoc[]" document.
+Both the proxy extension and the protocol handler use the same gateway logic for functions like creating channels, managing exchanges, and publishing messages.
+To learn more about these functions, see xref:protocol-handler.adoc[].
 
-One notable difference between the Starlight for RabbitMQ proxy extension and the protocol handler, is that the proxy runs on the Pulsar Proxy. So a discovery must be done at startup to find available brokers. Currently, Starlight for RabbitMQ proxy extension uses the broker discovery mechanism provided in the Pulsar proxy extension interface to discover brokers. It then chooses the first available broker from that collection. All messages to the Starlight for RabbitMQ service will be produced using that broker.
+One notable difference between the {product} proxy extension and the protocol handler is that the proxy runs on the {pulsar-short} Proxy.
+This means that a discovery must be done at startup to find available brokers.
+The {product} proxy extension uses the broker discovery mechanism provided in the {pulsar-short} proxy extension interface to discover brokers.
+It then chooses the first available broker from that collection.
+All messages to the {product} service are produced using that broker.

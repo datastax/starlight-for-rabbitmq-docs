@@ -4,11 +4,16 @@ version: '2.10.1.x'
 start_page: 'index.adoc'
 
 nav:
-- modules/installation/nav.adoc
-- modules/configuration/nav.adoc
 - modules/ROOT/nav.adoc
-- modules/operations/nav.adoc
 
 asciidoc:
   attributes:
-    starlight_rabbitmq: 'Starlight for RabbitMQ'
+    product: 'Starlight for RabbitMQ'
+    astra-ui: 'Astra Portal'
+    astra-url: 'https://astra.datastax.com'
+    astra-ui-link: '{astra-url}[{astra-ui}^]'
+    pulsar-reg: 'Apache Pulsar(TM)'
+    pulsar: 'Apache Pulsar'
+    pulsar-short: 'Pulsar'
+    luna-streaming: 'Luna Streaming'
+    astra-streaming: 'Astra Streaming'

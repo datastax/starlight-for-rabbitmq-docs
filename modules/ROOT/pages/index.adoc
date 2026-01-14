@@ -1,35 +1,39 @@
-= {starlight_rabbitmq}
+= {product}
 
-Starlight for RabbitMQ acts as a proxy between your https://www.rabbitmq.com/[RabbitMQ^] application and https://pulsar.apache.org/[Apache Pulsar(TM)^] cluster. It implements the AMQP 0.9.1 protocol used by RabbitMQ clients and translates AMQP frames and concepts to Pulsar ones. Starlight for RabbitMQ can be run as a standalone Java application, a Pulsar Protocol Handler, or a Pulsar Proxy Extension.
+{product} acts as a proxy between your https://www.rabbitmq.com/[RabbitMQ] application and https://pulsar.apache.org/[{pulsar-reg}] cluster.
+It implements the AMQP 0.9.1 protocol used by RabbitMQ clients and translates AMQP frames and concepts to {pulsar-short} ones.
+{product} can be run as a standalone Java application, a {pulsar-short} protocol handler, or a {pulsar-short} Proxy extension.
 
-== How Starlight for RabbitMQ works
+== How {product} works
 
 AMQP 0.9.1, the protocol RabbitMQ uses, employs the concepts of `Exchanges`, `Queues`, and `Bindings` to provide basic routing capabilities inside the message broker.
-These concepts are mapped to Pulsar topics and features.
+These concepts are mapped to {pulsar-short} topics and features.
 
-{starlight_rabbitmq} acts as a proxy and uses the Pulsar binary protocol to communicate with the brokers. This method allows RabbitMQ applications to leverage Pulsar features like load balancing of the topics on the brokers, batching of messages, partitioning of topics, and load balancing of the data on the consumers.
+{product} acts as a proxy and uses the {pulsar-short} binary protocol to communicate with the brokers. This method allows RabbitMQ applications to leverage {pulsar-short} features like load balancing of the topics on the brokers, batching of messages, partitioning of topics, and load balancing of the data on the consumers.
 
+For more information, see xref:operations:protocol-handler.adoc[].
+
+[#deployment-options]
 == Deployment options
 
-{starlight_rabbitmq} can be run in various deployments:
+include::ROOT:partial$deployment-options.adoc[]
 
-* Standalone Java application
-Running {starlight_rabbitmq} as a standalone Java application has the advantage of not impacting the resources used by the Pulsar cluster but on the other hand you need to deploy and manage the lifecycle of an additional runtime.
-
-* https://github.com/apache/pulsar/wiki/PIP-41%3A-Pluggable-Protocol-Handler[Pulsar Pluggable Protocol Handler]
-Deploying {starlight_rabbitmq} in the broker as a Protocol Handler avoids having to deploy another runtime but there will be resources used by {starlight_rabbitmq} to handle the traffic that can have an impact on the load balancing algorithms used by Pulsar.
-
-* https://github.com/apache/pulsar/wiki/PIP-99%3A-Pulsar-Proxy-Extensions[Pulsar Proxy extension]
-Deploying {starlight_rabbitmq} in the Pulsar Proxy as a Proxy Extension avoids having to deploy another runtime if you already use the Pulsar Proxy and it will not have a big impact on the Pulsar Proxy functioning. Note that Proxy Extensions will be available in Pulsar v2.9+.
+For instructions, see xref:installation:getting-started.adoc[].
 
 == Limitations
 
-The following capabilities have not been implemented:
+[IMPORTANT]
+====
+Support for topic exchanges was added in {product} version 2.10.1.
+====
 
-* Header exchanges (topic exchanges have been added)
+{product} version 2.10.1 doesn't support the following features:
+
+* Header exchanges
 * Exclusive consumers
 * Non durable exchanges and queues
 * Transient messages (all messages are persisted)
+* Authorization support
 
-Because RabbitMQ and Pulsar work differently, {starlight_rabbitmq} was designed to make the most of Pulsar's scalability.
-This means that canceling an AMQP consumer will re-queue the messages that were received through it because it also closes the associated Pulsar consumers.
+Because RabbitMQ and {pulsar-short} work differently, {product} was designed to realize the most benefit from {pulsar-short}'s scalability.
+This means that canceling an AMQP consumer re-queues the messages that were received through it because it also closes the associated {pulsar-short} consumers.
