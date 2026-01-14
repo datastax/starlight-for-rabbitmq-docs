@@ -1,213 +1,237 @@
 = Configuration
 
-The following configuration settings are used by {starlight_rabbitmq}. Depending on how you are running {starlight_rabbitmq}, the configuration file is read in a different way:
+The following configuration settings are used by {product}.
 
-[cols=2*]
+The way {product} reads the configuration file depends on how you are running {product}:
+
+* Standalone Java application: Configuration file passed as command line argument
+
+* Broker protocol handler: Broker configuration file
+
+* Proxy extension: Proxy configuration file
+
+== General configuration options
+
+[cols=3]
 |===
-|*How are you running {starlight_rabbitmq}*?
-|*From where are the configuration settings read?*
+|Name |Default |Description
 
-|Standalone Java application
-|Configuration file passed as command line argument
-
-|Broker Protocol Handler
-|Broker configuration file
-
-|Proxy Extension
-|Proxy configuration file
-|===
-
-== Generic configuration
-[cols=3*]
-|===
-|*Name*
-|*Default*
-|*Description*
-
-|configurationStoreServers
+|`configurationStoreServers`
 |
 |Apache ZooKeeper(TM) configuration store connection string as a comma-separated list.
 
-|amqpListeners
-|amqp://127.0.0.1:5672
-|Specifies multiple advertised listeners for the proxy. Format the value as `amqp[s]://<host>:<port>` with multiple listeners separated with commas.
+|`amqpListeners`
+|`amqp://127.0.0.1:5672`
+|Specifies multiple advertised listeners for the proxy.
+Format the value as `amqp[s]://**HOST**:**PORT**` with commas separating multiple listeners.
 
-|amqpSessionCountLimit
-|256
+|`amqpSessionCountLimit`
+|`256`
 |The maximum number of sessions that can exist concurrently on an AMQP connection.
 
-|amqpHeartbeatDelay
-|0
-|The default period with which Broker and client will exchange heartbeat messages in seconds when using AMQP. Clients may negotiate a different heartbeat frequency or disable it altogether.
+|`amqpHeartbeatDelay`
+|`0`
+|The duration, in seconds, for the Broker and client to exchange heartbeat messages when using AMQP.
+Clients can negotiate a different heartbeat frequency or disable it altogether.
 
-|amqpHeartbeatTimeoutFactor
-|2
-|Factor to determine the maximum length of time that may elapse between heartbeats being received from the peer before an AMQP0.9 connection is deemed to have been broken.
+|`amqpHeartbeatTimeoutFactor`
+|`2`
+|Factor to determine the maximum length of time that can elapse between heartbeats being received from the peer before an AMQP0.9 connection is considered broken.
 
-|amqpNetworkBufferSize
-|2097152 (2MB)
+|`amqpNetworkBufferSize`
+|`2097152` (2MB)
 |AMQP network buffer size.
 
-|amqpMaxMessageSize
-|104857600 (100MB)
+|`amqpMaxMessageSize`
+|`104857600` (100MB)
 |AMQP maximum message size.
 
-|amqpDebugBinaryDataLength
-|80
+|`amqpDebugBinaryDataLength`
+|`80`
 |AMQP length of binary data sent to debug log.
 
-|amqpConnectionCloseTimeout
-|2000
-|Timeout in ms after which the AMQP connection closes even if a ConnectionCloseOk frame is not received.
+|`amqpConnectionCloseTimeout`
+|`2000`
+|Timeout in ms after which the AMQP connection closes even if a `ConnectionCloseOk` frame isn't received.
 
-|amqpBatchingEnabled
-|true
+|`amqpBatchingEnabled`
+|`true`
 |Whether batching messages is enabled in AMQP.
 |===
 
 == Authentication configuration
-[cols=2*]
-|===
-|*Name*
-|*Description*
 
-|authenticationEnabled +
- Default: false
+[cols=2]
+|===
+|Name |Description
+
+|`authenticationEnabled`
 |Whether authentication is enabled for the proxy.
 
-|amqpAuthenticationMechanisms +
- Default: PLAIN
-|Comma-separated authentication mechanism name list for AMQP. +
- For example: PLAIN, EXTERNAL
+Default: `false`
 
-|tokenSecretKey
-|Configure the secret key to be used to validate auth tokens. The key can be specified like this: +
- `tokenSecretKey=data:;base64,xxxxxxxxx` or `tokenSecretKey=file:///my/secret.key` +
- Note: Key file must be DER-encoded.
+|`amqpAuthenticationMechanisms`
+|Comma-separated authentication mechanism name list for AMQP.
 
-|tokenPublicKey
-|Configure the public key to be used to validate auth tokens. The key can be specified like this: +
- `tokenPublicKey=data:;base64,xxxxxxxxx` or `tokenPublicKey=file:///my/secret.key` +
- Note: Key file must be DER-encoded.
+For example: `PLAIN`, `EXTERNAL`
 
-|tokenAuthClaim
-|Specify the token claim that will be used as the authentication `principal` or `role`. The `subject` field will be used if this is left blank.
+Default: `PLAIN`
 
-|tokenAudienceClaim
-|The token audience `claim` name used to get the audience from token. If it is not set, the audience is not verified. +
- For example: `aud`
+|`tokenSecretKey`
+a|Configure the secret key to be used to validate auth tokens.
+The key can be specified in either of the following ways:
 
-|tokenAudience
-|The token audience stands for this broker. The field `tokenAudienceClaim` of a valid token contains this parameter.
+* `tokenSecretKey=data:;base64,xxxxxxxxx`
+* `tokenSecretKey=file:///my/secret.key` (Key file must be DER-encoded)
+
+|`tokenPublicKey`
+a|Configure the public key to be used to validate auth tokens.
+The key can be specified in either of the following ways:
+
+* `tokenPublicKey=data:;base64,xxxxxxxxx`
+* `tokenPublicKey=file:///my/secret.key` (Key file must be DER-encoded)
+
+|`tokenAuthClaim`
+|Specify the token claim that is used as the authentication `principal` or `role`.
+If not set, the `subject` field is used.
+
+|`tokenAudienceClaim`
+|The token audience `claim` name used to get the audience from token.
+If not set, the audience isn't verified.
+
+For example: `aud`
+
+|`tokenAudience`
+|The token audience stands for this broker.
+This parameter can be found in the `tokenAudienceClaim` field of a valid token.
 |===
 
 == Broker client configuration
-[cols=2*]
-|===
-|*Name*
-|*Description*
 
-|brokerServiceURL
+[cols=2]
+|===
+|Name |Description
+
+|`brokerServiceURL`
 |The service URL pointing to the broker cluster.
 
-|brokerWebServiceURL
+|`brokerWebServiceURL`
 |The web service URL pointing to the broker cluster.
 
-|brokerClientAuthenticationPlugin
-|The authentication plugin used by the Apache Pulsar(TM) proxy to authenticate with Pulsar brokers.
+|`brokerClientAuthenticationPlugin`
+|The authentication plugin used by the {pulsar-reg} proxy to authenticate with {pulsar-short} brokers.
 
-|brokerClientAuthenticationParameters
-|The authentication parameters used by the Pulsar proxy to authenticate with Pulsar brokers.
+|`brokerClientAuthenticationParameters`
+|The authentication parameters used by the {pulsar-short} proxy to authenticate with {pulsar-short} brokers.
 
-|amqpBrokerClientAuthenticationParameters
-|If set, the RabbitMQ service will use these parameters to authenticate on Pulsar's brokers. If not set, the brokerClientAuthenticationParameters setting will be used. This setting allows different credentials for the Pulsar proxy and the RabbitMQ service.
+|`amqpBrokerClientAuthenticationParameters`
+|If set, the RabbitMQ service uses these parameters to authenticate on {pulsar-short}'s brokers.
 
-|tlsEnabledWithBroker +
- Default: false
-|Whether TLS is enabled when communicating with Pulsar brokers.
+If not set, the `brokerClientAuthenticationParameters` setting is used.
 
-|brokerClientTrustCertsFilePath
-|The path to trusted certificates used by the Pulsar proxy to authenticate with Pulsar brokers.
+This setting allows different credentials for the {pulsar-short} proxy and the RabbitMQ service.
 
-|brokerClientTlsEnabledWithKeyStore
-|Whether the proxy uses KeyStore type to authenticate with Pulsar brokers.
+|`tlsEnabledWithBroker`
+|Whether TLS is enabled when communicating with {pulsar-short} brokers.
 
-|brokerClientTlsTrustStoreType
-|TLS TrustStore type configuration for proxy used by the proxy to authenticate with Pulsar brokers. +
- For example: JKS, PKCS12
+Default: `false`
 
-|brokerClientTlsTrustStore
-|TLS TrustStore path for proxy used by the Pulsar proxy to authenticate with Pulsar brokers.
+|`brokerClientTrustCertsFilePath`
+|The path to trusted certificates used by the {pulsar-short} proxy to authenticate with {pulsar-short} brokers.
 
-|brokerClientTlsTrustStorePassword
-| TLS TrustStore password for proxy used by the Pulsar proxy to authenticate with Pulsar brokers.
+|`brokerClientTlsEnabledWithKeyStore`
+|Whether the proxy uses KeyStore type to authenticate with {pulsar-short} brokers.
+
+|`brokerClientTlsTrustStoreType`
+|TLS TrustStore type configuration for proxy used by the proxy to authenticate with {pulsar-short} brokers.
+
+For example: `JKS`, `PKCS12`
+
+|`brokerClientTlsTrustStore`
+|TLS TrustStore path for proxy used by the {pulsar-short} proxy to authenticate with {pulsar-short} brokers.
+
+|`brokerClientTlsTrustStorePassword`
+|TLS TrustStore password for proxy used by the {pulsar-short} proxy to authenticate with {pulsar-short} brokers.
 |===
 
 == TLS configuration
-[cols=2*]
+
+[cols=2]
 |===
-|*Name*
-|*Description*
+|Name |Description
 
-|tlsCertRefreshCheckDurationSec +
- Default: 300
-|TLS certificate refresh duration in seconds. If the value is set 0, checks TLS certificate every new connection.
+|`tlsCertRefreshCheckDurationSec`
+|TLS certificate refresh duration in seconds.
 
-|tlsCertificateFilePath
+If set to `0`, {product} checks the TLS certificate whenever there is a new connection.
+
+Default: `300`
+
+|`tlsCertificateFilePath`
 |Path for the TLS certificate file.
 
-|tlsKeyFilePath
+|`tlsKeyFilePath`
 |Path for the TLS private key file.
 
-|tlsTrustCertsFilePath
+|`tlsTrustCertsFilePath`
 |Path for the trusted TLS certificate `pem` file.
 
-|tlsAllowInsecureConnection
-|Accept untrusted TLS certificate from client. +
- If true, a client with a certificate which cannot be verified with the `tlsTrustCertsFilePath` certificate will be allowed to connect to the server, though the certificate will not be used for client authentication.
+|`tlsAllowInsecureConnection`
+|Whether to accept untrusted TLS certificate from client.
 
-|tlsHostnameVerificationEnabled +
- Default: false
+If `true`, a client with a certificate that cannot be verified with the `tlsTrustCertsFilePath` certificate is allowed to connect to the server, although the certificate won't be used for client authentication.
+
+|`tlsHostnameVerificationEnabled`
 |Whether the hostname is validated when the proxy creates a TLS connection with brokers.
 
-|tlsRequireTrustedClientCertOnConnect +
- Default: false
-|Whether client certificates are required for TLS. If the client certificate is not trusted, connections are rejected.
+Default: `false`
 
-|tlsProtocols
-|Specify the `tls` protocols the broker will use to negotiate during TLS handshake. Multiple values can be specified, separated by commas. +
- For example: `TLSv1.3`, `TLSv1.2`
+|`tlsRequireTrustedClientCertOnConnect`
+|Whether client certificates are required for TLS. If the client certificate isn't trusted, connections are rejected.
 
-|tlsCiphers
-|Specify the `tls` cipher the broker will use to negotiate during TLS handshake. Multiple values can be specified, separated by commas. +
- For example: `TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256`
+Default: `false`
 
-|tlsRequireTrustedClientCertOnConnect
-|Whether client certificates are required for TLS. If the client certificate is not trusted, connections are rejected.
+|`tlsProtocols`
+|Specify the `tls` protocols the broker uses to negotiate during TLS handshake.
+Use commas to separate multiple values.
 
-|tlsEnabledWithKeyStore
+For example: `TLSv1.3,TLSv1.2`
+
+|`tlsCiphers`
+|Specify the `tls` cipher the broker uses to negotiate during TLS handshake.
+Use commas to separate multiple values.
+
+For example: `TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256`
+
+|`tlsRequireTrustedClientCertOnConnect`
+|Whether client certificates are required for TLS.
+If the client certificate isn't trusted, connections are rejected.
+
+|`tlsEnabledWithKeyStore`
 |Enable TLS with KeyStore type configuration for proxy.
 
-|tlsProvider
+|`tlsProvider`
 |TLS provider.
 
-|tlsKeyStoreType
-|TLS KeyStore type configuration for proxy. +
- For example: JKS, PKCS12
+|`tlsKeyStoreType`
+|TLS KeyStore type configuration for proxy.
 
-|tlsKeyStore
+For example: `JKS`, `PKCS12`
+
+|`tlsKeyStore`
 |TLS KeyStore path for proxy.
 
-|tlsKeyStorePassword
+|`tlsKeyStorePassword`
 |TLS KeyStore password for proxy.
 
-|tlsTrustStoreType
-|TLS TrustStore type configuration for proxy. +
- For example: JKS, PKCS12
+|`tlsTrustStoreType`
+|TLS TrustStore type configuration for proxy.
 
-|tlsTrustStore
+For example: `JKS`, `PKCS12`
+
+|`tlsTrustStore`
 |TLS TrustStore path for proxy
 
-|tlsTrustStorePassword
+|`tlsTrustStorePassword`
 |TLS TrustStore password for proxy
 |===

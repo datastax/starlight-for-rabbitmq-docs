@@ -1,0 +1,30 @@
+You can run {product} as a standalone Java application.
+The `jar` file for running {product} as a standalone Java application is available in the {product} `tar` file.
++
+. Download the {product} `tar` file from the https://github.com/datastax/starlight-for-rabbitmq/releases[{product} GitHub repository].
++
+. Extract the files from the `tar`:
++
+[source,bash,subs="+quotes"]
+----
+tar xvfz starlight-rabbitmq-**VERSION**-all.tar.gz
+----
++
+The path to the `jar` file is `/starlight-rabbitmq/target/starlight-rabbitmq-**VERSION**-jar-with-dependencies.jar`.
++
+. In a configuration file, set the URLs of the {pulsar-short} brokers and the Apache ZooKeeper(TM) configuration store.
+For example:
++
+[source,conf]
+----
+brokerServiceURL=pulsar://localhost:6650
+brokerWebServiceURL=http://localhost:8080
+configurationStoreServers=localhost:2181
+----
++
+. Run the `jar` file as a Java application with the configuration file path in the `--config` (`-c`) option:
++
+[source,bash]
+----
+java -jar ./starlight-rabbitmq/target/starlight-rabbitmq-${version}-jar-with-dependencies.jar -c conf/starlight-for-rabbitmq.conf
+----

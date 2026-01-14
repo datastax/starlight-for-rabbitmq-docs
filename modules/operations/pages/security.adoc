@@ -1,0 +1,20 @@
+= {product} security
+:navtitle: Security
+
+{product} supports connections using TLS/mTLS to ensure privacy and security of the communication.
+It also supports the `PLAIN` and `EXTERNAL` authentication mechanisms used by RabbitMQ:
+
+* **`PLAIN`**: Maps to the `AuthenticationProviderToken` mode of authentication.
+The `username` is ignored, and the `password` is used as the JSON Web Token (JWT).
+
+* **`EXTERNAL`**: Maps to the `AuthenticationProviderTls` mode of authentication.
+This is the equivalent of the `rabbitmq-auth-mechanism-ssl` plugin with `ssl_cert_login_from` parameter set to `common_name`.
+
+Internally, it uses the same `AuthenticationService` as {pulsar-short}, and it maps these mechanisms to existing {pulsar-short} authentication modes.
+
+{product} doesn't support authorization.
+This means an authenticated user has full access to all `Virtual hosts`.
+
+{product} can connect to brokers that have TLS, authentication, and/or authorization enabled.
+
+To perform its operations, {product} proxy must use an `admin` role.

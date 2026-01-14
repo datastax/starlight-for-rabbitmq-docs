@@ -1,55 +1,42 @@
-= {starlight_rabbitmq} FAQs
+= {product} frequently asked questions
 :navtitle: FAQs
 
-If you are new to {starlight_rabbitmq}, these frequently asked questions are for you.
+This page answers frequently asked questions about {product}.
 
-== Introduction
+== What is {product}?
 
-=== What is {starlight_rabbitmq}?
+The {product} is a an open-source product from {company}.
 
-The {starlight_rabbitmq} is a an open-source product from DataStax.
+{product} combines the industry-standard AMQP 0.9.1 (RabbitMQ) API with the cloud-native and horizontally scalable {pulsar-reg} streaming platform, providing a powerful way to modernize your RabbitMQ infrastructure, improve performance, and reduce costs.
 
-{starlight_rabbitmq} combines the industry-standard AMQP 0.9.1 (RabbitMQ) API with the cloud-native and horizontally scalable Apache Pulsar(TM) streaming platform, providing a powerful way to modernize your RabbitMQ infrastructure, improve performance, and reduce costs.
+{product} is open source and is included in https://www.ibm.com/docs/en/supportforpulsar[IBM Elite Support for {pulsar}].
 
-{starlight_rabbitmq} is open source and is included in https://www.ibm.com/docs/en/supportforpulsar[IBM Elite Support for Apache Pulsar].
+== What is required to run {product}?
 
+{product} is a proxy for RabbitMQ that is powered by {pulsar-short}.
+It requires a compatible {pulsar-short} release to operate.
 
-=== What is required to run {starlight_rabbitmq}?
+The following {pulsar-short} releases are supported:
 
-{starlight_rabbitmq} is a proxy for RabbitMQ that is powered by Pulsar. It requires a compatible Pulsar release to operate. The following Pulsar releases are supported:
+* {luna-streaming} 2.8.0 or later
+* {pulsar} 2.9.0 or later
+* {astra-streaming}
 
-* Luna Streaming 2.8.0+
-* Apache Pulsar 2.9.0+
+== What are the {product} limitations?
 
+See xref:ROOT:index.adoc#limitations[Limitations].
 
-=== What are the {starlight_rabbitmq} limitations?
+=== Is {product} an open-source project? Where can I find the source code?
 
-{starlight_rabbitmq} does not currently support the following features:
+Yes, {product} is open source using the Apache 2.0 license. You can find the source code in the https://github.com/datastax/starlight-for-rabbitmq[{product} GitHub repository].
 
-* Topic and headers exchanges
-* Exclusive consumers
-* Non durable exchanges and queues
-* Transient messages (all messages are persisted)
-* Authorization support
-
-{starlight_rabbitmq} was designed to make the most benefit from Pulsar's scalability.
-Because of this, canceling an AMQP consumer re-queues the messages that were received through it because it also closes the associated Pulsar consumers.
-
-=== Is {starlight_rabbitmq} an open-source project?
-
-Yes, {starlight_rabbitmq} is open source using the Apache 2.0 license. You can find the source code on the GitHub repository https://github.com/datastax/starlight-for-rabbitmq[datastax/starlight-for-rabbitmq].
-
-=== Does {starlight_rabbitmq} support Kubernetes?
+=== Does {product} support Kubernetes?
 
 Yes.
-You can run the {starlight_rabbitmq} on Luna Streaming or Pulsar running on any Kubernetes platform, including Minikube, K8d, Kind, Google Kubernetes Engine (GKE), Microsoft Azure Kubernetes Service, Amazon Kubernetes Service (AKS), and other commonly used platforms.
+You can run the {product} on {luna-streaming} or {pulsar-short} running on any Kubernetes platform, including Minikube, K8d, Kind, Google Kubernetes Engine (GKE), Microsoft Azure Kubernetes Service, Amazon Kubernetes Service (AKS), and other commonly used platforms.
 
-You can deploy {starlight_rabbitmq} as proxy extension using the https://github.com/datastax/pulsar-helm-chart[DataStax Helm chart for Luna Streaming and Apache Pulsar].
+You can deploy {product} as proxy extension using the https://github.com/datastax/pulsar-helm-chart[{company} Helm chart for {luna-streaming} and {pulsar}].
 
-=== Where is the {starlight_rabbitmq} public GitHub repository?
+=== How do I install {product}?
 
-You can access the {starlight_rabbitmq} repository https://github.com/datastax/starlight-for-rabbitmq[here].
-
-=== How do I install {starlight_rabbitmq}?
-
-Follow the xref:installation:getting-started.adoc[getting started] instructions.
+See xref:installation:getting-started.adoc[].

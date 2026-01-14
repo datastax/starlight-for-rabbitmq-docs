@@ -1,0 +1,119 @@
+= {product} protocol handler
+:navtitle: {pulsar-short} protocol handler
+
+Following the https://github.com/apache/pulsar/wiki/PIP-41%3A-Pluggable-Protocol-Handler[protocol handler] interface, {product} constructs a "gateway" service that acts as a RabbitMQ cluster replacement.
+
+RabbitMQ employs the concepts of `Exchanges`, `Queues`, and `Bindings` to provide basic routing capabilities inside the message broker.
+{product} acts as intermediary between RabbitMQ's AMQP protocol and {pulsar-short}'s binary protocol.
+The result allows RabbitMQ applications to leverage {pulsar-short} features like load balancing of the topics on the brokers, batching of messages, partitioning of topics, and load balancing of the data on the consumers.
+
+== Publishing messages
+
+On the publishing side, an AMQP exchange is mapped to a topic.
+Depending on the type of exchange, the publish routing key can also be included in the topic name.
+
+== Consuming messages
+
+On the consumer side, {pulsar-short} shared subscriptions are used to represent the AMQP `Bindings` from an `Exchange` to a `Queue`.
+When creating an AMQP Queue consumer, the protocol handler creates {pulsar-short} consumers for all the `Bindings` of the `Queue`.
+
+When you unbind the `Queue`, the {pulsar-short} subscription isn't deleted right away since the consumer can be lagging.
+Messages are still received from the subscription and filtered if their position is past the end of the binding.
+{product} periodically checks if all messages from the closed binding have been acknowledged.
+Once the messages have been acknowledged, the corresponding subscription is removed.
+
+[TIP]
+====
+For more details on the AMQP 0.9.1 model refer to the https://www.rabbitmq.com/tutorials/amqp-concepts.html[AMQP 0-9-1 Model Explained] guide in RabbitMQ documentation.
+====
+
+== Mapping AMQP entity constructs to {pulsar-short} constructs
+
+[cols=3]
+|===
+|RabbitMQ |{pulsar-short} |Description
+
+| Virtual host
+| Tenant/Namespace
+| vHosts map to the combination of your {pulsar-short} tenant and a namespace within that tenant.
+See <<multi-tenancy-and-vhosts>>.
+
+| Exchange and optional Routing Key
+| Topic Name
+| The exchange name is the topic name.
+
+If the optional routing key is provided, then the exchange name and key are combined with a double underscore (`+__+`) as the topic name.
+
+| Queue and Bindings
+| Consumer subscriptions
+| A collection of {pulsar-short} consumer shared subscriptions that represent all bindings in the queue.
+
+|===
+
+[#multi-tenancy-and-vhosts]
+== Multi-tenancy and VHosts
+
+{product} offers support for multi-tenancy by mapping an AMQP `Virtual host` to a {pulsar-short} `tenant` and `namespace`.
+
+[IMPORTANT]
+====
+This mapping requires that the AMQP VHost names contain only characters that are allowed in Pulsar tenant and namespace names: `a-z`, `A-Z`, `0-9`, `_`, `-`, `=`, `:`, and `.`.
+====
+
+Full VHost names map directly to a {pulsar-short} tenant and namespace.
+For example, an AMQP VHost named `/vhost1/abc` maps to the {pulsar-short} tenant and namespace `vhost1/abc`.
+
+If the VHost name is empty (`/`) or short (`/**HOSTNAME**` or `**HOSTNAME**`), then {product} completes the mapping based on the following parameters:
+
+.AMQP VHost to {pulsar-short} namespace mapping parameters
+[cols=3]
+|===
+|Name |Default |Description
+
+|`amqpDefaultTenant`
+|`public`
+|Default {pulsar-short} tenant used to map empty or short VHosts.
+
+|`amqpDefaultNamespace`
+|`default`
+|Default {pulsar-short} namespace used to map empty or short VHosts.
+
+|`amqpMapShortVhostToTenant`
+|`false`
+a|Whether to prefer the `amqpDefaultTenant` or `amqpDefaultNamespace` when constructing the default mapping for short VHosts:
+
+* `false` (default): Short VHosts are mapped to a namespace on the default tenant.
+The value of `amqpDefaultTenant` is used as the tenant name and the short VHost name is used as the namespace name.
++
+This results in VHost-specific namespace names and a consistent tenant name.
+
+* `true`: Short VHosts are mapped to tenants using the default namespace.
+The short VHost name is used as the tenant name and the value of `amqpDefaultNamespace` is used as the namespace name.
++
+This results in VHost-specific tenant names and a consistent namespace name.
+|===
+
+To further illustrate this concept, here is how {product} handles different AMQP VHost names:
+
+* **Empty VHost**: An AMQP VHost `/` maps to `amqpDefaultTenant/amqpDefaultNamespace`.
+For example, with the default values, `/` maps to the {pulsar-short} namespace `public/default`.
+
+* **Short VHost**: A short AMQP VHost, such as `/**HOSTNAME**` or `**HOSTNAME**` maps to `amqpDefaultTenant/**HOSTNAME**` by default.
+The value of `amqpDefaultTenant` is the {pulsar-short} tenant name, and the VHost name is the namespace name.
+For example, if `amqpDefaultTenant` is set to `public`, then `/vhost1` and `vhost1` map to the {pulsar-short} namespace `public/vhost1`.
++
+However, if `amqpMapShortVhostToTenant` is set to `true`, then the mapping is `**HOSTNAME**/amqpDefaultNamespace`.
+In this case, the VHost name is the {pulsar-short} tenant name, and the value of `amqpDefaultNamespace` is the namespace name.
+For example, if `amqpDefaultNamespace` is set to `default`, then `/vhost1` and `vhost1` map to `vhost1/default`.
+
+* **Full VHost**: An AMQP VHost with who two segments, such as `/**HOSTNAME**/**HOSTNAME_SUFFIX**` or `**HOSTNAME**/**HOSTNAME_SUFFIX**`, maps directly to a {pulsar-short} tenant and namespace.
+The first segment is the tenant name, and the second segment is the namespace name.
++
+In this case, {product} doesn't use `amqpDefaultTenant` or `amqpDefaultNamespace` because both names are explicitly provided.
+
+== Supported exchange types
+
+Refer to https://www.rabbitmq.com/tutorials/amqp-concepts.html#exchanges[RabbitMQ Exchanges and Exchange Types documentation] for more.
+
+* Direct (default)
+* Fanout

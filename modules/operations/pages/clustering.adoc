@@ -1,0 +1,9 @@
+= Clustering
+
+Multiple {product} instances can be launched at the same time for scalability and high availability needs.
+The {product} instances are stateless and can be started and stopped at will.
+They share their configuration in ZooKeeper so you can create, delete, bind, and unbind exchanges and queues on any {product} instance.
+The configuration is synchronized on the other {product} instances.
+
+Publishing messages can be done on any {product} instance.
+On the receiving side, messages are dispatched evenly to all connected AMQP consumers because the {pulsar-short} subscriptions are shared.

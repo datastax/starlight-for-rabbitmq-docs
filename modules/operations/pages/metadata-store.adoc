@@ -1,0 +1,6 @@
+= Consistent metadata store
+:navtitle: Metadata store
+
+{product} uses Apache ZooKeeper(TM) to store the AMQP entities metadata consistently.
+The existing ZooKeeper configuration store can be reused to store the {product} metadata.
+{product} employs the `/starlight-rabbitmq` prefix to write its entries in ZooKeeper.

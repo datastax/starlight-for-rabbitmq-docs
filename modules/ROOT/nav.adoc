@@ -1,1 +1,12 @@
-* xref:faqs.adoc[]
+.Get started
+* xref:installation:getting-started.adoc[]
+* xref:configuration:configuration.adoc[]
+* xref:ROOT:faqs.adoc[]
+
+.Operations
+* xref:operations:protocol-handler.adoc[]
+* xref:operations:proxy-extension.adoc[]
+* xref:operations:security.adoc[]
+* xref:operations:metrics.adoc[]
+* xref:operations:clustering.adoc[]
+* xref:operations:metadata-store.adoc[]
