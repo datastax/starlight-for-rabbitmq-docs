@@ -16,13 +16,13 @@ The deployment options you can use depend on your {pulsar-short} deployment.
 
 [tabs]
 ======
-{astra-streaming}::
+{astra-stream}::
 +
 --
-When you enable {product} in {astra-streaming}, it is deployed as a protocol handler in the {pulsar-short} cluster.
-Because {astra-streaming} manages the {pulsar-short} cluster for you, you cannot use the other {product} deployment options.
+When you enable {product} in {astra-stream}, it is deployed as a protocol handler in the {pulsar-short} cluster.
+Because {astra-stream} manages the {pulsar-short} cluster for you, you cannot use the other {product} deployment options.
 
-The following steps explain how to enable the {product} protocol handler in an {astra-streaming} {pulsar-short} cluster, and then get the connection details for your RabbitMQ client.
+The following steps explain how to enable the {product} protocol handler in an {astra-stream} {pulsar-short} cluster, and then get the connection details for your RabbitMQ client.
 
 . In the {astra-ui-link} header, click icon:grip[name="Applications"], and then select *Streaming*.
 
@@ -34,14 +34,14 @@ The following steps explain how to enable the {product} protocol handler in an {
 +
 [IMPORTANT]
 ====
-This action creates a configuration file and a `rabbitmq` namespace in your {astra-streaming} tenant automatically.
+This action creates a configuration file and a `rabbitmq` namespace in your {astra-stream} tenant automatically.
 
 The `rabbitmq` namespace is required for the {product} extension to function properly.
 It is a permanent namespace that cannot be removed except by deleting the entire tenant and all of its data.
 ====
 
 . Save the RabbitMQ connection details to a file named `rabbitmq.conf`.
-The actual values depend on your {astra-streaming} tenant's configuration and cloud provider.
+The actual values depend on your {astra-stream} tenant's configuration and cloud provider.
 +
 .rabbitmq.conf
 [source,conf,subs="+quotes,+attributes"]
@@ -56,7 +56,7 @@ amqp_URI: {asterisk}{asterisk}{asterisk}{asterisk}{asterisk}{asterisk}@rabbitmq-
 +
 [TIP]
 ====
-In {astra-streaming}, if you click icon:download[name="Download"] or icon:clipboard[name="Copy"], then a {pulsar-short} token is included in the `password` field automatically.
+In {astra-stream}, if you click icon:download[name="Download"] or icon:clipboard[name="Copy"], then a {pulsar-short} token is included in the `password` field automatically.
 You can also generate a token on your tenant's **Settings** tab.
 ====
 +
@@ -185,18 +185,18 @@ With a {pulsar-short} cluster between publishers and consumers, you can change t
 The following examples use Python and Java.
 The Java example uses Maven, but you can also use Gradle.
 For complete source code examples and examples for other languages, see the https://github.com/datastax/astra-streaming-examples[{company} streaming examples repository].
-These examples are written for {astra-streaming} but they can be adapted for {luna-streaming} or self-managed {pulsar-short} clusters by replacing the connection details with those for your cluster.
+These examples are written for {astra-stream} but they can be adapted for {luna-streaming} or self-managed {pulsar-short} clusters by replacing the connection details with those for your cluster.
 
 [tabs]
 ======
-{astra-streaming}::
+{astra-stream}::
 +
 --
 [tabs]
 ====
 Python client::
 +
-The following example uses a Python script to create a connection between RabbitMQ and your {astra-streaming} tenant.
+The following example uses a Python script to create a connection between RabbitMQ and your {astra-stream} tenant.
 It also establishes a message queue named `queuename`, prints ten messages, and then closes the connection.
 +
 . Enable {product} and get the `rabbitmq.conf` connection details, as explained in <<deploy-starlight-for-rabbitmq>>.
@@ -241,7 +241,7 @@ connection.close()
 ----
 +
 . Optional: Change the values for `queue`, `routing_key`, and `body`.
-`queuename` and `routingkey` become the names of {pulsar-short} topics in your {astra-streaming} tenant.
+`queuename` and `routingkey` become the names of {pulsar-short} topics in your {astra-stream} tenant.
 The `body` is the content of each message that is sent.
 +
 . Save and run the `connect-test.py` script:
@@ -269,14 +269,14 @@ started a channel
  sent one
 ----
 +
-. In {astra-streaming}, go to your tenant's **Namespaces and Topics** tab to inspect the activity in the `rabbitmq` namespace.
+. In {astra-stream}, go to your tenant's **Namespaces and Topics** tab to inspect the activity in the `rabbitmq` namespace.
 +
 If you everything was configured correctly, then the `rabbitmq` namespace should have topics named `amq.default.__queuename` and `amq.default_routingkey` that were created by the Python script.
-Additionally, the namespace's metrics should reflect that at least 10 messages were published and consumed by your {astra-streaming} {pulsar-short} topics.
+Additionally, the namespace's metrics should reflect that at least 10 messages were published and consumed by your {astra-stream} {pulsar-short} topics.
 
 Java client::
 +
-The following example uses a Java program to create a connection between RabbitMQ and your {astra-streaming} tenant, and then it establishes a message queue and sends a message.
+The following example uses a Java program to create a connection between RabbitMQ and your {astra-stream} tenant, and then it establishes a message queue and sends a message.
 +
 . Enable {product} and get the `rabbitmq.conf` connection details, as explained in <<deploy-starlight-for-rabbitmq>>.
 +
@@ -343,7 +343,7 @@ public class App {
 ----
 +
 . Optional: Replace `queuename` with another name for the queue that publishes and consumes messages.
-This name is also used as the corresponding topic name in {astra-streaming}.
+This name is also used as the corresponding topic name in {astra-stream}.
 If the topic doesn't exist, it is created automatically when the producer sends the first message.
 +
 . Add the following code to create a connection, channel, and queue that is used by both the producer and consumer:
@@ -417,10 +417,10 @@ Sent 'Hello World!'
 Received 'Hello World!'
 ----
 +
-. In {astra-streaming}, go to your tenant's **Namespaces and Topics** tab to inspect the activity in the `rabbitmq` namespace.
+. In {astra-stream}, go to your tenant's **Namespaces and Topics** tab to inspect the activity in the `rabbitmq` namespace.
 +
 If you everything was configured correctly, then the `rabbitmq` namespace should have a topic named `amq.default.__queuename` that was created by the Java program.
-Additionally, the namespace's metrics should reflect that at least one message was published and consumed by your {astra-streaming} {pulsar-short} topic.
+Additionally, the namespace's metrics should reflect that at least one message was published and consumed by your {astra-stream} {pulsar-short} topic.
 ====
 --
 
@@ -565,7 +565,7 @@ public class App {
 ----
 +
 . Optional: Replace `queuename` with another name for the queue that publishes and consumes messages.
-This name is also used as the corresponding topic name in {astra-streaming}.
+This name is also used as the corresponding topic name in {astra-stream}.
 If the topic doesn't exist,it is created automatically when the producer sends the first message.
 +
 . Add the producer code, which is a simple flow that sends a single message and awaits acknowledgment:
