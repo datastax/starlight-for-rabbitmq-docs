@@ -2,7 +2,7 @@
 
 Multiple {product} instances can be launched at the same time for scalability and high availability needs.
 The {product} instances are stateless and can be started and stopped at will.
-They share their configuration in ZooKeeper so you can create, delete, bind, and unbind exchanges and queues on any {product} instance.
+They share their configuration in {zookeeper-reg} so you can create, delete, bind, and unbind exchanges and queues on any {product} instance.
 The configuration is synchronized on the other {product} instances.
 
 Publishing messages can be done on any {product} instance.
