@@ -9,6 +9,7 @@ nav:
 asciidoc:
   attributes:
     product: 'Starlight for RabbitMQ'
+    product-repo: 'https://github.com/datastax/starlight-for-rabbitmq'
     astra-ui: 'Astra Portal'
     astra-url: 'https://astra.datastax.com'
     astra-ui-link: '{astra-url}[{astra-ui}^]'
@@ -17,3 +18,4 @@ asciidoc:
     pulsar-short: 'Pulsar'
     luna-streaming: 'Luna Streaming'
     astra-stream: 'Astra Streaming'
+    astra-streaming-examples-repo: 'https://github.com/datastax/astra-streaming-examples'

@@ -1,7 +1,7 @@
 You can run {product} as a standalone Java application.
 The `jar` file for running {product} as a standalone Java application is available in the {product} `tar` file.
 +
-. Download the {product} `tar` file from the https://github.com/datastax/starlight-for-rabbitmq/releases[{product} GitHub repository].
+. Download the {product} `tar` file from the {product-repo}/releases[{product} GitHub repository].
 +
 . Extract the files from the `tar`:
 +

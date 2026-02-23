@@ -6,7 +6,7 @@
   "homepage": "https://docs.datastax.com",
   "repository": {
     "type": "git",
-    "url": "https://github.com/datastax/starlight-for-rabbitmq-docs.git"
+    "url": "{product-repo}-docs.git"
   },
   "scripts": {
     "tailwindcss": "tailwindcss build -c ${npm_config_tailwind_config_path} -i ${npm_config_css_path} -o ${npm_config_css_path} --minify",
