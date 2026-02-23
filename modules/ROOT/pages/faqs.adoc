@@ -20,7 +20,7 @@ The following {pulsar-short} releases are supported:
 
 * {luna-streaming} 2.8.0 or later
 * {pulsar} 2.9.0 or later
-* {astra-streaming}
+* {astra-stream}
 
 == What are the {product} limitations?
 

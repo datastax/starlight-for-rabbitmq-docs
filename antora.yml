@@ -16,4 +16,4 @@ asciidoc:
     pulsar: 'Apache Pulsar'
     pulsar-short: 'Pulsar'
     luna-streaming: 'Luna Streaming'
-    astra-streaming: 'Astra Streaming'
+    astra-stream: 'Astra Streaming'
