@@ -57,7 +57,7 @@ If the optional routing key is provided, then the exchange name and key are comb
 
 [IMPORTANT]
 ====
-This mapping requires that the AMQP VHost names contain only characters that are allowed in Pulsar tenant and namespace names: `a-z`, `A-Z`, `0-9`, `_`, `-`, `=`, `:`, and `.`.
+This mapping requires that the AMQP VHost names contain only characters that are allowed in {pulsar-short} tenant and namespace names: `a-z`, `A-Z`, `0-9`, `_`, `-`, `=`, `:`, and `.`.
 ====
 
 Full VHost names map directly to a {pulsar-short} tenant and namespace.
