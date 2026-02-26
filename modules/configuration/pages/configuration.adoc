@@ -18,7 +18,7 @@ The way {product} reads the configuration file depends on how you are running {p
 
 |`configurationStoreServers`
 |
-|Apache ZooKeeper(TM) configuration store connection string as a comma-separated list.
+|{zookeeper-reg} configuration store connection string as a comma-separated list.
 
 |`amqpListeners`
 |`amqp://127.0.0.1:5672`

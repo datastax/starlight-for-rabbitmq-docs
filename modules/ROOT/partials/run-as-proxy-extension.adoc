@@ -1,6 +1,6 @@
 You can embed {product} into the {pulsar-short} Proxy by loading it as a proxy extension.
 +
-. Download the {product} `tar` file from the https://github.com/datastax/starlight-for-rabbitmq/releases[{product} GitHub repository].
+. Download the {product} `tar` file from the {product-repo}/releases[{product} GitHub repository].
 +
 . Extract the files from the `tar`:
 +
