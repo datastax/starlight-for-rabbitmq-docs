@@ -76,10 +76,10 @@ The Luna Helm chart simplifies deployment of {product} as a protocol handler.
 The following steps explain how to deploy a {luna-streaming} Helm chart to create a simple {pulsar-short} cluster with the {product} extension ready for use.
 +
 [IMPORTANT]
-====
+=====
 The {company} Luna Helm chart used in this example is deprecated.
-For Kubernetes deployments, use xref:kaap-operator:ROOT:index.adoc[{kaap}].
-====
+For Kubernetes deployments, {company} recommends xref:kaap-operator:ROOT:index.adoc[{kaap}].
+=====
 +
 . Make sure you meet the following prerequisites:
 +
@@ -87,8 +87,15 @@ For Kubernetes deployments, use xref:kaap-operator:ROOT:index.adoc[{kaap}].
 * Install https://kubernetes.io/docs/tasks/tools/[kubectl CLI] version 1.23.4 or later.
 * Have access to a Kubernetes cluster with permission to create a namespace, deployments, and pods.
 +
-. Install the xref:installation:attachment$values.yaml[{company} Luna Helm chart] using a minimal values file.
-The following command creates a Helm release named `my-pulsar-cluster` using the Helm chart within a Kubernetes namespace named `datastax-pulsar`.
+. Add the {company} Helm chart repo to your Helm store:
++
+[source,shell]
+----
+helm repo add datastax-pulsar https://datastax.github.io/pulsar-helm-chart
+----
++
+. Install the Helm chart using a xref:installation:attachment$values.yaml[minimal values file].
+The following command creates a Helm release named `my-pulsar-cluster` using the {company} Luna Helm chart within a Kubernetes namespace named `datastax-pulsar`.
 This minimal configuration creates only the essential components and has no ingress or load balanced services.
 +
 [source,shell]
