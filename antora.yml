@@ -21,3 +21,4 @@ asciidoc:
     astra-streaming-examples-repo: 'https://github.com/datastax/astra-streaming-examples'
     zookeeper-reg: 'Apache ZooKeeper(TM)'
     zookeeper-short: 'ZooKeeper'
+    kaap: 'Kubernetes Autoscaling for Apache Pulsar (KAAP)'
