@@ -34,8 +34,7 @@ Yes, {product} is open source using the Apache 2.0 license. You can find the sou
 
 Yes.
 You can run the {product} on {luna-streaming} or {pulsar-short} running on any Kubernetes platform, including Minikube, K8d, Kind, Google Kubernetes Engine (GKE), Microsoft Azure Kubernetes Service, Amazon Kubernetes Service (AKS), and other commonly used platforms.
-
-You can deploy {product} as proxy extension using the https://github.com/datastax/pulsar-helm-chart[{company} Helm chart for {luna-streaming} and {pulsar}].
+For more information, see xref:installation:getting-started.adoc[].
 
 === How do I install {product}?
 
