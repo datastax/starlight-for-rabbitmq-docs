@@ -16,7 +16,7 @@ asciidoc:
     pulsar-reg: 'Apache Pulsar(TM)'
     pulsar: 'Apache Pulsar'
     pulsar-short: 'Pulsar'
-    luna-streaming: 'Luna Streaming'
+    luna-streaming: 'IBM Elite Support for Apache Pulsar'
     astra-stream: 'Astra Streaming'
     astra-streaming-examples-repo: 'https://github.com/datastax/astra-streaming-examples'
     zookeeper-reg: 'Apache ZooKeeper(TM)'

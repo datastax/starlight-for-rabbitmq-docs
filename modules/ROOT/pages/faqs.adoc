@@ -18,7 +18,7 @@ It requires a compatible {pulsar-short} release to operate.
 
 The following {pulsar-short} releases are supported:
 
-* {luna-streaming} 2.8.0 or later
+* {luna-streaming} 2.8.0 or later (formerly DataStax Luna Streaming)
 * {pulsar} 2.9.0 or later
 * {astra-stream}
 
@@ -33,7 +33,7 @@ Yes, {product} is open source using the Apache 2.0 license. You can find the sou
 === Does {product} support Kubernetes?
 
 Yes.
-You can run the {product} on {luna-streaming} or {pulsar-short} running on any Kubernetes platform, including Minikube, K8d, Kind, Google Kubernetes Engine (GKE), Microsoft Azure Kubernetes Service, Amazon Kubernetes Service (AKS), and other commonly used platforms.
+You can run the {product} on {luna-streaming} or self-managed {pulsar-short} running on any Kubernetes platform, including Minikube, K8d, Kind, Google Kubernetes Engine (GKE), Microsoft Azure Kubernetes Service, Amazon Kubernetes Service (AKS), and other commonly used platforms.
 For more information, see xref:installation:getting-started.adoc[].
 
 === How do I install {product}?
