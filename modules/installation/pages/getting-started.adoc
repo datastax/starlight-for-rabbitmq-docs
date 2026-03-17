@@ -66,18 +66,23 @@ Continue to the next section to learn how to use these connection details in a R
 {luna-streaming}::
 +
 --
+[TIP]
+====
+{luna-streaming} was formerly DataStax Luna Streaming.
+====
+
 [tabs]
 ====
 Protocol handler (Helm chart)::
 +
-The {product} extension is included in the `luna-streaming-all` image used to deploy a Luna cluster.
-The Luna Helm chart simplifies deployment of {product} as a protocol handler.
+The {product} extension is included in the `luna-streaming-all` image used to deploy an {luna-streaming} cluster.
+The {company} {pulsar-short} Helm chart simplifies deployment of {product} as a protocol handler.
 +
-The following steps explain how to deploy a {luna-streaming} Helm chart to create a simple {pulsar-short} cluster with the {product} extension ready for use.
+The following steps explain how to deploy a {company} {pulsar-short} Helm chart to create a simple {pulsar-short} cluster with the {product} extension ready for use.
 +
 [IMPORTANT]
 =====
-The {company} Luna Helm chart used in this example is deprecated.
+The {company} {pulsar-short} Helm chart used in this example is deprecated.
 For Kubernetes deployments, {company} recommends xref:kaap-operator:ROOT:index.adoc[{kaap}].
 =====
 +
@@ -87,7 +92,7 @@ For Kubernetes deployments, {company} recommends xref:kaap-operator:ROOT:index.a
 * Install https://kubernetes.io/docs/tasks/tools/[kubectl CLI] version 1.23.4 or later.
 * Have access to a Kubernetes cluster with permission to create a namespace, deployments, and pods.
 +
-. Add the {company} Helm chart repo to your Helm store:
+. Add the {company} {pulsar-short} Helm chart repo to your Helm store:
 +
 [source,shell]
 ----
@@ -95,7 +100,7 @@ helm repo add datastax-pulsar https://datastax.github.io/pulsar-helm-chart
 ----
 +
 . Install the Helm chart using a xref:installation:attachment$values.yaml[minimal values file].
-The following command creates a Helm release named `my-pulsar-cluster` using the {company} Luna Helm chart within a Kubernetes namespace named `datastax-pulsar`.
+The following command creates a Helm release named `my-pulsar-cluster` using the {company} {pulsar-short} Helm chart within a Kubernetes namespace named `datastax-pulsar`.
 This minimal configuration creates only the essential components and has no ingress or load balanced services.
 +
 [source,shell]
@@ -136,7 +141,7 @@ kubectl port-forward -n datastax-pulsar service/pulsar-broker 8080:8080
 kubectl port-forward -n datastax-pulsar service/pulsar-proxy 5672:5672
 ----
 +
-The Luna Helm chart deployed {product} on the {pulsar-short} proxy and opened the correct port.
+The {company} {pulsar-short} Helm chart deployed {product} on the {pulsar-short} proxy and opened the correct port.
 The forwarded ports allow you to access {pulsar-short} and {product} services when running RabbitMQ client scripts and using CLI tools locally.
 Your applications can now communicate with {pulsar-short} as if it were a real RabbitMQ host, as explained in the next section.
 
@@ -432,7 +437,7 @@ Additionally, the namespace's metrics should reflect that at least one message w
 {luna-streaming}::
 +
 --
-To use a RabbitMQ client with {product}, you use your {luna-streaming} {pulsar-short} tenant as the AMQP listener.
+To use a RabbitMQ client with {product}, you use your {luna-streaming} tenant as the AMQP listener.
 The following examples use a connection on `localhost:5672` with {product} as a protocol handler.
 For other connection methods, see the documentation for your preferred RabbitMQ client library.
 
@@ -491,12 +496,12 @@ received message: test
 deleted test-queue queue
 ----
 +
-. Use the {pulsar} admin CLI or the {luna-streaming} {pulsar-short} Admin Console to inspect your tenant's activity.
+. Use the {pulsar} admin CLI or the {luna-streaming} Admin Console to inspect your tenant's activity.
 Make sure the `test-queue` topic was created and a message was published and consumed.
 
 Java client::
 +
-The following example uses a Java program to create a connection between RabbitMQ and your {luna-streaming} {pulsar-short} tenant, and then it establishes a message queue and sends a message.
+The following example uses a Java program to create a connection between RabbitMQ and your {luna-streaming} tenant, and then it establishes a message queue and sends a message.
 +
 . Create a new Maven project:
 +
@@ -620,7 +625,7 @@ Sent 'Hello World!'
 Received 'Hello World!'
 ----
 +
-. Use the {pulsar-short} Admin CLI or the {luna-streaming} {pulsar-short} Admin Console to inspect your tenant's activity.
+. Use the {pulsar-short} Admin CLI or the {luna-streaming} Admin Console to inspect your tenant's activity.
 Make sure the `queuename` topic was created and a message was published and consumed.
 ====
 --
