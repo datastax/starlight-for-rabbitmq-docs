@@ -308,61 +308,16 @@ mvn archetype:generate \
 cd StarlightForRabbitMqClient
 ----
 +
-. Open the new project in your IDE, and then add the `amqp-client` dependency to the `pom.xml` file:
+. Add the RabbitMQ client dependency to the `pom.xml` file:
 +
 .pom.xml
 [source,xml]
 ----
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>org.example</groupId>
-  <artifactId>StarlightForRabbitMqClient</artifactId>
-  <packaging>jar</packaging>
-  <version>1.0-SNAPSHOT</version>
-  <name>StarlightForRabbitMqClient</name>
-  <url>http://maven.apache.org</url>
-  <dependencies>
-
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>3.8.1</version>
-      <scope>test</scope>
-    </dependency>
-
-    <!-- Add amqp-client dependency -->
     <dependency>
       <groupId>com.rabbitmq</groupId>
       <artifactId>amqp-client</artifactId>
       <version>5.16.0</version>
     </dependency>
-
-  </dependencies>
-
-  <properties>
-    <maven.compiler.source>11</maven.compiler.source>
-    <maven.compiler.target>11</maven.compiler.target>
-  </properties>
-
-  <build>
-    <plugins>
-      <plugin>
-        <artifactId>maven-assembly-plugin</artifactId>
-        <configuration>
-          <archive>
-            <manifest>
-              <mainClass>org.example.App</mainClass>
-            </manifest>
-          </archive>
-          <descriptorRefs>
-            <descriptorRef>jar-with-dependencies</descriptorRef>
-          </descriptorRefs>
-        </configuration>
-      </plugin>
-    </plugins>
-  </build>
-</project>
 ----
 +
 . Open the `App.java` file at `src/main/java/org/example/App.java`, and then delete any preeixsting code in this file.
