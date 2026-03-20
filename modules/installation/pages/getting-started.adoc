@@ -192,10 +192,10 @@ This section explains how to use your {pulsar-short} tenant's connection details
 {product} supports many different use cases.
 With a {pulsar-short} cluster between publishers and consumers, you can change the type of publisher and consumer to fit your needs.
 
-The following examples use Python and Java.
-The Java example uses Maven, but you can also use Gradle.
-For complete source code examples and examples for other languages, see the {astra-streaming-examples-repo}[{company} streaming examples repository].
-These examples are written for {astra-stream} but they can be adapted for {luna-streaming} or self-managed {pulsar-short} clusters by replacing the connection details with those for your cluster.
+[TIP]
+====
+The {astra-stream} Java client example can be modified for {luna-streaming} and self-managed {pulsar-short} clusters by replacing the connection details with those for your cluster.
+====
 
 [tabs]
 ======
@@ -308,16 +308,61 @@ mvn archetype:generate \
 cd StarlightForRabbitMqClient
 ----
 +
-. Open the new project in your IDE, and then add the RabbitMQ client dependency to `pom.xml`:
+. Open the new project in your IDE, and then add the `amqp-client` dependency to the `pom.xml` file:
 +
 .pom.xml
 [source,xml]
 ----
-<dependency>
-  <groupId>com.rabbitmq</groupId>
-  <artifactId>amqp-client</artifactId>
-  <version>5.16.0</version>
-</dependency>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>org.example</groupId>
+  <artifactId>StarlightForRabbitMqClient</artifactId>
+  <packaging>jar</packaging>
+  <version>1.0-SNAPSHOT</version>
+  <name>StarlightForRabbitMqClient</name>
+  <url>http://maven.apache.org</url>
+  <dependencies>
+
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>3.8.1</version>
+      <scope>test</scope>
+    </dependency>
+
+    <!-- Add amqp-client dependency -->
+    <dependency>
+      <groupId>com.rabbitmq</groupId>
+      <artifactId>amqp-client</artifactId>
+      <version>5.16.0</version>
+    </dependency>
+
+  </dependencies>
+
+  <properties>
+    <maven.compiler.source>11</maven.compiler.source>
+    <maven.compiler.target>11</maven.compiler.target>
+  </properties>
+
+  <build>
+    <plugins>
+      <plugin>
+        <artifactId>maven-assembly-plugin</artifactId>
+        <configuration>
+          <archive>
+            <manifest>
+              <mainClass>org.example.App</mainClass>
+            </manifest>
+          </archive>
+          <descriptorRefs>
+            <descriptorRef>jar-with-dependencies</descriptorRef>
+          </descriptorRefs>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+</project>
 ----
 +
 . Open the `App.java` file at `src/main/java/org/example/App.java`, and then delete any preeixsting code in this file.
@@ -326,7 +371,7 @@ In the next steps, you will add code to this file to create a complete program t
 . Paste the following code in the file, and then replace the placeholders with the values from your `rabbitmq.conf` file.
 Your editor will report errors because this isn't a complete program yet.
 +
-.App.java
+./src/main/java/org/example/App.java
 [source,java,subs="+quotes"]
 ----
 package org.example;
@@ -358,7 +403,7 @@ If the topic doesn't exist, it is created automatically when the producer sends 
 +
 . Add the following code to create a connection, channel, and queue that is used by both the producer and consumer:
 +
-.App.java
+./src/main/java/org/example/App.java
 [source,java]
 ----
     ConnectionFactory factory = new ConnectionFactory();
@@ -382,7 +427,7 @@ If the topic doesn't exist, it is created automatically when the producer sends 
 +
 . Add the producer code, which is a simple flow that sends a single message and awaits acknowledgment:
 +
-.App.java
+./src/main/java/org/example/App.java
 [source,java]
 ----
     String publishMessage = "Hello World!";
@@ -393,7 +438,7 @@ If the topic doesn't exist, it is created automatically when the producer sends 
 . Add the consumer code, which creates a basic consumer with callback on message receipt.
 Because the consumer isn't a blocking thread, the `sleep` allows time for messages to be received and processed.
 +
-.App.java
+./src/main/java/org/example/App.java
 [source,java]
 ----
     DeliverCallback deliverCallback = (consumerTag, delivery) -> {
