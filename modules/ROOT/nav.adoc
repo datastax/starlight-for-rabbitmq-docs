@@ -1,5 +1,6 @@
 .Get started
 * xref:installation:getting-started.adoc[]
+* xref:installation:quickstart.adoc[]
 * xref:configuration:configuration.adoc[]
 * xref:ROOT:faqs.adoc[]
 

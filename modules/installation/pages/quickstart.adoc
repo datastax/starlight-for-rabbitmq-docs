@@ -1,0 +1,503 @@
+= Produce and consume messages with {product}
+:navtitle: Produce and consume messages
+:description: Use the {product} extension with {pulsar-reg}.
+
+[IMPORTANT]
+====
+Most of these examples assume you deployed {product} as a protocol handler.
+You might need to make some modifications if you deployed {product} as a standalone application or a proxy extension.
+====
+
+After you xref:installation:getting-started.adoc[deploy {product}], use your {pulsar-short} tenant's connection details with a RabbitMQ client to produce and consume messages with {product}.
+
+{product} supports many different use cases.
+With a {pulsar-short} cluster between publishers and consumers, you can change the type of publisher and consumer to fit your needs.
+
+[TIP]
+====
+The examples on this page aren't exhaustive.
+For other connection methods, see the documentation for your preferred RabbitMQ client library.
+====
+
+== Connect RabbitMQ to {astra-stream} with a Python client
+
+The following example uses a Python script to create a connection between RabbitMQ and your {astra-stream} tenant.
+It also establishes a message queue named `queuename`, prints ten messages, and then closes the connection.
+
+. Enable {product} and get the `rabbitmq.conf` connection details, as explained in xref:installation:getting-started.adoc[].
+
+. Create a `connect-test.py` file containing the following code, and then replace the placeholders with the values from your `rabbitmq.conf` file:
++
+.connect-test.py
+[source,python,subs="+quotes"]
+----
+import ssl
+import pika
+
+virtual_host = "**VIRTUAL_HOST**"
+token = "**PASSWORD**"
+
+context = ssl.SSLContext(ssl.PROTOCOL_TLSv1_2)
+context.verify_mode = ssl.CERT_NONE
+context.check_hostname = False
+context.load_default_certs()
+ssl_options = pika.SSLOptions(context)
+
+connection = pika.BlockingConnection(pika.ConnectionParameters(
+    virtual_host=virtual_host,
+    host="**HOST**",
+    ssl_options=ssl_options,
+    port=**PORT**,
+    credentials=pika.PlainCredentials("", token)))
+print("connection success")
+
+channel = connection.channel()
+print("started a channel")
+
+channel.queue_declare(queue='queuename')
+
+for x in range(10):
+    channel.basic_publish(exchange='',
+                      routing_key='routingkey',
+                      body='message body goes here')
+    print(" sent one")
+
+connection.close()
+----
+
+. Optional: Change the values for `queue`, `routing_key`, and `body`.
++
+`queuename` and `routingkey` become the names of {pulsar-short} topics in your {astra-stream} tenant.
+The `body` is the content of each message that is sent.
+
+. Save and run the `connect-test.py` script:
++
+[source,shell]
+----
+python3 connect-test.py
+----
+
+. Make sure the output shows that the connection was successful and ten messages were sent:
++
+[source,console]
+----
+connection success
+started a channel
+ sent one
+ sent one
+ sent one
+ sent one
+ sent one
+ sent one
+ sent one
+ sent one
+ sent one
+ sent one
+----
+
+. In {astra-stream}, go to your tenant's **Namespaces and Topics** tab to inspect the activity in the `rabbitmq` namespace.
++
+If you everything was configured correctly, then the `rabbitmq` namespace should have topics named `amq.default.__queuename` and `amq.default_routingkey` that were created by the Python script.
+Additionally, the namespace's metrics should reflect that at least 10 messages were published and consumed by your {astra-stream} {pulsar-short} topics.
+
+[#connect-rabbitmq-to-astra-streaming-with-a-java-client]
+== Connect RabbitMQ to {astra-streaming} with a Java client
+
+The following example uses a Java program to create a connection between RabbitMQ and your {astra-stream} tenant, and then it establishes a message queue and sends a message:
+
+. Enable {product} and get the `rabbitmq.conf` connection details, as explained in xref:installation:getting-started.adoc[].
+
+. Create a new Maven project:
++
+[source,shell]
+----
+mvn archetype:generate \
+    -DgroupId=org.example \
+    -DartifactId=StarlightForRabbitMqClient \
+    -DarchetypeArtifactId=maven-archetype-quickstart \
+    -DinteractiveMode=false
+----
+
+. Change to the new project directory:
++
+[source,shell]
+----
+cd StarlightForRabbitMqClient
+----
+
+. Add the RabbitMQ client dependency to the `pom.xml` file:
++
+.pom.xml
+[source,xml]
+----
+    <dependency>
+      <groupId>com.rabbitmq</groupId>
+      <artifactId>amqp-client</artifactId>
+      <version>5.16.0</version>
+    </dependency>
+----
+
+. Open the `App.java` file at `src/main/java/org/example/App.java`, and then delete any preeixsting code in this file.
++
+In the next steps, you will add code to this file to create a complete program that produces and consumes messages.
+
+. Paste the following code in the file, and then replace the placeholders with the values from your `rabbitmq.conf` file.
++
+Your editor will report errors because this isn't a complete program yet.
++
+./src/main/java/org/example/App.java
+[source,java,subs="+quotes"]
+----
+package org.example;
+
+import com.rabbitmq.client.*;
+
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.nio.charset.StandardCharsets;
+import java.security.KeyManagementException;
+import java.security.NoSuchAlgorithmException;
+import java.util.concurrent.TimeoutException;
+
+public class App {
+  private static final String username = "";
+  private static final String password = "**PASSWORD**";
+  private static final String host = "**HOST**";
+  private static final int port = 5671;
+  private static final String virtual_host = "**VIRTUAL_HOST**";
+  private static final String queueName = "queuename";
+  private static final String amqp_URI = String.format("amqps://%s:%s@%s:%d/%s", username, password, host, port, virtual_host.replace("/","%2f"));
+
+  public static void main(String[] args) throws IOException, TimeoutException, URISyntaxException, NoSuchAlgorithmException, KeyManagementException, InterruptedException {
+----
+
+. Optional: Replace `queuename` with another name for the queue that publishes and consumes messages.
++
+This name is also used as the corresponding topic name in {astra-stream}.
+If the topic doesn't exist, it is created automatically when the producer sends the first message.
+
+. Add the following code to create a connection, channel, and queue that is used by both the producer and consumer:
++
+./src/main/java/org/example/App.java
+[source,java]
+----
+    ConnectionFactory factory = new ConnectionFactory();
+    factory.setUri(amqp_URI);
+
+    /*
+    You could also set each value individually
+      factory.setHost(host);
+      factory.setPort(port);
+      factory.setUsername(username);
+      factory.setPassword(password);
+      factory.setVirtualHost(virtual_host);
+      factory.useSslProtocol();
+     */
+
+    Connection connection = factory.newConnection();
+    Channel channel = connection.createChannel();
+
+    channel.queueDeclare(queueName, false, false, false, null);
+----
+
+. Add the producer code, which is a simple flow that sends a single message and awaits acknowledgment:
++
+./src/main/java/org/example/App.java
+[source,java]
+----
+    String publishMessage = "Hello World!";
+    channel.basicPublish("", queueName, null, publishMessage.getBytes());
+    System.out.println(" Sent '" + publishMessage + "'");
+----
+
+. Add the consumer code, which creates a basic consumer with callback on message receipt:
++
+./src/main/java/org/example/App.java
+[source,java]
+----
+    DeliverCallback deliverCallback = (consumerTag, delivery) -> {
+      String consumeMessage = new String(delivery.getBody(), StandardCharsets.UTF_8);
+      System.out.println(" Received '" + consumeMessage + "'");
+    };
+
+    channel.basicConsume(queueName, true, deliverCallback, consumerTag -> { });
+
+    Thread.sleep(4000); // wait a bit for messages to be received
+
+    channel.close();
+    connection.close();
+  }
+}
+----
++
+Because the consumer isn't a blocking thread, the `sleep` allows time for messages to be received and processed.
+
+. Save `App.java`, and then build and run the JAR file for the complete program:
++
+[source,shell]
+----
+mvn clean package assembly:single
+java -jar target/StarlightForRabbitMqClient-1.0-SNAPSHOT-jar-with-dependencies.jar
+----
+
+. Make sure the result shows that a message was sent and received:
++
+[source,shell]
+----
+Sent 'Hello World!'
+Received 'Hello World!'
+----
+
+. In {astra-stream}, go to your tenant's **Namespaces and Topics** tab to inspect the activity in the `rabbitmq` namespace.
++
+If you everything was configured correctly, then the `rabbitmq` namespace should have a topic named `amq.default.__queuename` that was created by the Java program.
+Additionally, the namespace's metrics should reflect that at least one message was published and consumed by your {astra-stream} {pulsar-short} topic.
+
+[#connect-rabbitmq-to-ibm-elite-support-for-apache-pulsar-with-a-python-client]
+== Connect RabbitMQ to {luna-streaming} with a Python client
+
+include::ROOT:partial$luna-streaming-rename-tip.adoc[]
+
+To use a RabbitMQ client with {product}, you use your {luna-streaming} tenant as the AMQP listener.
+The following examples use a connection on `localhost:5672` with {product} as a protocol handler.
+For other connection methods, see the documentation for your preferred RabbitMQ client library.
+
+The following example uses the Pika RabbitMQ Python library to produce and consume messages from {pulsar-short}:
+
+. Save the following Python script to a safe place as `test-queue.py`.
+The example script assumes you have opened the `localhost:5672` port, as explained in xref:installation:getting-started.adoc[].
++
+.test-queue.py
+[source,python]
+----
+#!/usr/bin/env python
+import pika
+
+connection = pika.BlockingConnection(pika.ConnectionParameters(port=5672))
+channel = connection.channel()
+
+try:
+    channel.queue_declare("test-queue")
+    print("created test-queue queue")
+
+    channel.basic_publish(exchange="", routing_key="test-queue", body="test".encode('utf-8'))
+    print("published message test")
+
+    _, _, res = channel.basic_get(queue="test-queue", auto_ack=True)
+    assert res is not None, "should have received a message"
+    print("received message: " + res.decode())
+
+    channel.queue_delete("test-queue")
+    print("deleted test-queue queue")
+
+finally:
+    connection.close()
+----
+
+. Optional: Replace `test-queue` with another name for the queue and routing key.
++
+These names are also used as the corresponding topic names in your {pulsar-short} tenant.
+If the topic doesn't exist, it is created automatically when the producer sends the first message.
+
+. Save and run the `test-queue.py` script:
++
+[source,shell]
+----
+python ./test-queue.py
+----
+
+. Make sure the output shows that the queue was created and a message was sent:
++
+[source,shell]
+----
+created test-queue queue
+published message test
+received message: test
+deleted test-queue queue
+----
+
+. Use the {pulsar} admin CLI or the {luna-streaming} Admin Console to inspect your tenant's activity.
+Make sure the `test-queue` topic was created and a message was published and consumed.
+
+[#connect-rabbitmq-to-ibm-elite-support-for-apache-pulsar-with-a-java-client]
+== Connect RabbitMQ to {luna-streaming} with a Java client
+
+include::ROOT:partial$luna-streaming-rename-tip.adoc[]
+
+To use a RabbitMQ client with {product}, you use your {luna-streaming} tenant as the AMQP listener.
+The following examples use a connection on `localhost:5672` with {product} as a protocol handler.
+For other connection methods, see the documentation for your preferred RabbitMQ client library.
+
+[TIP]
+====
+In addition to the following example, you can modify the <<connect-rabbitmq-to-astra-streaming-with-a-java-client,{astra-stream} Java client example>> for {luna-streaming} by replacing the connection details with those for your cluster.
+====
+
+The following example uses a Java program to create a connection between RabbitMQ and your {luna-streaming} tenant, and then it establishes a message queue and sends a message:
+
+. Create a new Maven project:
++
+[source,shell]
+----
+mvn archetype:generate \
+    -DgroupId=org.example \
+    -DartifactId=StarlightForRabbitMqClient \
+    -DarchetypeArtifactId=maven-archetype-quickstart \
+    -DinteractiveMode=false
+----
+
+. Change to the new project directory:
++
+[source,shell]
+----
+cd StarlightForRabbitMqClient
+----
+
+. Open the new project in your IDE, and then add the RabbitMQ client dependency to `pom.xml`:
++
+.pom.xml
+[source,xml]
+----
+<dependency>
+  <groupId>com.rabbitmq</groupId>
+  <artifactId>amqp-client</artifactId>
+  <version>5.16.0</version>
+</dependency>
+----
+
+. Open the `App.java` file at `src/main/java/org/example/App.java`, and then delete any preeixsting code in this file.
+In the next steps, you will add code to this file to create a complete program that produces and consumes messages.
+
+. Paste the following code in the file.
++
+This code creates a connection, channel, and queue that is used by both the producer and consumer.
+It uses the default connection values to connect on `localhost:5672` with port forwarding, as explained in xref:installation:getting-started.adoc[].
++
+Your editor will report errors because this isn't a complete program yet.
++
+.App.java
+[source,java]
+----
+package org.example;
+
+import com.rabbitmq.client.*;
+
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.nio.charset.StandardCharsets;
+import java.security.KeyManagementException;
+import java.security.NoSuchAlgorithmException;
+import java.util.concurrent.TimeoutException;
+
+public class App {
+  private static final String queueName = "queuename";
+
+  public static void main(String[] args) throws IOException, TimeoutException, URISyntaxException, NoSuchAlgorithmException, KeyManagementException, InterruptedException {
+
+    // Use the default values to connect on localhost:5672
+    ConnectionFactory factory = new ConnectionFactory();
+    factory.setUsername(userName);
+    factory.setPassword(password);
+    factory.setVirtualHost(virtualHost);
+    factory.setHost(hostName);
+    factory.setPort(portNumber);
+
+    Connection connection = factory.newConnection();
+    Channel channel = connection.createChannel();
+
+    channel.queueDeclare(queueName, false, false, false, null);
+----
+
+. Optional: Replace `queuename` with another name for the queue that publishes and consumes messages.
++
+This name is also used as the corresponding topic name in {astra-stream}.
+If the topic doesn't exist,it is created automatically when the producer sends the first message.
+
+. Add the producer code, which is a simple flow that sends a single message and awaits acknowledgment:
++
+.App.java
+[source,java]
+----
+    String publishMessage = "Hello World!";
+    channel.basicPublish("", queueName, null, publishMessage.getBytes());
+    System.out.println(" Sent '" + publishMessage + "'");
+----
+
+. Add the consumer code, which creates a basic consumer with callback on message receipt.
++
+.App.java
+[source,java]
+----
+    DeliverCallback deliverCallback = (consumerTag, delivery) -> {
+      String consumeMessage = new String(delivery.getBody(), StandardCharsets.UTF_8);
+      System.out.println(" Received '" + consumeMessage + "'");
+    };
+
+    channel.basicConsume(queueName, true, deliverCallback, consumerTag -> { });
+
+    Thread.sleep(4000); // wait a bit for messages to be received
+
+    channel.close();
+    connection.close();
+  }
+}
+----
++
+Because the consumer isn't a blocking thread, the `sleep` allows time for messages to be received and processed.
+
+. Save `App.java`, and then build and run the JAR file for the complete program:
++
+[source,shell]
+----
+mvn clean package assembly:single
+java -jar target/StarlightForRabbitMqClient-1.0-SNAPSHOT-jar-with-dependencies.jar
+----
+
+. Make sure the result shows that a message was sent and received:
++
+[source,shell]
+----
+Sent 'Hello World!'
+Received 'Hello World!'
+----
+
+. Use the {pulsar-short} Admin CLI or the {luna-streaming} Admin Console to inspect your tenant's activity.
+Make sure the `queuename` topic was created and a message was published and consumed.
+
+== Use {product} with a self-managed {pulsar-short} cluster
+
+. xref:installation:getting-started.adoc[Deploy {product} on a self-managed {pulsar-short} cluster].
+
+. Before connecting your production applications with {product}, you can use a `RabbitMQ/AMQP-0.9.1` client or a tool such as https://rabbitmq.github.io/rabbitmq-perf-test/stable/htmlsingle/[RabbitMQ PerfTest] to test your {product} deployment.
+For example, the following Python script creates a queue, publishes a message that is routed to the queue, reads the message from the queue, and then deletes the queue:
++
+[source,python]
+----
+#!/usr/bin/env python
+import pika
+
+connection = pika.BlockingConnection(pika.ConnectionParameters(port=5672))
+channel = connection.channel()
+
+try:
+    channel.queue_declare("test-queue")
+    print("created test-queue queue")
+    channel.basic_publish(exchange="", routing_key="test-queue", body="test".encode('utf-8'))
+    print("published message test")
+    _, _, res = channel.basic_get(queue="test-queue", auto_ack=True)
+    assert res is not None, "should have received a message"
+    print("received message: " + res.decode())
+    channel.queue_delete("test-queue")
+    print("deleted test-queue queue")
+finally:
+    connection.close()
+----
+
+. To use a RabbitMQ client with {product}, use your {pulsar-short} tenant as the AMQP listener.
++
+You can also connect on `localhost` if you have port forwarded the RabbitMQ port (5672) to your local machine.
+For `localhost` examples, see the <<connect-rabbitmq-to-ibm-elite-support-for-apache-pulsar-with-a-python-client,{luna-streaming} Python client example>> and <<connect-rabbitmq-to-ibm-elite-support-for-apache-pulsar-with-a-java-client,{luna-streaming} Java client example>>.
++
+You can also modify the <<connect-rabbitmq-to-astra-streaming-with-a-java-client,{astra-stream} Java client example>> by replacing the connection details with your cluster's connection details.
++
+For more information about expected connection parameters, see the documentation for your preferred RabbitMQ client library.
