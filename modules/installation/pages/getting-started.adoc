@@ -13,7 +13,7 @@ include::ROOT:partial$deployment-options.adoc[]
 
 The deployment options you can use depend on your {pulsar-short} deployment.
 
-== Deploy {product} on {astra-stream}
+== Deploy on {astra-stream}
 
 When you enable {product} in {astra-stream}, it is deployed as a protocol handler in the {pulsar-short} cluster.
 Because {astra-stream} manages the {pulsar-short} cluster for you, you cannot use the other {product} deployment options.
@@ -58,11 +58,11 @@ You can also generate a token on your tenant's **Settings** tab.
 
 . To test your {product} deployment and connect a RabbitMQ client, see xref:installation:quickstart.adoc[].
 
-== Deploy {product} as a protocol handler with a `nar` file on {luna-streaming} or a self-managed {pulsar-short} cluster
+== Deploy a protocol handler on {luna-streaming} or a self-managed {pulsar-short} cluster
 
 include::ROOT:partial$luna-streaming-rename-tip.adoc[]
 
-You can embed {product} directly into the {pulsar-short} brokers by loading it as a protocol handler:
+You can embed {product} directly into the {pulsar-short} brokers by loading it as a protocol handler using a `nar` file:
 
 . Download the {product} `tar` file from the {product-repo}/releases[{product} GitHub repository].
 
@@ -103,7 +103,7 @@ The hostname value in `amqpListeners` is the same as {pulsar-short} broker's `ad
 
 . To test your {product} deployment and connect a RabbitMQ client, see xref:installation:quickstart.adoc[].
 
-== Deploy {product} as a proxy extension on {luna-streaming} or a self-managed {pulsar-short} cluster
+== Deploy a proxy extension on {luna-streaming} or a self-managed {pulsar-short} cluster
 
 include::ROOT:partial$luna-streaming-rename-tip.adoc[]
 
@@ -148,7 +148,7 @@ The hostname value in listeners is the same as {pulsar-short} proxy's `advertise
 
 . To test your {product} deployment and connect a RabbitMQ client, see xref:installation:quickstart.adoc[].
 
-== Deploy {product} as a standalone Java application on {luna-streaming} or a self-managed {pulsar-short} cluster
+== Deploy a standalone Java application on {luna-streaming} or a self-managed {pulsar-short} cluster
 
 include::ROOT:partial$luna-streaming-rename-tip.adoc[]
 
@@ -185,7 +185,7 @@ java -jar ./starlight-rabbitmq/target/starlight-rabbitmq-${version}-jar-with-dep
 
 . To test your {product} deployment and connect a RabbitMQ client, see xref:installation:quickstart.adoc[].
 
-== Deploy {product} as a protocol handler on {luna-streaming} with a Helm chart (deprecated)
+== Deploy a protocol handler on {luna-streaming} with a Helm chart (deprecated)
 
 include::ROOT:partial$luna-streaming-rename-tip.adoc[]
 
