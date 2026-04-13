@@ -101,7 +101,7 @@ If you everything was configured correctly, then the `rabbitmq` namespace should
 Additionally, the namespace's metrics should reflect that at least 10 messages were published and consumed by your {astra-stream} {pulsar-short} topics.
 
 [#connect-rabbitmq-to-astra-streaming-with-a-java-client]
-== Connect RabbitMQ to {astra-streaming} with a Java client
+== Connect RabbitMQ to {astra-stream} with a Java client
 
 The following example uses a Java program to create a connection between RabbitMQ and your {astra-stream} tenant, and then it establishes a message queue and sends a message:
 
