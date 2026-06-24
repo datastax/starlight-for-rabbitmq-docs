@@ -40,15 +40,17 @@ It is a permanent namespace that cannot be removed except by deleting the entire
 The actual values depend on your {astra-stream} tenant's configuration and cloud provider.
 +
 .rabbitmq.conf
-[source,conf,subs="+quotes,+attributes"]
+[source,plaintext,subs="+quotes,+attributes"]
 ----
 username: **TENANT_NAME**
-password: {asterisk}{asterisk}{asterisk}{asterisk}{asterisk}{asterisk}
+password: masked
 host: rabbitmq-**PROVIDER**-**REGION**.streaming.datastax.com
 port: 5671
 virtual_host: **TENANT_NAME**/rabbitmq
-amqp_URI: {asterisk}{asterisk}{asterisk}{asterisk}{asterisk}{asterisk}@rabbitmq-**PROVIDER**-**REGION**.streaming.datastax.com:5671/**TENANT_NAME**/rabbitmq
+amqp_URI: masked@rabbitmq-**PROVIDER**-**REGION**.streaming.datastax.com:5671/**TENANT_NAME**/rabbitmq
 ----
++
+The `password` and first part of the `amqp_URI` are masked with asterisks (`*`).
 +
 [TIP]
 ====
@@ -81,7 +83,7 @@ tar xvfz starlight-rabbitmq-**VERSION**-all.tar.gz
 For example, if the `nar` file is in the `./protocols` directory:
 +
 .broker.conf
-[source,conf]
+[source,plaintext]
 ----
 messagingProtocols=rabbitmq
 protocolHandlerDirectory=./protocols
@@ -91,7 +93,7 @@ protocolHandlerDirectory=./protocols
 For example:
 +
 .broker.conf
-[source,conf]
+[source,plaintext]
 ----
 amqpListeners=amqp://127.0.0.1:5672
 advertisedAddress=127.0.0.1
@@ -126,7 +128,7 @@ tar xvfz starlight-rabbitmq-**VERSION**-all.tar.gz
 For example, if the `nar` file is in the `./proxyextensions` directory
 +
 .proxy.conf
-[source,conf]
+[source,plaintext]
 ----
 proxyExtensions=rabbitmq
 proxyExtensionsDirectory=./proxyextensions
@@ -136,7 +138,7 @@ proxyExtensionsDirectory=./proxyextensions
 For example:
 +
 .proxy.conf
-[source,conf]
+[source,plaintext]
 ----
 amqpListeners=amqp://127.0.0.1:5672
 advertisedAddress=127.0.0.1
@@ -169,7 +171,7 @@ The path to the `jar` file is `/starlight-rabbitmq/target/starlight-rabbitmq-**V
 . In a configuration file, set the URLs of the {pulsar-short} brokers and the {zookeeper-reg} configuration store.
 For example:
 +
-[source,conf]
+[source,plaintext]
 ----
 brokerServiceURL=pulsar://localhost:6650
 brokerWebServiceURL=http://localhost:8080
