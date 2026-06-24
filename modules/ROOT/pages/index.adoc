@@ -9,7 +9,8 @@ It implements the AMQP 0.9.1 protocol used by RabbitMQ clients and translates AM
 AMQP 0.9.1, the protocol RabbitMQ uses, employs the concepts of `Exchanges`, `Queues`, and `Bindings` to provide basic routing capabilities inside the message broker.
 These concepts are mapped to {pulsar-short} topics and features.
 
-{product} acts as a proxy and uses the {pulsar-short} binary protocol to communicate with the brokers. This method allows RabbitMQ applications to leverage {pulsar-short} features like load balancing of the topics on the brokers, batching of messages, partitioning of topics, and load balancing of the data on the consumers.
+{product} acts as a proxy and uses the {pulsar-short} binary protocol to communicate with the brokers.
+This method allows RabbitMQ applications to leverage {pulsar-short} features like load balancing of the topics on the brokers, batching of messages, partitioning of topics, and load balancing of the data on the consumers.
 
 For more information, see xref:operations:protocol-handler.adoc[].
 

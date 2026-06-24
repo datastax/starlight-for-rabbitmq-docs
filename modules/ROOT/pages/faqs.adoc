@@ -28,7 +28,8 @@ See xref:ROOT:index.adoc#limitations[Limitations].
 
 === Is {product} an open-source project? Where can I find the source code?
 
-Yes, {product} is open source using the Apache 2.0 license. You can find the source code in the {product-repo}[{product} GitHub repository].
+Yes, {product} is open source using the Apache 2.0 license.
+You can find the source code in the {product-repo}[{product} GitHub repository].
 
 === Does {product} support Kubernetes?
 
