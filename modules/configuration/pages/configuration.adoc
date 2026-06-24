@@ -187,7 +187,8 @@ If `true`, a client with a certificate that cannot be verified with the `tlsTrus
 Default: `false`
 
 |`tlsRequireTrustedClientCertOnConnect`
-|Whether client certificates are required for TLS. If the client certificate isn't trusted, connections are rejected.
+|Whether client certificates are required for TLS.
+If the client certificate isn't trusted, connections are rejected.
 
 Default: `false`
 
