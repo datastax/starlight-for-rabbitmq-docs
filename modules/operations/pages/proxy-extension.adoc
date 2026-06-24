@@ -4,7 +4,7 @@
 Following the https://github.com/apache/pulsar/wiki/PIP-99:-Pulsar-Proxy-Extensions[proxy extension] interface, {product} constructs a gateway service that monitors RabbitMQ channel(s).
 
 Both the proxy extension and the protocol handler use the same gateway logic for functions like creating channels, managing exchanges, and publishing messages.
-To learn more about these functions, see xref:protocol-handler.adoc[].
+To learn more about these functions, see xref:operations:protocol-handler.adoc[].
 
 One notable difference between the {product} proxy extension and the protocol handler is that the proxy runs on the {pulsar-short} Proxy.
 This means that a discovery must be done at startup to find available brokers.
