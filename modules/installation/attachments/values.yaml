@@ -59,16 +59,16 @@ image:
   proxy:
     repository: datastax/lunastreaming-all # so we get the starlight for rabbitmq extension
     pullPolicy: IfNotPresent
-    tag: 2.10_2.4
+    tag: 4.0.13_0
   brokerSts:
     repository: datastax/lunastreaming
     pullPolicy: IfNotPresent
-    tag: 2.10_2.4
+    tag: 4.0.13_0
   zookeeper:
     repository: datastax/lunastreaming
     pullPolicy: IfNotPresent
-    tag: 2.10_2.4
+    tag: 4.0.13_0
   bookkeeper:
     repository: datastax/lunastreaming
     pullPolicy: IfNotPresent
-    tag: 2.10_2.4
+    tag: 4.0.13_0
