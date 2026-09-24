@@ -65,7 +65,6 @@ For example, an AMQP VHost named `/vhost1/abc` maps to the {pulsar-short} tenant
 
 If the VHost name is empty (`/`) or short (`/**HOSTNAME**` or `**HOSTNAME**`), then {product} completes the mapping based on the following parameters:
 
-.AMQP VHost to {pulsar-short} namespace mapping parameters
 [cols=3]
 |===
 |Name |Default |Description

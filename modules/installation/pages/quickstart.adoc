@@ -28,7 +28,6 @@ It also establishes a message queue named `queuename`, prints ten messages, and 
 
 . Create a `connect-test.py` file containing the following code, and then replace the placeholders with the values from your `rabbitmq.conf` file:
 +
-.connect-test.py
 [source,python,subs="+quotes"]
 ----
 import ssl
@@ -127,7 +126,6 @@ cd StarlightForRabbitMqClient
 
 . Add the RabbitMQ client dependency to the `pom.xml` file:
 +
-.pom.xml
 [source,xml]
 ----
     <dependency>
@@ -137,7 +135,7 @@ cd StarlightForRabbitMqClient
     </dependency>
 ----
 
-. Open the `App.java` file at `src/main/java/org/example/App.java`, and then delete any preeixsting code in this file.
+. Open the `App.java` file at `src/main/java/org/example/App.java`, and then delete any preexisting code in this file.
 +
 In the next steps, you will add code to this file to create a complete program that produces and consumes messages.
 
@@ -145,7 +143,6 @@ In the next steps, you will add code to this file to create a complete program t
 +
 Your editor will report errors because this isn't a complete program yet.
 +
-./src/main/java/org/example/App.java
 [source,java,subs="+quotes"]
 ----
 package org.example;
@@ -178,7 +175,6 @@ If the topic doesn't exist, it is created automatically when the producer sends 
 
 . Add the following code to create a connection, channel, and queue that is used by both the producer and consumer:
 +
-./src/main/java/org/example/App.java
 [source,java]
 ----
     ConnectionFactory factory = new ConnectionFactory();
@@ -202,7 +198,6 @@ If the topic doesn't exist, it is created automatically when the producer sends 
 
 . Add the producer code, which is a simple flow that sends a single message and awaits acknowledgment:
 +
-./src/main/java/org/example/App.java
 [source,java]
 ----
     String publishMessage = "Hello World!";
@@ -212,7 +207,6 @@ If the topic doesn't exist, it is created automatically when the producer sends 
 
 . Add the consumer code, which creates a basic consumer with callback on message receipt:
 +
-./src/main/java/org/example/App.java
 [source,java]
 ----
     DeliverCallback deliverCallback = (consumerTag, delivery) -> {
@@ -265,9 +259,9 @@ For other connection methods, see the documentation for your preferred RabbitMQ 
 The following example uses the Pika RabbitMQ Python library to produce and consume messages from {pulsar-short}:
 
 . Save the following Python script to a safe place as `test-queue.py`.
++
 The example script assumes you have opened the `localhost:5672` port, as explained in xref:installation:getting-started.adoc[].
 +
-.test-queue.py
 [source,python]
 ----
 #!/usr/bin/env python
@@ -355,7 +349,6 @@ cd StarlightForRabbitMqClient
 
 . Open the new project in your IDE, and then add the RabbitMQ client dependency to `pom.xml`:
 +
-.pom.xml
 [source,xml]
 ----
 <dependency>
@@ -365,7 +358,7 @@ cd StarlightForRabbitMqClient
 </dependency>
 ----
 
-. Open the `App.java` file at `src/main/java/org/example/App.java`, and then delete any preeixsting code in this file.
+. Open the `App.java` file at `src/main/java/org/example/App.java`, and then delete any preexisting code in this file.
 In the next steps, you will add code to this file to create a complete program that produces and consumes messages.
 
 . Paste the following code in the file.
@@ -375,7 +368,6 @@ It uses the default connection values to connect on `localhost:5672` with port f
 +
 Your editor will report errors because this isn't a complete program yet.
 +
-.App.java
 [source,java]
 ----
 package org.example;
@@ -415,7 +407,6 @@ If the topic doesn't exist,it is created automatically when the producer sends t
 
 . Add the producer code, which is a simple flow that sends a single message and awaits acknowledgment:
 +
-.App.java
 [source,java]
 ----
     String publishMessage = "Hello World!";
@@ -423,9 +414,8 @@ If the topic doesn't exist,it is created automatically when the producer sends t
     System.out.println(" Sent '" + publishMessage + "'");
 ----
 
-. Add the consumer code, which creates a basic consumer with callback on message receipt.
+. Add the consumer code, which creates a basic consumer with callback on message receipt:
 +
-.App.java
 [source,java]
 ----
     DeliverCallback deliverCallback = (consumerTag, delivery) -> {
