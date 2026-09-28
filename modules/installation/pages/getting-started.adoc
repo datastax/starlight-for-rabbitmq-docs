@@ -37,9 +37,9 @@ It is a permanent namespace that cannot be removed except by deleting the entire
 ====
 
 . Save the RabbitMQ connection details to a file named `rabbitmq.conf`.
++
 The actual values depend on your {astra-stream} tenant's configuration and cloud provider.
 +
-.rabbitmq.conf
 [source,plaintext,subs="+quotes,+attributes"]
 ----
 username: **TENANT_NAME**
@@ -80,9 +80,9 @@ tar xvfz starlight-rabbitmq-**VERSION**-all.tar.gz
 . Create or edit a {pulsar-short} broker configuration file, such as `broker.conf` or `standalone.conf`.
 
 . Set the {product} protocol handler configuration.
++
 For example, if the `nar` file is in the `./protocols` directory:
 +
-.broker.conf
 [source,plaintext]
 ----
 messagingProtocols=rabbitmq
@@ -90,9 +90,9 @@ protocolHandlerDirectory=./protocols
 ----
 
 . Set the AMQP service listeners.
++
 For example:
 +
-.broker.conf
 [source,plaintext]
 ----
 amqpListeners=amqp://127.0.0.1:5672
@@ -125,9 +125,9 @@ tar xvfz starlight-rabbitmq-**VERSION**-all.tar.gz
 . Create or edit a {pulsar-short} Proxy configuration file, such as `proxy.conf`.
 
 . Set the {product} proxy extension configuration.
-For example, if the `nar` file is in the `./proxyextensions` directory
 +
-.proxy.conf
+For example, if the `nar` file is in the `./proxyextensions` directory:
++
 [source,plaintext]
 ----
 proxyExtensions=rabbitmq
@@ -135,16 +135,16 @@ proxyExtensionsDirectory=./proxyextensions
 ----
 
 . Set the AMQP service listeners.
++
 For example:
 +
-.proxy.conf
 [source,plaintext]
 ----
 amqpListeners=amqp://127.0.0.1:5672
 advertisedAddress=127.0.0.1
 ----
 +
-The hostname value in listeners is the same as {pulsar-short} proxy's `advertisedAddress`.
+The hostname value in `amqpListeners` is the same as {pulsar-short} proxy's `advertisedAddress`.
 
 . Start the {pulsar-short} proxy.
 
