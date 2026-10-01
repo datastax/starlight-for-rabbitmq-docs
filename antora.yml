@@ -1,6 +1,6 @@
 name: 'starlight-for-rabbitmq'
 title: 'Starlight for RabbitMQ'
-version: '4.0.0.x'
+version: ~
 start_page: 'index.adoc'
 
 nav:
